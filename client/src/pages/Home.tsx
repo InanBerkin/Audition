@@ -2,8 +2,6 @@ import React from "react";
 import { Box, Flex, Heading, Stack, Link } from "@chakra-ui/core";
 import { AgencyCard } from "../components/AgencyCard";
 import { JobCard } from "../components/JobCard";
-import axios from "axios";
-import { useQuery } from "react-query";
 
 type Agency = {
   name: string;
@@ -16,15 +14,7 @@ type Props = {
   agencies: Agency[];
 };
 
-function useGetCurrentUser() {
-  return useQuery("currentUser", async () => {
-    const { data } = await axios.get("/getCurrentUser");
-    return data;
-  });
-}
-
 function Home() {
-  const { status, data, error, isFetching } = useGetCurrentUser();
   const agencies: Agency[] = [];
   return (
     <Box p={4} h="100vh">

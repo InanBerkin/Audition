@@ -7,11 +7,12 @@ import {
   Route,
   Redirect,
 } from "react-router-dom";
+import BottomNav from "./components/BottomNav";
 import Home from "./pages/Home";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 
-Axios.defaults.baseURL = "http://localhost:5000/audition-fa51b/us-central1/";
+Axios.defaults.baseURL = "http://localhost:5000/api";
 
 function App() {
   return (
@@ -36,13 +37,16 @@ function App() {
 
 function PrivateRoute({ children, ...props }: any) {
   // const { isAuth } = useAuth();
-  const isAuth = false;
+  const isAuth = true;
   return (
     <Route
       {...props}
       render={({ location }) =>
         isAuth ? (
-          children
+          <>
+            {children}
+            <BottomNav />
+          </>
         ) : (
           <Redirect
             to={{
