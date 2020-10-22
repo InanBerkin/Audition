@@ -9,7 +9,7 @@ module.exports = {
   physical_attribute: "physical_attribute",
   voice_attribute: "voice_attribute",
 
-  //Can be safely dropped
+  // No Foreign Key
   user_type: "user_type",
   city: "city",
   highlight_type: "highlight_type",

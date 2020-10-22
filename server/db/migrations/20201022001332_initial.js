@@ -71,6 +71,7 @@ exports.up = async function (knex) {
     table.string("name").notNullable();
     url(table, "profile_picture");
     email(table, "email");
+    table.timestamps(false, true);
     references(table, tableNames.user_type);
     references(table, tableNames.city);
     references(table, tableNames.physical_attribute);
@@ -95,6 +96,7 @@ exports.up = async function (knex) {
     table.string("company_name").notNullable();
     table.string("name").notNullable();
     table.text("description").notNullable();
+    table.timestamps(false, true);
     references(table, tableNames.user);
     references(table, tableNames.city);
     references(table, tableNames.audition_type);
@@ -119,7 +121,7 @@ exports.up = async function (knex) {
     table.increments().notNullable();
     references(table, tableNames.user);
     references(table, tableNames.audition);
-    table.datetime("apply_date");
+    table.datetime("apply_date").defaultTo(knex.fn.now());
   });
 };
 
