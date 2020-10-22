@@ -1,7 +1,7 @@
 const express = require("express");
 const User = require("../users/users.model");
 const bcrypt = require("bcrypt");
-const jwt = require("../lib/jwt");
+const jwt = require("../../lib/jwt");
 const router = express.Router();
 
 router.post("/signup", async (req, res, next) => {
