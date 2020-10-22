@@ -73,9 +73,9 @@ exports.up = async function (knex) {
     email(table, "email");
     table.timestamps(false, true);
     references(table, tableNames.user_type);
-    references(table, tableNames.city);
-    references(table, tableNames.physical_attribute);
-    references(table, tableNames.voice_attribute);
+    references(table, tableNames.city, false);
+    references(table, tableNames.physical_attribute, false);
+    references(table, tableNames.voice_attribute, false);
   });
 
   await knex.schema.createTable(tableNames.highlight, (table) => {

@@ -1,5 +1,4 @@
 const Knex = require("knex");
-const bcrypt = require("bcrypt");
 const tableNames = require("../../src/constants/tableNames");
 
 /** @param {Knex} knex*/
