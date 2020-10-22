@@ -87,8 +87,8 @@ exports.up = async function (knex) {
 
   await knex.schema.createTable(tableNames.requirement, (table) => {
     table.increments().notNullable();
-    references(table, tableNames.physical_attribute);
-    references(table, tableNames.voice_attribute);
+    references(table, tableNames.physical_attribute, false);
+    references(table, tableNames.voice_attribute, false);
   });
 
   await knex.schema.createTable(tableNames.audition, (table) => {
@@ -113,7 +113,7 @@ exports.up = async function (knex) {
     table.string("name").notNullable();
     table.string("description").notNullable();
     references(table, tableNames.audition);
-    references(table, tableNames.requirement);
+    references(table, tableNames.requirement, false);
     references(table, tableNames.role_type);
   });
 
