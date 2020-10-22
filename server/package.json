@@ -1,6 +1,7 @@
 {
   "name": "server",
   "version": "1.0.0",
+  "main": "src/index.js",
   "license": "MIT",
   "dependencies": {
     "bcrypt": "^5.0.0",
@@ -8,12 +9,14 @@
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "glob": "^7.1.6",
     "knex": "^0.21.6",
     "pg": "^8.4.1",
     "pg-hstore": "^2.3.3"
   },
   "devDependencies": {
     "faker": "^5.1.0",
+    "morgan": "^1.10.0",
     "nodemon": "^2.0.6"
   },
   "scripts": {
