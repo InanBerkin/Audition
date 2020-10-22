@@ -1,6 +1,7 @@
 const express = require("express");
 const glob = require("glob");
 const router = express.Router();
+require("../db");
 
 let routes = glob.sync("**/*.routes.js", { cwd: "./src/api" });
 routes = routes.map((route) => ({
