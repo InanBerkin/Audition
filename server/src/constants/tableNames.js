@@ -1,0 +1,25 @@
+module.exports = {
+  highlight: "highlight",
+  audition_tag: "audition_tag",
+  role: "role",
+  applicant: "applicants",
+  audition: "audition",
+  user: "user",
+  requirement: "requirement",
+  physical_attribute: "physical_attribute",
+  voice_attribute: "voice_attribute",
+
+  //Can be safely dropped
+  user_type: "user_type",
+  city: "city",
+  highlight_type: "highlight_type",
+  eye_color: "eye_color",
+  hair_color: "hair_color",
+  gender: "gender",
+  ethnicity: "ethnicity",
+  body_type: "body_type",
+  voice_type: "voice_type",
+  audition_type: "audition_type",
+  tag: "tag",
+  role_type: "role_type",
+};
