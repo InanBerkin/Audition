@@ -8,6 +8,7 @@ import {
   Redirect,
 } from "react-router-dom";
 import BottomNav from "./components/BottomNav";
+import Header from "./components/Header";
 import Home from "./pages/Home";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
@@ -44,6 +45,7 @@ function PrivateRoute({ children, ...props }: any) {
       render={({ location }) =>
         isAuth ? (
           <>
+            <Header />
             {children}
             <BottomNav />
           </>
