@@ -11,16 +11,15 @@ import {
 import React from "react";
 import { useHistory, Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { useAuth } from "../utils/useAuth";
-
 function SignInForm() {
   const toast = useToast();
   const history = useHistory();
-  const { signin } = useAuth();
+
   const { register, errors, handleSubmit, formState } = useForm();
 
   async function onSubmit(data: any) {
-    const user = await signin(data);
+    // const user = await signin(data);
+    const user = null;
     if (user == null) {
       toast({
         title: "Login Failed",

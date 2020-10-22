@@ -4,7 +4,6 @@ import { AgencyCard } from "../components/AgencyCard";
 import { JobCard } from "../components/JobCard";
 import axios from "axios";
 import { useQuery } from "react-query";
-import { useAuth } from "../utils/useAuth";
 
 type Agency = {
   name: string;
