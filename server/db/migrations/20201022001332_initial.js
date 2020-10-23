@@ -70,7 +70,7 @@ exports.up = async function (knex) {
     table.string("password", 127).notNullable();
     table.string("name").notNullable();
     url(table, "profile_picture");
-    email(table, "email");
+    email(table, "email").unique();
     table.timestamps(false, true);
     references(table, tableNames.user_type);
     references(table, tableNames.city, false);
