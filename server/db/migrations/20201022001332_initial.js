@@ -80,6 +80,7 @@ exports.up = async function (knex) {
 
   await knex.schema.createTable(tableNames.highlight, (table) => {
     table.increments().notNullable();
+    table.string("name").notNullable();
     url(table, "source_url");
     references(table, tableNames.user);
     references(table, tableNames.highlight_type);
