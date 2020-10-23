@@ -26,6 +26,9 @@ class User extends Model {
   };
 
   static async getUser(id) {
+    if (isNan(id)) {
+      return null;
+    }
     return await this.query()
       .withGraphFetched("user_type")
       .withGraphFetched("city")

@@ -1,19 +1,14 @@
 const express = require("express");
-const City = require("./city.model.js");
+const Audition = require("./audition.model.js");
 
 const router = express.Router();
-
-router.get("/", async (req, res) => {
-  const cities = await City.query();
-  res.json(cities);
-});
 
 router.get("/:id", async (req, res, next) => {
   const { id } = req.params;
   try {
-    const city = await City.query().findById(id);
-    if (city) {
-      return res.json(city);
+    const audition = await Audition.getAudition(id);
+    if (audition) {
+      return res.json(audition);
     }
     return next();
   } catch (error) {
