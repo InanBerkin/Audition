@@ -1,0 +1,5 @@
+query Auditions {
+  audition(limit: 5, order_by: { created_at: desc }) {
+    ...AuditionCard
+  }
+}

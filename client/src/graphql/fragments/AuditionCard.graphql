@@ -1,0 +1,12 @@
+fragment AuditionCard on audition {
+  name
+  city {
+    name
+  }
+  created_at
+  audition_tags {
+    tag {
+      name
+    }
+  }
+}

@@ -3,17 +3,18 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
-import { ReactQueryDevtools } from "react-query-devtools";
-import { QueryCache, ReactQueryCacheProvider } from "react-query";
+import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
 
-const queryCache = new QueryCache();
+const client = new ApolloClient({
+  uri: "http://localhost:8080/v1/graphql",
+  cache: new InMemoryCache(),
+});
 
 ReactDOM.render(
   <React.StrictMode>
-    <ReactQueryCacheProvider queryCache={queryCache}>
+    <ApolloProvider client={client}>
       <App />
-      <ReactQueryDevtools initialIsOpen={false} />
-    </ReactQueryCacheProvider>
+    </ApolloProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );

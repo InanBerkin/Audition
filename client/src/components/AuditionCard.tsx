@@ -1,22 +1,20 @@
 import { Stack, Image, Text, StackProps, Flex } from "@chakra-ui/core";
 import React from "react";
 
-type JobCardProps = {
-  logo: string;
+type AuditionCardProps = {
   name: string;
-  agency: string;
+  tags: string[];
   location: string;
   timeSincePosted: string;
 } & StackProps;
 
-export function JobCard({
-  logo,
+export function AuditionCard({
   name,
-  agency,
+  tags,
   location,
   timeSincePosted,
   ...props
-}: JobCardProps) {
+}: AuditionCardProps) {
   return (
     <Stack
       {...props}
@@ -28,12 +26,12 @@ export function JobCard({
       border="1px solid #eee"
       p={4}
     >
-      <Image size="50px" src={logo} rounded="lg" />
+      {/* <Image size="50px" src={logo} rounded="lg" /> */}
       <Flex direction="column" justify="space-between" flex={1}>
         <Text lineHeight={1.25} mb={0} fontWeight="bold">
           {name}
         </Text>
-        <Text color="gray.500">{agency}</Text>
+        <Text color="gray.500">{tags[0]}</Text>
       </Flex>
       <Text color="gray.600">{timeSincePosted}</Text>
     </Stack>
