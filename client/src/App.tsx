@@ -8,6 +8,7 @@ import {
 } from "react-router-dom";
 import BottomNav from "./components/BottomNav";
 import Header from "./components/Header";
+import Audition from "./pages/Audition";
 import Home from "./pages/Home";
 import Profile from "./pages/Profile";
 import SignIn from "./pages/SignIn";
@@ -21,8 +22,11 @@ function App() {
           <PrivateRoute exact path="/">
             <Home />
           </PrivateRoute>
-          <PrivateRoute exact path="/profile">
+          <PrivateRoute path="/profile">
             <Profile />
+          </PrivateRoute>
+          <PrivateRoute path="/audition/:id">
+            <Audition />
           </PrivateRoute>
           <Route path="/signin">
             <SignIn />

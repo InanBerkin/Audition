@@ -9885,7 +9885,7 @@ export type Voice_Type_Variance_Order_By = {
 
 export type AuditionCardFragment = (
   { __typename?: 'audition' }
-  & Pick<Audition, 'name' | 'created_at'>
+  & Pick<Audition, 'id' | 'name' | 'created_at'>
   & { city: (
     { __typename?: 'city' }
     & Pick<City, 'name'>
@@ -9983,7 +9983,9 @@ export type UserProfileFragment = (
   )> }
 );
 
-export type AuditionByIdQueryVariables = Exact<{ [key: string]: never; }>;
+export type AuditionByIdQueryVariables = Exact<{
+  id: Scalars['Int'];
+}>;
 
 
 export type AuditionByIdQuery = (
@@ -10034,6 +10036,7 @@ export type UserByIdQuery = (
 
 export const AuditionCardFragmentDoc = gql`
     fragment AuditionCard on audition {
+  id
   name
   city {
     name
@@ -10134,8 +10137,8 @@ export const UserProfileFragmentDoc = gql`
 }
     ${PhysicalAttributesFragmentDoc}`;
 export const AuditionByIdDocument = gql`
-    query AuditionById {
-  audition_by_pk(id: 10) {
+    query AuditionById($id: Int!) {
+  audition_by_pk(id: $id) {
     ...AuditionDetails
   }
 }
@@ -10153,6 +10156,7 @@ export const AuditionByIdDocument = gql`
  * @example
  * const { data, loading, error } = useAuditionByIdQuery({
  *   variables: {
+ *      id: // value for 'id'
  *   },
  * });
  */

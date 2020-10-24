@@ -1,12 +1,12 @@
 import React from "react";
-import { Box, Flex, Heading, Stack, Link } from "@chakra-ui/core";
+import { Box, Flex, Heading, Stack, Link, Skeleton } from "@chakra-ui/core";
 import { AuditionCard } from "../components/AuditionCard";
 import { useAuditionsQuery } from "../generated/graphql";
 
 function Home() {
   const { data, error, loading } = useAuditionsQuery();
 
-  if (!loading && !data) {
+  if (error) {
     return (
       <div>
         <div>You got query failed for some reason</div>
@@ -14,10 +14,11 @@ function Home() {
       </div>
     );
   }
+
   return (
     <Box p={4} h="100vh">
       <Heading fontSize="2xl" mb={4}>
-        Top Agencies
+        Welcome
       </Heading>
       <Stack isInline spacing={4} pr={2} overflowX="scroll"></Stack>
       <Heading fontSize="2xl" mb={4} mt={6}>
@@ -29,9 +30,13 @@ function Home() {
         </Flex>
       </Heading>
       <Stack spacing={4} shouldWrapChildren>
+        {loading && <Skeleton height="100px" />}
+        {loading && <Skeleton height="100px" />}
+        {loading && <Skeleton height="100px" />}
         {data &&
-          data.audition.map(({ name, city, audition_tags }) => (
+          data.audition.map(({ id, name, city, audition_tags }) => (
             <AuditionCard
+              audition_id={id}
               name={name}
               tags={audition_tags.map((tag) => tag.tag.name)}
               location={city.name}

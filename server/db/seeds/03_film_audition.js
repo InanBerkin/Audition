@@ -10,17 +10,14 @@ function getRandomRow(knex, table_name) {
 //Adding voiceover audition
 /** @param {Knex} knex*/
 exports.seed = async function (knex) {
-  const [user, city, role_type, tag, gender, voiceover] = await Promise.all([
+  const [user, city, role_type, tag, gender, film] = await Promise.all([
     getRandomRow(knex, tableNames.user),
     getRandomRow(knex, tableNames.city),
     getRandomRow(knex, tableNames.role_type),
     getRandomRow(knex, tableNames.voice_type),
     getRandomRow(knex, tableNames.tag),
     getRandomRow(knex, tableNames.gender),
-    knex(tableNames.audition_type)
-      .select("id")
-      .where({ name: "Voiceover" })
-      .first(),
+    knex(tableNames.audition_type).select("id").where({ name: "Film" }).first(),
   ]);
 
   const [audition] = await knex(tableNames.audition).insert(
@@ -30,7 +27,7 @@ exports.seed = async function (knex) {
       description: faker.lorem.paragraph(3),
       user_id: user.id,
       city_id: city.id,
-      audition_type_id: voiceover.id,
+      audition_type_id: film.id,
     },
     ["id"]
   );

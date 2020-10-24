@@ -1,4 +1,5 @@
 fragment AuditionCard on audition {
+  id
   name
   city {
     name

@@ -1,5 +1,5 @@
-query AuditionById {
-  audition_by_pk(id: 10) {
+query AuditionById($id: Int!) {
+  audition_by_pk(id: $id) {
     ...AuditionDetails
   }
 }
