@@ -1,5 +1,4 @@
-import { ThemeProvider, theme, CSSReset } from "@chakra-ui/core";
-import Axios from "axios";
+import { theme, ChakraProvider } from "@chakra-ui/core";
 import React from "react";
 import {
   BrowserRouter as Router,
@@ -10,19 +9,20 @@ import {
 import BottomNav from "./components/BottomNav";
 import Header from "./components/Header";
 import Home from "./pages/Home";
+import Profile from "./pages/Profile";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 
-Axios.defaults.baseURL = "http://localhost:5000/api";
-
 function App() {
   return (
-    <ThemeProvider theme={theme}>
-      <CSSReset />
+    <ChakraProvider theme={theme}>
       <Router>
         <Switch>
           <PrivateRoute exact path="/">
             <Home />
+          </PrivateRoute>
+          <PrivateRoute exact path="/profile">
+            <Profile />
           </PrivateRoute>
           <Route path="/signin">
             <SignIn />
@@ -32,7 +32,7 @@ function App() {
           </Route>
         </Switch>
       </Router>
-    </ThemeProvider>
+    </ChakraProvider>
   );
 }
 

@@ -4,9 +4,7 @@
   "private": true,
   "dependencies": {
     "@apollo/client": "^3.2.5",
-    "@chakra-ui/core": "^0.5.2",
-    "@emotion/core": "^10.0.27",
-    "@emotion/styled": "^10.0.27",
+    "@chakra-ui/core": "^1.0.0-rc.5",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
@@ -18,7 +16,6 @@
     "@types/react-icons": "^3.0.0",
     "@types/react-router-dom": "^5.1.6",
     "axios": "^0.20.0",
-    "emotion-theming": "^10.0.27",
     "framer-motion": "^2.8.0",
     "graphql": "^15.3.0",
     "react": "^17.0.0",

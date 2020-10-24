@@ -11,12 +11,12 @@ import {
 import React from "react";
 import { useHistory, Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { SignInUserQuery, useSignInUserLazyQuery } from "../generated/graphql";
+import { useSignInUserLazyQuery } from "../generated/graphql";
 function SignInForm() {
   const toast = useToast();
   const history = useHistory();
   const { register, errors, handleSubmit, formState } = useForm();
-  const [signin, { data, error, loading }] = useSignInUserLazyQuery({
+  const [signin, { loading }] = useSignInUserLazyQuery({
     onCompleted: ({ signin }) => {
       if (!signin || !signin.id) {
         showLoginError();
@@ -93,7 +93,7 @@ function SignInForm() {
         <Button
           w="full"
           mt={4}
-          variantColor="blue"
+          colorScheme="blue"
           isLoading={formState.isSubmitting || loading}
           type="submit"
         >

@@ -2,7 +2,7 @@ const fetch = require("node-fetch");
 const bcrypt = require("bcrypt");
 
 const HASURA_OPERATION = `
-query signin($email: String!, $password: String!) {
+query signin($email: String!) {
   user(where: { email: {_eq: $email} }){
     id
     password
@@ -29,7 +29,7 @@ const handler = async (req, res) => {
   // get request input
   const { email, password } = req.body.input;
   const { data, error } = await execute({ email });
-
+  console.log("data", data);
   // In case of errors:
   if (error) {
     return res.status(400).json({
@@ -38,9 +38,10 @@ const handler = async (req, res) => {
   }
 
   const user = data && data.user[0];
+
   if (!user) {
     return res.status(400).json({
-      message: "Invalid Login",
+      message: "No such user",
     });
   }
 

@@ -81,7 +81,7 @@ function SignUpForm() {
         <Button
           w="full"
           mt={4}
-          variantColor="blue"
+          colorScheme="blue"
           isLoading={formState.isSubmitting}
           type="submit"
         >

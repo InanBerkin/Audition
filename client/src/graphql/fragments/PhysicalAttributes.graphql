@@ -1,0 +1,20 @@
+fragment PhysicalAttributes on physical_attribute {
+  age
+  body_type {
+    name
+  }
+  ethnicity {
+    name
+  }
+  eye_color {
+    name
+  }
+  gender {
+    id
+    name
+  }
+  hair_color {
+    name
+  }
+  height
+}

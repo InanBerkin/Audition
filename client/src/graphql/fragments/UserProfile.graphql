@@ -1,0 +1,14 @@
+fragment UserProfile on user {
+  name
+  created_at
+  city {
+    name
+  }
+  profile_picture
+  user_type {
+    name
+  }
+  physical_attribute {
+    ...PhysicalAttributes
+  }
+}

@@ -1,6 +1,5 @@
 import React from "react";
 import { Box, Flex, Heading, Stack, Link } from "@chakra-ui/core";
-// import { AgencyCard } from "../components/AgencyCard";
 import { AuditionCard } from "../components/AuditionCard";
 import { useAuditionsQuery } from "../generated/graphql";
 
@@ -15,9 +14,6 @@ function Home() {
       </div>
     );
   }
-
-  console.log(data);
-
   return (
     <Box p={4} h="100vh">
       <Heading fontSize="2xl" mb={4}>

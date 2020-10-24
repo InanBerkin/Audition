@@ -1675,6 +1675,30 @@ export type City = {
   __typename?: 'city';
   id: Scalars['Int'];
   name: Scalars['String'];
+  /** An array relationship */
+  users: Array<User>;
+  /** An aggregated array relationship */
+  users_aggregate: User_Aggregate;
+};
+
+
+/** columns and relationships of "city" */
+export type CityUsersArgs = {
+  distinct_on?: Maybe<Array<User_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<User_Order_By>>;
+  where?: Maybe<User_Bool_Exp>;
+};
+
+
+/** columns and relationships of "city" */
+export type CityUsers_AggregateArgs = {
+  distinct_on?: Maybe<Array<User_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<User_Order_By>>;
+  where?: Maybe<User_Bool_Exp>;
 };
 
 /** aggregated selection of "city" */
@@ -1746,6 +1770,7 @@ export type City_Bool_Exp = {
   _or?: Maybe<Array<Maybe<City_Bool_Exp>>>;
   id?: Maybe<Int_Comparison_Exp>;
   name?: Maybe<String_Comparison_Exp>;
+  users?: Maybe<User_Bool_Exp>;
 };
 
 /** unique or primary key constraints on table "city" */
@@ -1765,6 +1790,7 @@ export type City_Inc_Input = {
 export type City_Insert_Input = {
   id?: Maybe<Scalars['Int']>;
   name?: Maybe<Scalars['String']>;
+  users?: Maybe<User_Arr_Rel_Insert_Input>;
 };
 
 /** aggregate max on columns */
@@ -1819,6 +1845,7 @@ export type City_On_Conflict = {
 export type City_Order_By = {
   id?: Maybe<Order_By>;
   name?: Maybe<Order_By>;
+  users_aggregate?: Maybe<User_Aggregate_Order_By>;
 };
 
 /** primary key columns input for table: "city" */
@@ -5385,10 +5412,20 @@ export enum Order_By {
 export type Physical_Attribute = {
   __typename?: 'physical_attribute';
   age: Scalars['Int'];
+  /** An object relationship */
+  body_type: Body_Type;
   body_type_id: Scalars['Int'];
+  /** An object relationship */
+  ethnicity: Ethnicity;
   ethnicity_id: Scalars['Int'];
+  /** An object relationship */
+  eye_color: Eye_Color;
   eye_color_id: Scalars['Int'];
+  /** An object relationship */
+  gender: Gender;
   gender_id: Scalars['Int'];
+  /** An object relationship */
+  hair_color: Hair_Color;
   hair_color_id: Scalars['Int'];
   height: Scalars['Int'];
   id: Scalars['Int'];
@@ -5476,10 +5513,15 @@ export type Physical_Attribute_Bool_Exp = {
   _not?: Maybe<Physical_Attribute_Bool_Exp>;
   _or?: Maybe<Array<Maybe<Physical_Attribute_Bool_Exp>>>;
   age?: Maybe<Int_Comparison_Exp>;
+  body_type?: Maybe<Body_Type_Bool_Exp>;
   body_type_id?: Maybe<Int_Comparison_Exp>;
+  ethnicity?: Maybe<Ethnicity_Bool_Exp>;
   ethnicity_id?: Maybe<Int_Comparison_Exp>;
+  eye_color?: Maybe<Eye_Color_Bool_Exp>;
   eye_color_id?: Maybe<Int_Comparison_Exp>;
+  gender?: Maybe<Gender_Bool_Exp>;
   gender_id?: Maybe<Int_Comparison_Exp>;
+  hair_color?: Maybe<Hair_Color_Bool_Exp>;
   hair_color_id?: Maybe<Int_Comparison_Exp>;
   height?: Maybe<Int_Comparison_Exp>;
   id?: Maybe<Int_Comparison_Exp>;
@@ -5506,10 +5548,15 @@ export type Physical_Attribute_Inc_Input = {
 /** input type for inserting data into table "physical_attribute" */
 export type Physical_Attribute_Insert_Input = {
   age?: Maybe<Scalars['Int']>;
+  body_type?: Maybe<Body_Type_Obj_Rel_Insert_Input>;
   body_type_id?: Maybe<Scalars['Int']>;
+  ethnicity?: Maybe<Ethnicity_Obj_Rel_Insert_Input>;
   ethnicity_id?: Maybe<Scalars['Int']>;
+  eye_color?: Maybe<Eye_Color_Obj_Rel_Insert_Input>;
   eye_color_id?: Maybe<Scalars['Int']>;
+  gender?: Maybe<Gender_Obj_Rel_Insert_Input>;
   gender_id?: Maybe<Scalars['Int']>;
+  hair_color?: Maybe<Hair_Color_Obj_Rel_Insert_Input>;
   hair_color_id?: Maybe<Scalars['Int']>;
   height?: Maybe<Scalars['Int']>;
   id?: Maybe<Scalars['Int']>;
@@ -5590,10 +5637,15 @@ export type Physical_Attribute_On_Conflict = {
 /** ordering options when selecting data from "physical_attribute" */
 export type Physical_Attribute_Order_By = {
   age?: Maybe<Order_By>;
+  body_type?: Maybe<Body_Type_Order_By>;
   body_type_id?: Maybe<Order_By>;
+  ethnicity?: Maybe<Ethnicity_Order_By>;
   ethnicity_id?: Maybe<Order_By>;
+  eye_color?: Maybe<Eye_Color_Order_By>;
   eye_color_id?: Maybe<Order_By>;
+  gender?: Maybe<Gender_Order_By>;
   gender_id?: Maybe<Order_By>;
+  hair_color?: Maybe<Hair_Color_Order_By>;
   hair_color_id?: Maybe<Order_By>;
   height?: Maybe<Order_By>;
   id?: Maybe<Order_By>;
@@ -8551,15 +8603,21 @@ export type Timestamptz_Comparison_Exp = {
 /** columns and relationships of "user" */
 export type User = {
   __typename?: 'user';
+  /** An object relationship */
+  city?: Maybe<City>;
   city_id?: Maybe<Scalars['Int']>;
   created_at: Scalars['timestamptz'];
   email?: Maybe<Scalars['String']>;
   id: Scalars['Int'];
   name: Scalars['String'];
   password: Scalars['String'];
+  /** An object relationship */
+  physical_attribute?: Maybe<Physical_Attribute>;
   physical_attribute_id?: Maybe<Scalars['Int']>;
   profile_picture?: Maybe<Scalars['String']>;
   updated_at: Scalars['timestamptz'];
+  /** An object relationship */
+  user_type: User_Type;
   user_type_id: Scalars['Int'];
   voice_attribute_id?: Maybe<Scalars['Int']>;
 };
@@ -8639,15 +8697,18 @@ export type User_Bool_Exp = {
   _and?: Maybe<Array<Maybe<User_Bool_Exp>>>;
   _not?: Maybe<User_Bool_Exp>;
   _or?: Maybe<Array<Maybe<User_Bool_Exp>>>;
+  city?: Maybe<City_Bool_Exp>;
   city_id?: Maybe<Int_Comparison_Exp>;
   created_at?: Maybe<Timestamptz_Comparison_Exp>;
   email?: Maybe<String_Comparison_Exp>;
   id?: Maybe<Int_Comparison_Exp>;
   name?: Maybe<String_Comparison_Exp>;
   password?: Maybe<String_Comparison_Exp>;
+  physical_attribute?: Maybe<Physical_Attribute_Bool_Exp>;
   physical_attribute_id?: Maybe<Int_Comparison_Exp>;
   profile_picture?: Maybe<String_Comparison_Exp>;
   updated_at?: Maybe<Timestamptz_Comparison_Exp>;
+  user_type?: Maybe<User_Type_Bool_Exp>;
   user_type_id?: Maybe<Int_Comparison_Exp>;
   voice_attribute_id?: Maybe<Int_Comparison_Exp>;
 };
@@ -8671,15 +8732,18 @@ export type User_Inc_Input = {
 
 /** input type for inserting data into table "user" */
 export type User_Insert_Input = {
+  city?: Maybe<City_Obj_Rel_Insert_Input>;
   city_id?: Maybe<Scalars['Int']>;
   created_at?: Maybe<Scalars['timestamptz']>;
   email?: Maybe<Scalars['String']>;
   id?: Maybe<Scalars['Int']>;
   name?: Maybe<Scalars['String']>;
   password?: Maybe<Scalars['String']>;
+  physical_attribute?: Maybe<Physical_Attribute_Obj_Rel_Insert_Input>;
   physical_attribute_id?: Maybe<Scalars['Int']>;
   profile_picture?: Maybe<Scalars['String']>;
   updated_at?: Maybe<Scalars['timestamptz']>;
+  user_type?: Maybe<User_Type_Obj_Rel_Insert_Input>;
   user_type_id?: Maybe<Scalars['Int']>;
   voice_attribute_id?: Maybe<Scalars['Int']>;
 };
@@ -8770,15 +8834,18 @@ export type User_On_Conflict = {
 
 /** ordering options when selecting data from "user" */
 export type User_Order_By = {
+  city?: Maybe<City_Order_By>;
   city_id?: Maybe<Order_By>;
   created_at?: Maybe<Order_By>;
   email?: Maybe<Order_By>;
   id?: Maybe<Order_By>;
   name?: Maybe<Order_By>;
   password?: Maybe<Order_By>;
+  physical_attribute?: Maybe<Physical_Attribute_Order_By>;
   physical_attribute_id?: Maybe<Order_By>;
   profile_picture?: Maybe<Order_By>;
   updated_at?: Maybe<Order_By>;
+  user_type?: Maybe<User_Type_Order_By>;
   user_type_id?: Maybe<Order_By>;
   voice_attribute_id?: Maybe<Order_By>;
 };
@@ -9811,6 +9878,42 @@ export type AuditionCardFragment = (
   )> }
 );
 
+export type PhysicalAttributesFragment = (
+  { __typename?: 'physical_attribute' }
+  & Pick<Physical_Attribute, 'age' | 'height'>
+  & { body_type: (
+    { __typename?: 'body_type' }
+    & Pick<Body_Type, 'name'>
+  ), ethnicity: (
+    { __typename?: 'ethnicity' }
+    & Pick<Ethnicity, 'name'>
+  ), eye_color: (
+    { __typename?: 'eye_color' }
+    & Pick<Eye_Color, 'name'>
+  ), gender: (
+    { __typename?: 'gender' }
+    & Pick<Gender, 'name'>
+  ), hair_color: (
+    { __typename?: 'hair_color' }
+    & Pick<Hair_Color, 'name'>
+  ) }
+);
+
+export type UserProfileFragment = (
+  { __typename?: 'user' }
+  & Pick<User, 'name' | 'created_at' | 'profile_picture'>
+  & { city?: Maybe<(
+    { __typename?: 'city' }
+    & Pick<City, 'name'>
+  )>, user_type: (
+    { __typename?: 'user_type' }
+    & Pick<User_Type, 'name'>
+  ), physical_attribute?: Maybe<(
+    { __typename?: 'physical_attribute' }
+    & PhysicalAttributesFragment
+  )> }
+);
+
 export type AuditionsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -9836,6 +9939,19 @@ export type SignInUserQuery = (
   )> }
 );
 
+export type UserByIdQueryVariables = Exact<{
+  uid: Scalars['Int'];
+}>;
+
+
+export type UserByIdQuery = (
+  { __typename?: 'query_root' }
+  & { user: Array<(
+    { __typename?: 'user' }
+    & UserProfileFragment
+  )> }
+);
+
 export const AuditionCardFragmentDoc = gql`
     fragment AuditionCard on audition {
   name
@@ -9850,6 +9966,43 @@ export const AuditionCardFragmentDoc = gql`
   }
 }
     `;
+export const PhysicalAttributesFragmentDoc = gql`
+    fragment PhysicalAttributes on physical_attribute {
+  age
+  body_type {
+    name
+  }
+  ethnicity {
+    name
+  }
+  eye_color {
+    name
+  }
+  gender {
+    name
+  }
+  hair_color {
+    name
+  }
+  height
+}
+    `;
+export const UserProfileFragmentDoc = gql`
+    fragment UserProfile on user {
+  name
+  created_at
+  city {
+    name
+  }
+  profile_picture
+  user_type {
+    name
+  }
+  physical_attribute {
+    ...PhysicalAttributes
+  }
+}
+    ${PhysicalAttributesFragmentDoc}`;
 export const AuditionsDocument = gql`
     query Auditions {
   audition(limit: 5, order_by: {created_at: desc}) {
@@ -9916,3 +10069,36 @@ export function useSignInUserLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions
 export type SignInUserQueryHookResult = ReturnType<typeof useSignInUserQuery>;
 export type SignInUserLazyQueryHookResult = ReturnType<typeof useSignInUserLazyQuery>;
 export type SignInUserQueryResult = Apollo.QueryResult<SignInUserQuery, SignInUserQueryVariables>;
+export const UserByIdDocument = gql`
+    query UserById($uid: Int!) {
+  user(where: {id: {_eq: $uid}}) {
+    ...UserProfile
+  }
+}
+    ${UserProfileFragmentDoc}`;
+
+/**
+ * __useUserByIdQuery__
+ *
+ * To run a query within a React component, call `useUserByIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useUserByIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useUserByIdQuery({
+ *   variables: {
+ *      uid: // value for 'uid'
+ *   },
+ * });
+ */
+export function useUserByIdQuery(baseOptions?: Apollo.QueryHookOptions<UserByIdQuery, UserByIdQueryVariables>) {
+        return Apollo.useQuery<UserByIdQuery, UserByIdQueryVariables>(UserByIdDocument, baseOptions);
+      }
+export function useUserByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<UserByIdQuery, UserByIdQueryVariables>) {
+          return Apollo.useLazyQuery<UserByIdQuery, UserByIdQueryVariables>(UserByIdDocument, baseOptions);
+        }
+export type UserByIdQueryHookResult = ReturnType<typeof useUserByIdQuery>;
+export type UserByIdLazyQueryHookResult = ReturnType<typeof useUserByIdLazyQuery>;
+export type UserByIdQueryResult = Apollo.QueryResult<UserByIdQuery, UserByIdQueryVariables>;

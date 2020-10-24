@@ -1,4 +1,4 @@
-import { Stack, Image, Text, StackProps, Flex } from "@chakra-ui/core";
+import { Stack, Text, StackProps, Flex } from "@chakra-ui/core";
 import React from "react";
 
 type AuditionCardProps = {
@@ -26,7 +26,6 @@ export function AuditionCard({
       border="1px solid #eee"
       p={4}
     >
-      {/* <Image size="50px" src={logo} rounded="lg" /> */}
       <Flex direction="column" justify="space-between" flex={1}>
         <Text lineHeight={1.25} mb={0} fontWeight="bold">
           {name}

@@ -8,9 +8,7 @@ import {
   Input,
 } from "@chakra-ui/core";
 import React, { ReactElement } from "react";
-import { MdMenu } from "react-icons/md";
-
-interface Props {}
+import { MdMenu, MdSearch } from "react-icons/md";
 
 export default function Header(): ReactElement {
   return (
@@ -19,13 +17,13 @@ export default function Header(): ReactElement {
         <IconButton
           variant="ghost"
           aria-label="open-drawer"
-          icon={MdMenu}
+          icon={<MdMenu />}
           // ref={btnRef}
           // onClick={onOpen}
         />
         <InputGroup w="100%">
           <InputLeftElement
-            children={<Icon name="search" color="gray.300" />}
+            children={<Icon as={MdSearch} color="gray.300" />}
           />
           <Input placeholder="Search" />
         </InputGroup>

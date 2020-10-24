@@ -1,0 +1,5 @@
+query UserById($uid: Int!) {
+  user(where: { id: { _eq: $uid } }) {
+    ...UserProfile
+  }
+}
