@@ -51,18 +51,18 @@ exports.up = async function (knex) {
 
   await knex.schema.createTable(tableNames.physical_attribute, (table) => {
     table.increments().notNullable();
-    table.integer("height").notNullable();
-    table.integer("age").notNullable();
-    references(table, tableNames.eye_color);
-    references(table, tableNames.hair_color);
-    references(table, tableNames.gender);
-    references(table, tableNames.ethnicity);
-    references(table, tableNames.body_type);
+    table.integer("height");
+    table.integer("age");
+    references(table, tableNames.eye_color, false);
+    references(table, tableNames.hair_color, false);
+    references(table, tableNames.gender, false);
+    references(table, tableNames.ethnicity, false);
+    references(table, tableNames.body_type, false);
   });
 
   await knex.schema.createTable(tableNames.voice_attribute, (table) => {
     table.increments().notNullable();
-    references(table, tableNames.voice_type);
+    references(table, tableNames.voice_type, false);
   });
 
   await knex.schema.createTable(tableNames.user, (table) => {

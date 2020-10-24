@@ -1,0 +1,20 @@
+fragment AuditionDetails on audition {
+  name
+  description
+  created_at
+  company_name
+  city {
+    name
+  }
+  audition_type {
+    name
+  }
+  audition_tags {
+    tag {
+      name
+    }
+  }
+  roles {
+    ...RoleDetails
+  }
+}

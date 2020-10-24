@@ -5411,23 +5411,23 @@ export enum Order_By {
 /** columns and relationships of "physical_attribute" */
 export type Physical_Attribute = {
   __typename?: 'physical_attribute';
-  age: Scalars['Int'];
+  age?: Maybe<Scalars['Int']>;
   /** An object relationship */
-  body_type: Body_Type;
-  body_type_id: Scalars['Int'];
+  body_type?: Maybe<Body_Type>;
+  body_type_id?: Maybe<Scalars['Int']>;
   /** An object relationship */
-  ethnicity: Ethnicity;
-  ethnicity_id: Scalars['Int'];
+  ethnicity?: Maybe<Ethnicity>;
+  ethnicity_id?: Maybe<Scalars['Int']>;
   /** An object relationship */
-  eye_color: Eye_Color;
-  eye_color_id: Scalars['Int'];
+  eye_color?: Maybe<Eye_Color>;
+  eye_color_id?: Maybe<Scalars['Int']>;
   /** An object relationship */
-  gender: Gender;
-  gender_id: Scalars['Int'];
+  gender?: Maybe<Gender>;
+  gender_id?: Maybe<Scalars['Int']>;
   /** An object relationship */
-  hair_color: Hair_Color;
-  hair_color_id: Scalars['Int'];
-  height: Scalars['Int'];
+  hair_color?: Maybe<Hair_Color>;
+  hair_color_id?: Maybe<Scalars['Int']>;
+  height?: Maybe<Scalars['Int']>;
   id: Scalars['Int'];
 };
 
@@ -6637,7 +6637,11 @@ export type Query_RootVoice_Type_By_PkArgs = {
 export type Requirement = {
   __typename?: 'requirement';
   id: Scalars['Int'];
+  /** An object relationship */
+  physical_attribute?: Maybe<Physical_Attribute>;
   physical_attribute_id?: Maybe<Scalars['Int']>;
+  /** An object relationship */
+  voice_attribute?: Maybe<Voice_Attribute>;
   voice_attribute_id?: Maybe<Scalars['Int']>;
 };
 
@@ -6713,7 +6717,9 @@ export type Requirement_Bool_Exp = {
   _not?: Maybe<Requirement_Bool_Exp>;
   _or?: Maybe<Array<Maybe<Requirement_Bool_Exp>>>;
   id?: Maybe<Int_Comparison_Exp>;
+  physical_attribute?: Maybe<Physical_Attribute_Bool_Exp>;
   physical_attribute_id?: Maybe<Int_Comparison_Exp>;
+  voice_attribute?: Maybe<Voice_Attribute_Bool_Exp>;
   voice_attribute_id?: Maybe<Int_Comparison_Exp>;
 };
 
@@ -6733,7 +6739,9 @@ export type Requirement_Inc_Input = {
 /** input type for inserting data into table "requirement" */
 export type Requirement_Insert_Input = {
   id?: Maybe<Scalars['Int']>;
+  physical_attribute?: Maybe<Physical_Attribute_Obj_Rel_Insert_Input>;
   physical_attribute_id?: Maybe<Scalars['Int']>;
+  voice_attribute?: Maybe<Voice_Attribute_Obj_Rel_Insert_Input>;
   voice_attribute_id?: Maybe<Scalars['Int']>;
 };
 
@@ -6792,7 +6800,9 @@ export type Requirement_On_Conflict = {
 /** ordering options when selecting data from "requirement" */
 export type Requirement_Order_By = {
   id?: Maybe<Order_By>;
+  physical_attribute?: Maybe<Physical_Attribute_Order_By>;
   physical_attribute_id?: Maybe<Order_By>;
+  voice_attribute?: Maybe<Voice_Attribute_Order_By>;
   voice_attribute_id?: Maybe<Order_By>;
 };
 
@@ -6940,7 +6950,11 @@ export type Role = {
   description: Scalars['String'];
   id: Scalars['Int'];
   name: Scalars['String'];
+  /** An object relationship */
+  requirement?: Maybe<Requirement>;
   requirement_id?: Maybe<Scalars['Int']>;
+  /** An object relationship */
+  role_type: Role_Type;
   role_type_id: Scalars['Int'];
 };
 
@@ -7021,7 +7035,9 @@ export type Role_Bool_Exp = {
   description?: Maybe<String_Comparison_Exp>;
   id?: Maybe<Int_Comparison_Exp>;
   name?: Maybe<String_Comparison_Exp>;
+  requirement?: Maybe<Requirement_Bool_Exp>;
   requirement_id?: Maybe<Int_Comparison_Exp>;
+  role_type?: Maybe<Role_Type_Bool_Exp>;
   role_type_id?: Maybe<Int_Comparison_Exp>;
 };
 
@@ -7045,7 +7061,9 @@ export type Role_Insert_Input = {
   description?: Maybe<Scalars['String']>;
   id?: Maybe<Scalars['Int']>;
   name?: Maybe<Scalars['String']>;
+  requirement?: Maybe<Requirement_Obj_Rel_Insert_Input>;
   requirement_id?: Maybe<Scalars['Int']>;
+  role_type?: Maybe<Role_Type_Obj_Rel_Insert_Input>;
   role_type_id?: Maybe<Scalars['Int']>;
 };
 
@@ -7119,7 +7137,9 @@ export type Role_Order_By = {
   description?: Maybe<Order_By>;
   id?: Maybe<Order_By>;
   name?: Maybe<Order_By>;
+  requirement?: Maybe<Requirement_Order_By>;
   requirement_id?: Maybe<Order_By>;
+  role_type?: Maybe<Role_Type_Order_By>;
   role_type_id?: Maybe<Order_By>;
 };
 
@@ -9342,7 +9362,7 @@ export type User_Variance_Order_By = {
 export type Voice_Attribute = {
   __typename?: 'voice_attribute';
   id: Scalars['Int'];
-  voice_type_id: Scalars['Int'];
+  voice_type_id?: Maybe<Scalars['Int']>;
 };
 
 /** aggregated selection of "voice_attribute" */
@@ -9878,25 +9898,74 @@ export type AuditionCardFragment = (
   )> }
 );
 
+export type AuditionDetailsFragment = (
+  { __typename?: 'audition' }
+  & Pick<Audition, 'name' | 'description' | 'created_at' | 'company_name'>
+  & { city: (
+    { __typename?: 'city' }
+    & Pick<City, 'name'>
+  ), audition_type: (
+    { __typename?: 'audition_type' }
+    & Pick<Audition_Type, 'name'>
+  ), audition_tags: Array<(
+    { __typename?: 'audition_tag' }
+    & { tag: (
+      { __typename?: 'tag' }
+      & Pick<Tag, 'name'>
+    ) }
+  )>, roles: Array<(
+    { __typename?: 'role' }
+    & RoleDetailsFragment
+  )> }
+);
+
 export type PhysicalAttributesFragment = (
   { __typename?: 'physical_attribute' }
   & Pick<Physical_Attribute, 'age' | 'height'>
-  & { body_type: (
+  & { body_type?: Maybe<(
     { __typename?: 'body_type' }
     & Pick<Body_Type, 'name'>
-  ), ethnicity: (
+  )>, ethnicity?: Maybe<(
     { __typename?: 'ethnicity' }
     & Pick<Ethnicity, 'name'>
-  ), eye_color: (
+  )>, eye_color?: Maybe<(
     { __typename?: 'eye_color' }
     & Pick<Eye_Color, 'name'>
-  ), gender: (
+  )>, gender?: Maybe<(
     { __typename?: 'gender' }
-    & Pick<Gender, 'name'>
-  ), hair_color: (
+    & Pick<Gender, 'id' | 'name'>
+  )>, hair_color?: Maybe<(
     { __typename?: 'hair_color' }
     & Pick<Hair_Color, 'name'>
-  ) }
+  )> }
+);
+
+export type RoleDetailsFragment = (
+  { __typename?: 'role' }
+  & Pick<Role, 'name' | 'description'>
+  & { requirement?: Maybe<(
+    { __typename?: 'requirement' }
+    & { physical_attribute?: Maybe<(
+      { __typename?: 'physical_attribute' }
+      & Pick<Physical_Attribute, 'age' | 'height'>
+      & { body_type?: Maybe<(
+        { __typename?: 'body_type' }
+        & Pick<Body_Type, 'name'>
+      )>, ethnicity?: Maybe<(
+        { __typename?: 'ethnicity' }
+        & Pick<Ethnicity, 'name'>
+      )>, eye_color?: Maybe<(
+        { __typename?: 'eye_color' }
+        & Pick<Eye_Color, 'name'>
+      )>, gender?: Maybe<(
+        { __typename?: 'gender' }
+        & Pick<Gender, 'name'>
+      )>, hair_color?: Maybe<(
+        { __typename?: 'hair_color' }
+        & Pick<Hair_Color, 'name'>
+      )> }
+    )> }
+  )> }
 );
 
 export type UserProfileFragment = (
@@ -9911,6 +9980,17 @@ export type UserProfileFragment = (
   ), physical_attribute?: Maybe<(
     { __typename?: 'physical_attribute' }
     & PhysicalAttributesFragment
+  )> }
+);
+
+export type AuditionByIdQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type AuditionByIdQuery = (
+  { __typename?: 'query_root' }
+  & { audition_by_pk?: Maybe<(
+    { __typename?: 'audition' }
+    & AuditionDetailsFragment
   )> }
 );
 
@@ -9966,6 +10046,55 @@ export const AuditionCardFragmentDoc = gql`
   }
 }
     `;
+export const RoleDetailsFragmentDoc = gql`
+    fragment RoleDetails on role {
+  name
+  description
+  requirement {
+    physical_attribute {
+      age
+      body_type {
+        name
+      }
+      ethnicity {
+        name
+      }
+      eye_color {
+        name
+      }
+      gender {
+        name
+      }
+      hair_color {
+        name
+      }
+      height
+    }
+  }
+}
+    `;
+export const AuditionDetailsFragmentDoc = gql`
+    fragment AuditionDetails on audition {
+  name
+  description
+  created_at
+  company_name
+  city {
+    name
+  }
+  audition_type {
+    name
+  }
+  audition_tags {
+    tag {
+      name
+    }
+  }
+  roles {
+    ...RoleDetails
+  }
+}
+    ${RoleDetailsFragmentDoc}`;
 export const PhysicalAttributesFragmentDoc = gql`
     fragment PhysicalAttributes on physical_attribute {
   age
@@ -9979,6 +10108,7 @@ export const PhysicalAttributesFragmentDoc = gql`
     name
   }
   gender {
+    id
     name
   }
   hair_color {
@@ -10003,6 +10133,38 @@ export const UserProfileFragmentDoc = gql`
   }
 }
     ${PhysicalAttributesFragmentDoc}`;
+export const AuditionByIdDocument = gql`
+    query AuditionById {
+  audition_by_pk(id: 10) {
+    ...AuditionDetails
+  }
+}
+    ${AuditionDetailsFragmentDoc}`;
+
+/**
+ * __useAuditionByIdQuery__
+ *
+ * To run a query within a React component, call `useAuditionByIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useAuditionByIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useAuditionByIdQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useAuditionByIdQuery(baseOptions?: Apollo.QueryHookOptions<AuditionByIdQuery, AuditionByIdQueryVariables>) {
+        return Apollo.useQuery<AuditionByIdQuery, AuditionByIdQueryVariables>(AuditionByIdDocument, baseOptions);
+      }
+export function useAuditionByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<AuditionByIdQuery, AuditionByIdQueryVariables>) {
+          return Apollo.useLazyQuery<AuditionByIdQuery, AuditionByIdQueryVariables>(AuditionByIdDocument, baseOptions);
+        }
+export type AuditionByIdQueryHookResult = ReturnType<typeof useAuditionByIdQuery>;
+export type AuditionByIdLazyQueryHookResult = ReturnType<typeof useAuditionByIdLazyQuery>;
+export type AuditionByIdQueryResult = Apollo.QueryResult<AuditionByIdQuery, AuditionByIdQueryVariables>;
 export const AuditionsDocument = gql`
     query Auditions {
   audition(limit: 5, order_by: {created_at: desc}) {
