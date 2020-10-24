@@ -27,19 +27,6 @@ export type Int_Comparison_Exp = {
   _nin?: Maybe<Array<Scalars['Int']>>;
 };
 
-export type SampleInput = {
-  email: Scalars['String'];
-  name: Scalars['String'];
-  password: Scalars['String'];
-  profile_picture: Scalars['String'];
-  user_type_id: Scalars['Int'];
-};
-
-export type SampleOutput = {
-  __typename?: 'SampleOutput';
-  accessToken: Scalars['String'];
-};
-
 /** expression to compare columns of type String. All fields are combined with logical 'AND'. */
 export type String_Comparison_Exp = {
   _eq?: Maybe<Scalars['String']>;
@@ -5955,6 +5942,8 @@ export type Query_Root = {
   role_type_aggregate: Role_Type_Aggregate;
   /** fetch data from the table: "role_type" using primary key columns */
   role_type_by_pk?: Maybe<Role_Type>;
+  /** perform the action: "signin" */
+  signin?: Maybe<SigninActionOutput>;
   /** fetch data from the table: "tag" */
   tag: Array<Tag>;
   /** fetch aggregated fields from the table: "tag" */
@@ -6453,6 +6442,13 @@ export type Query_RootRole_Type_AggregateArgs = {
 /** query root */
 export type Query_RootRole_Type_By_PkArgs = {
   id: Scalars['Int'];
+};
+
+
+/** query root */
+export type Query_RootSigninArgs = {
+  email: Scalars['String'];
+  password: Scalars['String'];
 };
 
 
@@ -7496,17 +7492,9 @@ export type Role_Variance_Order_By = {
   role_type_id?: Maybe<Order_By>;
 };
 
-export type SignUpInput = {
-  email: Scalars['String'];
-  name: Scalars['String'];
-  password: Scalars['String'];
-  profile_picture: Scalars['String'];
-  user_type_id: Scalars['Int'];
-};
-
-export type SignUpOutput = {
-  __typename?: 'signUpOutput';
-  accessToken: Scalars['String'];
+export type SigninActionOutput = {
+  __typename?: 'signinActionOutput';
+  id: Scalars['String'];
 };
 
 export type SignupOutput = {
@@ -7625,6 +7613,8 @@ export type Subscription_Root = {
   role_type_aggregate: Role_Type_Aggregate;
   /** fetch data from the table: "role_type" using primary key columns */
   role_type_by_pk?: Maybe<Role_Type>;
+  /** perform the action: "signin" */
+  signin?: Maybe<SigninActionOutput>;
   /** fetch data from the table: "tag" */
   tag: Array<Tag>;
   /** fetch aggregated fields from the table: "tag" */
@@ -8123,6 +8113,13 @@ export type Subscription_RootRole_Type_AggregateArgs = {
 /** subscription root */
 export type Subscription_RootRole_Type_By_PkArgs = {
   id: Scalars['Int'];
+};
+
+
+/** subscription root */
+export type Subscription_RootSigninArgs = {
+  email: Scalars['String'];
+  password: Scalars['String'];
 };
 
 
@@ -9825,6 +9822,20 @@ export type AuditionsQuery = (
   )> }
 );
 
+export type SignInUserQueryVariables = Exact<{
+  email: Scalars['String'];
+  password: Scalars['String'];
+}>;
+
+
+export type SignInUserQuery = (
+  { __typename?: 'query_root' }
+  & { signin?: Maybe<(
+    { __typename?: 'signinActionOutput' }
+    & Pick<SigninActionOutput, 'id'>
+  )> }
+);
+
 export const AuditionCardFragmentDoc = gql`
     fragment AuditionCard on audition {
   name
@@ -9871,3 +9882,37 @@ export function useAuditionsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<
 export type AuditionsQueryHookResult = ReturnType<typeof useAuditionsQuery>;
 export type AuditionsLazyQueryHookResult = ReturnType<typeof useAuditionsLazyQuery>;
 export type AuditionsQueryResult = Apollo.QueryResult<AuditionsQuery, AuditionsQueryVariables>;
+export const SignInUserDocument = gql`
+    query SignInUser($email: String!, $password: String!) {
+  signin(email: $email, password: $password) {
+    id
+  }
+}
+    `;
+
+/**
+ * __useSignInUserQuery__
+ *
+ * To run a query within a React component, call `useSignInUserQuery` and pass it any options that fit your needs.
+ * When your component renders, `useSignInUserQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useSignInUserQuery({
+ *   variables: {
+ *      email: // value for 'email'
+ *      password: // value for 'password'
+ *   },
+ * });
+ */
+export function useSignInUserQuery(baseOptions?: Apollo.QueryHookOptions<SignInUserQuery, SignInUserQueryVariables>) {
+        return Apollo.useQuery<SignInUserQuery, SignInUserQueryVariables>(SignInUserDocument, baseOptions);
+      }
+export function useSignInUserLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<SignInUserQuery, SignInUserQueryVariables>) {
+          return Apollo.useLazyQuery<SignInUserQuery, SignInUserQueryVariables>(SignInUserDocument, baseOptions);
+        }
+export type SignInUserQueryHookResult = ReturnType<typeof useSignInUserQuery>;
+export type SignInUserLazyQueryHookResult = ReturnType<typeof useSignInUserLazyQuery>;
+export type SignInUserQueryResult = Apollo.QueryResult<SignInUserQuery, SignInUserQueryVariables>;

@@ -11,25 +11,44 @@ import {
 import React from "react";
 import { useHistory, Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { SignInUserQuery, useSignInUserLazyQuery } from "../generated/graphql";
 function SignInForm() {
   const toast = useToast();
   const history = useHistory();
-
   const { register, errors, handleSubmit, formState } = useForm();
-
-  async function onSubmit(data: any) {
-    // const user = await signin(data);
-    const user = null;
-    if (user == null) {
+  const [signin, { data, error, loading }] = useSignInUserLazyQuery({
+    onCompleted: ({ signin }) => {
+      if (!signin || !signin.id) {
+        showLoginError();
+        return;
+      }
       toast({
-        title: "Login Failed",
-        status: "error",
+        title: "Login Success",
+        status: "success",
         duration: 3000,
         isClosable: true,
       });
-      return;
-    }
-    history.push("/");
+      localStorage.setItem("uid", signin.id);
+      history.push("/");
+    },
+    onError: () => {
+      showLoginError();
+    },
+  });
+
+  function showLoginError() {
+    toast({
+      title: "Login Failed",
+      status: "error",
+      duration: 3000,
+      isClosable: true,
+    });
+  }
+
+  function onSubmit(form_data: any) {
+    signin({
+      variables: { email: form_data.email, password: form_data.password },
+    });
   }
 
   return (
@@ -75,7 +94,7 @@ function SignInForm() {
           w="full"
           mt={4}
           variantColor="blue"
-          isLoading={formState.isSubmitting}
+          isLoading={formState.isSubmitting || loading}
           type="submit"
         >
           Login

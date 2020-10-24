@@ -28,7 +28,7 @@ const execute = async (variables) => {
 const handler = async (req, res) => {
   // get request input
   const { email, password } = req.body.input;
-  const { data, error } = await execute({ email, password });
+  const { data, error } = await execute({ email });
 
   // In case of errors:
   if (error) {
@@ -37,7 +37,7 @@ const handler = async (req, res) => {
     });
   }
 
-  const user = data.user[0];
+  const user = data && data.user[0];
   if (!user) {
     return res.status(400).json({
       message: "Invalid Login",
