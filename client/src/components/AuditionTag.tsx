@@ -45,7 +45,6 @@ export default function AuditionTag({
   ...props
 }: TagProps): ReactElement {
   const { variant, colorScheme } = getTagPropsByName(content);
-  console.log(variant, colorScheme);
 
   return (
     <Badge variant={variant} colorScheme={colorScheme} {...props}>

@@ -1,4 +1,4 @@
-import { Stack, Text, StackProps, Flex } from "@chakra-ui/core";
+import { Stack, Text, StackProps } from "@chakra-ui/core";
 import React from "react";
 import { useHistory } from "react-router-dom";
 import AuditionTag from "./AuditionTag";
@@ -37,8 +37,8 @@ export function AuditionCard({
           {name}
         </Text>
         <div>
-          {tags.map((tag) => (
-            <AuditionTag content={tag} />
+          {tags.map((tag, i) => (
+            <AuditionTag key={i} content={tag} />
           ))}
         </div>
       </Stack>

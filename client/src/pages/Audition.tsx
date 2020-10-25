@@ -1,17 +1,7 @@
-import {
-  Accordion,
-  AccordionButton,
-  AccordionIcon,
-  AccordionItem,
-  AccordionPanel,
-  Box,
-  Heading,
-  Skeleton,
-  SkeletonText,
-  Text,
-} from "@chakra-ui/core";
+import { Box, Heading, Skeleton, SkeletonText, Text } from "@chakra-ui/core";
 import React, { ReactElement } from "react";
 import { useParams } from "react-router-dom";
+import AuditionRoles from "../components/AuditionRoles";
 import AuditionTag from "../components/AuditionTag";
 import { useAuditionByIdQuery } from "../generated/graphql";
 
@@ -55,19 +45,7 @@ export default function Audition(): ReactElement {
         Roles
       </Text>
       {loading && <Skeleton height="100px" />}
-      <Accordion mt={2} allowToggle border="1px solid #eee" defaultIndex={0}>
-        {audition?.roles.map(({ name, description }) => (
-          <AccordionItem>
-            <AccordionButton>
-              <Box flex="1" textAlign="left">
-                {name}
-              </Box>
-              <AccordionIcon />
-            </AccordionButton>
-            <AccordionPanel pb={4}>{description}</AccordionPanel>
-          </AccordionItem>
-        ))}
-      </Accordion>
+      {audition?.roles && <AuditionRoles roles={audition.roles} mt={2} />}
     </Box>
   );
 }
