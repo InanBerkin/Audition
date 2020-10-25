@@ -41,8 +41,7 @@ function App() {
 }
 
 function PrivateRoute({ children, ...props }: any) {
-  // const { isAuth } = useAuth();
-  const isAuth = true;
+  const isAuth = localStorage.getItem("uid");
   return (
     <Route
       {...props}
