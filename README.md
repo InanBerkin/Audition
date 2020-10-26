@@ -4,11 +4,11 @@ Run client server: `cd client && yarn start`
 
 Starts on `http://localhost:3000`
 
-[Chakra UI Docs]([https://next.chakra-ui.com/docs/getting-started])
+[Chakra UI Docs](https://next.chakra-ui.com/docs/getting-started)
 
 # Server
 Requirements:
-* [Docker]([https://www.docker.com/get-started])
+* [Docker](https://www.docker.com/get-started)
   
 To run the GraphQL API: `cd server && docker-compose up`
 
