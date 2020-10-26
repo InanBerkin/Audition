@@ -1,6 +1,15 @@
-import { Box, Heading, Skeleton, SkeletonText, Text } from "@chakra-ui/core";
+import {
+  Box,
+  Flex,
+  Heading,
+  IconButton,
+  Skeleton,
+  SkeletonText,
+  Text,
+} from "@chakra-ui/core";
 import React, { ReactElement } from "react";
-import { useParams } from "react-router-dom";
+import { MdChevronLeft } from "react-icons/md";
+import { useHistory, useParams } from "react-router-dom";
 import AuditionRoles from "../components/AuditionRoles";
 import AuditionTag from "../components/AuditionTag";
 import { useAuditionByIdQuery } from "../generated/graphql";
@@ -11,6 +20,7 @@ type RouteParams = {
 
 export default function Audition(): ReactElement {
   const { id } = useParams<RouteParams>();
+  const history = useHistory();
   const { data, loading, error } = useAuditionByIdQuery({
     variables: { id: parseInt(id) },
   });
@@ -21,9 +31,21 @@ export default function Audition(): ReactElement {
 
   return (
     <Box p={4} bg="#fff">
-      <Heading>
-        <Skeleton isLoaded={!loading}>{audition?.name}</Skeleton>
-      </Heading>
+      <Flex align="center">
+        <IconButton
+          justifyContent="start"
+          size="xs"
+          variant="ghost"
+          aria-label="Search database"
+          icon={<MdChevronLeft fontSize="1rem" />}
+          onClick={() => {
+            history.goBack();
+          }}
+        />
+        <Heading fontSize={24}>
+          <Skeleton isLoaded={!loading}>{audition?.name}</Skeleton>
+        </Heading>
+      </Flex>
       <Skeleton isLoaded={!loading}>
         <AuditionTag content={audition?.audition_type.name || ""} />
       </Skeleton>
