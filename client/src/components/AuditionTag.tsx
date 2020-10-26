@@ -1,33 +1,15 @@
 import { Badge, BadgeProps } from "@chakra-ui/core";
 import React, { ReactElement } from "react";
+import { AUDITION_TYPE } from "../utils/constants";
 
 type TagProps = {
   content: string;
 } & BadgeProps;
 
-// type AuditionType =
-//   | "Film"
-//   | "Musical"
-//   | "Voiceover"
-//   | "Commercial"
-//   | "Modeling"
-//   | "Event";
-
-// type AuditionTag = "Paid" | "No Pay" | "Work From Home";
-
 function getTagPropsByName(content: string) {
   let variant,
     colorScheme = null;
-  if (
-    [
-      "Film",
-      "Musical",
-      "Voiceover",
-      "Commercial",
-      "Modeling",
-      "Event",
-    ].includes(content)
-  ) {
+  if (Object.values(AUDITION_TYPE).includes(content as AUDITION_TYPE)) {
     variant = "solid";
     colorScheme = "cyan";
   } else {

@@ -9916,6 +9916,9 @@ export type AuditionCardFragment = (
   & { city: (
     { __typename?: 'city' }
     & Pick<City, 'name'>
+  ), audition_type: (
+    { __typename?: 'audition_type' }
+    & Pick<Audition_Type, 'name'>
   ), audition_tags: Array<(
     { __typename?: 'audition_tag' }
     & { tag: (
@@ -10084,6 +10087,9 @@ export const AuditionCardFragmentDoc = gql`
   id
   name
   city {
+    name
+  }
+  audition_type {
     name
   }
   created_at

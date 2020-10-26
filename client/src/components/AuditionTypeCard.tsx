@@ -1,50 +1,11 @@
-import { Box, BoxProps, Flex, Icon, Image, Text } from "@chakra-ui/core";
+import { Box, BoxProps, Flex, Text } from "@chakra-ui/core";
 import React from "react";
-import { FcMusic, FcFilmReel } from "react-icons/fc";
-import { FaMicrophoneAlt } from "react-icons/fa";
-import { GoMegaphone } from "react-icons/go";
-import { GiLargeDress } from "react-icons/gi";
-import { MdEvent } from "react-icons/md";
+import AuditionIcon from "./AuditionIcon";
 
 type AgencyCardProps = {
   name: string;
   audition_number: number;
 } & BoxProps;
-
-function getIconByName(name: string) {
-  let icon = null;
-  let color = "initial";
-  switch (name) {
-    case "Film":
-      icon = FcFilmReel;
-      break;
-    case "Musical":
-      icon = FcMusic;
-      break;
-    case "Voiceover":
-      icon = FaMicrophoneAlt;
-      color = "green.500";
-      break;
-    case "Commercial":
-      icon = GoMegaphone;
-      color = "orange.500";
-      break;
-    case "Modeling":
-      icon = GiLargeDress;
-      color = "blue.500";
-      break;
-    case "Event":
-      icon = MdEvent;
-      color = "purple.500";
-      break;
-    default:
-      icon = null;
-  }
-  if (icon == null) {
-    return null;
-  }
-  return <Icon mb={3} as={icon} boxSize={6} color={color} />;
-}
 
 export default function AuditionTypeCard({
   name,
@@ -64,7 +25,7 @@ export default function AuditionTypeCard({
       border="1px solid #eee"
       _first={{ marginLeft: 0 }}
     >
-      {getIconByName(name)}
+      <AuditionIcon name={name} boxSize={6} mb={3} />
       <Flex direction="column" align="center" mb={1}>
         <Text fontWeight="bold">{name}</Text>
       </Flex>

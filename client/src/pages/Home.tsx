@@ -53,15 +53,18 @@ function Home() {
         {loading && <Skeleton height="100px" />}
         {loading && <Skeleton height="100px" />}
         {data &&
-          data.audition.map(({ id, name, city, audition_tags }) => (
-            <AuditionCard
-              audition_id={id}
-              name={name}
-              tags={audition_tags.map((tag) => tag.tag.name)}
-              location={city.name}
-              timeSincePosted="3d"
-            />
-          ))}
+          data.audition.map(
+            ({ id, name, city, audition_tags, audition_type }) => (
+              <AuditionCard
+                audition_type={audition_type.name}
+                audition_id={id}
+                name={name}
+                tags={audition_tags.map((tag) => tag.tag.name)}
+                location={city.name}
+                timeSincePosted="3d"
+              />
+            )
+          )}
       </Stack>
     </Box>
   );

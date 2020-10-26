@@ -4,6 +4,9 @@ fragment AuditionCard on audition {
   city {
     name
   }
+  audition_type {
+    name
+  }
   created_at
   audition_tags {
     tag {
