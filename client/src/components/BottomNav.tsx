@@ -1,5 +1,5 @@
 import { Box, Stack } from "@chakra-ui/core";
-import { MdBusiness, MdHome, MdMovie, MdPerson } from "react-icons/md";
+import { MdHome, MdMovie, MdPerson } from "react-icons/md";
 import { FaTheaterMasks } from "react-icons/fa";
 import React from "react";
 import { Link, useLocation } from "react-router-dom";

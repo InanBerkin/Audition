@@ -38,7 +38,7 @@ export enum ETHNICITY {
   WHITE = "White / European Descent",
 }
 
-export enum BODY_TYPE {
+export enum BODY_SHAPE {
   AVERAGE = "Average",
   SLIM = "Slim",
   TONED = "Toned",

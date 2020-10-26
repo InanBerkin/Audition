@@ -1,7 +1,6 @@
 import { Badge, BadgeProps } from "@chakra-ui/core";
 import React, { ReactElement } from "react";
 import { AUDITION_TYPE } from "../utils/constants";
-import AuditionIcon from "./AuditionIcon";
 
 type TagProps = {
   content: string;
