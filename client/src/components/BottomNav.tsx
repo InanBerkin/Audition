@@ -15,6 +15,8 @@ function BottomNav() {
   return (
     <Stack
       position="fixed"
+      transform=" translate(-50%, 0%);"
+      left="50%"
       bottom={0}
       width="100%"
       maxWidth="500px"

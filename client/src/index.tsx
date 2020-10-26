@@ -4,6 +4,7 @@ import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
+import { theme, ChakraProvider } from "@chakra-ui/core";
 
 const client = new ApolloClient({
   uri: "http://localhost:8080/v1/graphql",
@@ -13,7 +14,9 @@ const client = new ApolloClient({
 ReactDOM.render(
   <React.StrictMode>
     <ApolloProvider client={client}>
-      <App />
+      <ChakraProvider theme={theme}>
+        <App />
+      </ChakraProvider>
     </ApolloProvider>
   </React.StrictMode>,
   document.getElementById("root")

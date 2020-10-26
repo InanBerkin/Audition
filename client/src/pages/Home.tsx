@@ -1,12 +1,21 @@
 import React from "react";
 import { Box, Flex, Heading, Stack, Link, Skeleton } from "@chakra-ui/core";
 import { AuditionCard } from "../components/AuditionCard";
-import { useAuditionsQuery } from "../generated/graphql";
+import {
+  useAuditionsQuery,
+  useGetAuditionTypeCountQuery,
+} from "../generated/graphql";
+import AuditionTypeCard from "../components/AuditionTypeCard";
 
 function Home() {
   const { data, error, loading } = useAuditionsQuery();
+  const {
+    data: typeData,
+    error: typeError,
+    loading: typeLoading,
+  } = useGetAuditionTypeCountQuery();
 
-  if (error) {
+  if (error || typeError) {
     return (
       <div>
         <div>You got query failed for some reason</div>
@@ -16,11 +25,21 @@ function Home() {
   }
 
   return (
-    <Box p={4} h="100vh">
+    <Box p={4}>
       <Heading fontSize="2xl" mb={4}>
         Welcome
       </Heading>
-      <Stack isInline spacing={4} pr={2} overflowX="scroll"></Stack>
+      <Stack isInline spacing={4} pr={2} overflowX="scroll">
+        {typeLoading && <Skeleton minW="150px" h="200px" />}
+        {typeLoading && <Skeleton minW="150px" h="200px" />}
+        {typeLoading && <Skeleton minW="150px" h="200px" />}
+        {typeData?.audition_type.map(({ name, auditions_aggregate }) => (
+          <AuditionTypeCard
+            name={name}
+            audition_number={auditions_aggregate.aggregate?.count || 0}
+          />
+        ))}
+      </Stack>
       <Heading fontSize="2xl" mb={4} mt={6}>
         <Flex justify="space-between" align="center">
           Auditions For You

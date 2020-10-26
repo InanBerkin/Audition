@@ -1,0 +1,10 @@
+query GetAuditionTypeCount {
+  audition_type {
+    name
+    auditions_aggregate {
+      aggregate {
+        count
+      }
+    }
+  }
+}

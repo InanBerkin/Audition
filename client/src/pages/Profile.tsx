@@ -18,6 +18,7 @@ import { FaGenderless } from "react-icons/fa";
 import { BiBody } from "react-icons/bi";
 import { useUserByIdQuery } from "../generated/graphql";
 import { getUID } from "../utils/getUID";
+import HighlightVideoBox from "../components/HighlightVideoBox";
 
 const imageSize = 100;
 
@@ -76,9 +77,9 @@ export default function Profile(): ReactElement {
         Highlights
       </Heading>
       <Stack isInline spacing={4} px={2} overflowX="scroll">
-        {/* <HighlightVideoBox />
-          <HighlightVideoBox url="/assets/video.webm" />
-          <HighlightVideoBox url="/assets/video.webm" /> */}
+        <HighlightVideoBox />
+        <HighlightVideoBox url="/assets/highlight.webm" />
+        <HighlightVideoBox url="/assets/highlight.webm" />
       </Stack>
       <Heading m={4} size="lg">
         Attributes
@@ -87,21 +88,21 @@ export default function Profile(): ReactElement {
         <SimpleGrid columns={2} spacing={3} px={4}>
           <Box>
             <ListIcon
-              as={getGenderIcon(user?.physical_attribute?.gender.name)}
+              as={getGenderIcon(user?.physical_attribute?.gender?.name)}
             />
-            {user?.physical_attribute?.gender.name}
+            {user?.physical_attribute?.gender?.name}
           </Box>
           <Box>
             <ListIcon as={MdPeople} />
-            {user?.physical_attribute?.ethnicity.name}
+            {user?.physical_attribute?.ethnicity?.name}
           </Box>
           <Box>
             <ListIcon as={CgEye} />
-            {user?.physical_attribute?.eye_color.name} Eyed
+            {user?.physical_attribute?.eye_color?.name} Eyed
           </Box>
           <Box>
             <ListIcon as={GiHairStrands} />
-            {user?.physical_attribute?.hair_color.name} Haired
+            {user?.physical_attribute?.hair_color?.name} Haired
           </Box>
           <Box>
             <ListIcon as={CgRuler} />
@@ -109,7 +110,7 @@ export default function Profile(): ReactElement {
           </Box>
           <Box>
             <ListIcon as={BiBody} />
-            {user?.physical_attribute?.body_type.name} Shape
+            {user?.physical_attribute?.body_type?.name} Shape
           </Box>
         </SimpleGrid>
       </Skeleton>

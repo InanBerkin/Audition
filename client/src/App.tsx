@@ -1,4 +1,3 @@
-import { theme, ChakraProvider } from "@chakra-ui/core";
 import React from "react";
 import {
   BrowserRouter as Router,
@@ -16,27 +15,25 @@ import SignUp from "./pages/SignUp";
 
 function App() {
   return (
-    <ChakraProvider theme={theme}>
-      <Router>
-        <Switch>
-          <PrivateRoute exact path="/">
-            <Home />
-          </PrivateRoute>
-          <PrivateRoute path="/profile">
-            <Profile />
-          </PrivateRoute>
-          <PrivateRoute path="/audition/:id">
-            <Audition />
-          </PrivateRoute>
-          <Route path="/signin">
-            <SignIn />
-          </Route>
-          <Route path="/signup">
-            <SignUp />
-          </Route>
-        </Switch>
-      </Router>
-    </ChakraProvider>
+    <Router>
+      <Switch>
+        <PrivateRoute exact path="/">
+          <Home />
+        </PrivateRoute>
+        <PrivateRoute path="/profile">
+          <Profile />
+        </PrivateRoute>
+        <PrivateRoute path="/audition/:id">
+          <Audition />
+        </PrivateRoute>
+        <Route path="/signin">
+          <SignIn />
+        </Route>
+        <Route path="/signup">
+          <SignUp />
+        </Route>
+      </Switch>
+    </Router>
   );
 }
 

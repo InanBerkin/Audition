@@ -1090,8 +1090,32 @@ export type Audition_Tag_Variance_Order_By = {
 /** columns and relationships of "audition_type" */
 export type Audition_Type = {
   __typename?: 'audition_type';
+  /** An array relationship */
+  auditions: Array<Audition>;
+  /** An aggregated array relationship */
+  auditions_aggregate: Audition_Aggregate;
   id: Scalars['Int'];
   name: Scalars['String'];
+};
+
+
+/** columns and relationships of "audition_type" */
+export type Audition_TypeAuditionsArgs = {
+  distinct_on?: Maybe<Array<Audition_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Audition_Order_By>>;
+  where?: Maybe<Audition_Bool_Exp>;
+};
+
+
+/** columns and relationships of "audition_type" */
+export type Audition_TypeAuditions_AggregateArgs = {
+  distinct_on?: Maybe<Array<Audition_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Audition_Order_By>>;
+  where?: Maybe<Audition_Bool_Exp>;
 };
 
 /** aggregated selection of "audition_type" */
@@ -1161,6 +1185,7 @@ export type Audition_Type_Bool_Exp = {
   _and?: Maybe<Array<Maybe<Audition_Type_Bool_Exp>>>;
   _not?: Maybe<Audition_Type_Bool_Exp>;
   _or?: Maybe<Array<Maybe<Audition_Type_Bool_Exp>>>;
+  auditions?: Maybe<Audition_Bool_Exp>;
   id?: Maybe<Int_Comparison_Exp>;
   name?: Maybe<String_Comparison_Exp>;
 };
@@ -1180,6 +1205,7 @@ export type Audition_Type_Inc_Input = {
 
 /** input type for inserting data into table "audition_type" */
 export type Audition_Type_Insert_Input = {
+  auditions?: Maybe<Audition_Arr_Rel_Insert_Input>;
   id?: Maybe<Scalars['Int']>;
   name?: Maybe<Scalars['String']>;
 };
@@ -1234,6 +1260,7 @@ export type Audition_Type_On_Conflict = {
 
 /** ordering options when selecting data from "audition_type" */
 export type Audition_Type_Order_By = {
+  auditions_aggregate?: Maybe<Audition_Aggregate_Order_By>;
   id?: Maybe<Order_By>;
   name?: Maybe<Order_By>;
 };
@@ -9996,6 +10023,24 @@ export type AuditionByIdQuery = (
   )> }
 );
 
+export type GetAuditionTypeCountQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetAuditionTypeCountQuery = (
+  { __typename?: 'query_root' }
+  & { audition_type: Array<(
+    { __typename?: 'audition_type' }
+    & Pick<Audition_Type, 'name'>
+    & { auditions_aggregate: (
+      { __typename?: 'audition_aggregate' }
+      & { aggregate?: Maybe<(
+        { __typename?: 'audition_aggregate_fields' }
+        & Pick<Audition_Aggregate_Fields, 'count'>
+      )> }
+    ) }
+  )> }
+);
+
 export type AuditionsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -10169,6 +10214,43 @@ export function useAuditionByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptio
 export type AuditionByIdQueryHookResult = ReturnType<typeof useAuditionByIdQuery>;
 export type AuditionByIdLazyQueryHookResult = ReturnType<typeof useAuditionByIdLazyQuery>;
 export type AuditionByIdQueryResult = Apollo.QueryResult<AuditionByIdQuery, AuditionByIdQueryVariables>;
+export const GetAuditionTypeCountDocument = gql`
+    query GetAuditionTypeCount {
+  audition_type {
+    name
+    auditions_aggregate {
+      aggregate {
+        count
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetAuditionTypeCountQuery__
+ *
+ * To run a query within a React component, call `useGetAuditionTypeCountQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAuditionTypeCountQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAuditionTypeCountQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetAuditionTypeCountQuery(baseOptions?: Apollo.QueryHookOptions<GetAuditionTypeCountQuery, GetAuditionTypeCountQueryVariables>) {
+        return Apollo.useQuery<GetAuditionTypeCountQuery, GetAuditionTypeCountQueryVariables>(GetAuditionTypeCountDocument, baseOptions);
+      }
+export function useGetAuditionTypeCountLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAuditionTypeCountQuery, GetAuditionTypeCountQueryVariables>) {
+          return Apollo.useLazyQuery<GetAuditionTypeCountQuery, GetAuditionTypeCountQueryVariables>(GetAuditionTypeCountDocument, baseOptions);
+        }
+export type GetAuditionTypeCountQueryHookResult = ReturnType<typeof useGetAuditionTypeCountQuery>;
+export type GetAuditionTypeCountLazyQueryHookResult = ReturnType<typeof useGetAuditionTypeCountLazyQuery>;
+export type GetAuditionTypeCountQueryResult = Apollo.QueryResult<GetAuditionTypeCountQuery, GetAuditionTypeCountQueryVariables>;
 export const AuditionsDocument = gql`
     query Auditions {
   audition(limit: 5, order_by: {created_at: desc}) {
