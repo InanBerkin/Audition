@@ -8,6 +8,7 @@ import {
 import BottomNav from "./components/BottomNav";
 import Header from "./components/Header";
 import Audition from "./pages/Audition";
+import CreateAudition from "./pages/CreateAudition";
 import Home from "./pages/Home";
 import Profile from "./pages/Profile";
 import SignIn from "./pages/SignIn";
@@ -25,6 +26,9 @@ function App() {
         </PrivateRoute>
         <PrivateRoute path="/audition/:id">
           <Audition />
+        </PrivateRoute>
+        <PrivateRoute path="/create-audition">
+          <CreateAudition />
         </PrivateRoute>
         <Route path="/signin">
           <SignIn />

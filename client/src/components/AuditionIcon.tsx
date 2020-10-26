@@ -1,8 +1,8 @@
-import { FcMusic, FcFilmReel } from "react-icons/fc";
-import { FaMicrophoneAlt } from "react-icons/fa";
+import { FaMicrophoneAlt, FaFilm } from "react-icons/fa";
 import { GoMegaphone } from "react-icons/go";
 import { GiLargeDress } from "react-icons/gi";
 import { MdEvent } from "react-icons/md";
+import { CgMusicNote } from "react-icons/cg";
 import { AUDITION_TYPE } from "../utils/constants";
 import React from "react";
 import { Icon, IconProps } from "@chakra-ui/core";
@@ -11,31 +11,37 @@ type AuditionIconProps = {
   name: String;
 } & IconProps;
 
-export default function AuditionIcon({ name, ...props }: AuditionIconProps) {
+export default function AuditionIcon({
+  name,
+  color,
+  ...props
+}: AuditionIconProps) {
   let icon = null;
-  let color = "initial";
+  let iconColor = "initial";
   switch (name) {
     case AUDITION_TYPE.FILM:
-      icon = FcFilmReel;
+      icon = FaFilm;
+      iconColor = "gray.500";
       break;
     case AUDITION_TYPE.MUSICAL:
-      icon = FcMusic;
+      icon = CgMusicNote;
+      iconColor = "pink.500";
       break;
     case AUDITION_TYPE.VOICEOVER:
       icon = FaMicrophoneAlt;
-      color = "green.500";
+      iconColor = "green.500";
       break;
     case AUDITION_TYPE.COMMERCIAL:
       icon = GoMegaphone;
-      color = "orange.500";
+      iconColor = "orange.500";
       break;
     case AUDITION_TYPE.MODELING:
       icon = GiLargeDress;
-      color = "blue.500";
+      iconColor = "blue.500";
       break;
     case AUDITION_TYPE.EVENT:
       icon = MdEvent;
-      color = "purple.500";
+      iconColor = "purple.500";
       break;
     default:
       icon = null;
@@ -43,5 +49,5 @@ export default function AuditionIcon({ name, ...props }: AuditionIconProps) {
   if (icon == null) {
     return null;
   }
-  return <Icon {...props} as={icon} color={color} />;
+  return <Icon {...props} as={icon} color={color || iconColor} />;
 }

@@ -23,7 +23,7 @@ function BottomNav() {
       height="50px"
       bg="white"
       isInline
-      spacing={12}
+      spacing={16}
       justify="center"
       align="center"
       rounded="lg"
@@ -46,9 +46,6 @@ function BottomNav() {
       </Link>
       <Link to="#">
         <Box as={MdMovie} size="32px" opacity={0.5} />
-      </Link>
-      <Link to="#">
-        <Box as={MdBusiness} size="32px" opacity={0.5} />
       </Link>
       <Link to={routes.profile}>
         <Box

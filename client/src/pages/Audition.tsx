@@ -31,7 +31,7 @@ export default function Audition(): ReactElement {
 
   return (
     <Box p={4} bg="#fff">
-      <Flex align="center">
+      <Flex align="baseline">
         <IconButton
           justifyContent="start"
           size="xs"
@@ -42,7 +42,7 @@ export default function Audition(): ReactElement {
             history.goBack();
           }}
         />
-        <Heading fontSize={24}>
+        <Heading mb={2} fontSize={24}>
           <Skeleton isLoaded={!loading}>{audition?.name}</Skeleton>
         </Heading>
       </Flex>

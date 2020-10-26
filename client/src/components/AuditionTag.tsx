@@ -1,6 +1,7 @@
 import { Badge, BadgeProps } from "@chakra-ui/core";
 import React, { ReactElement } from "react";
 import { AUDITION_TYPE } from "../utils/constants";
+import AuditionIcon from "./AuditionIcon";
 
 type TagProps = {
   content: string;
@@ -29,7 +30,12 @@ export default function AuditionTag({
   const { variant, colorScheme } = getTagPropsByName(content);
 
   return (
-    <Badge variant={variant} colorScheme={colorScheme} {...props}>
+    <Badge
+      alignItems="center"
+      variant={variant}
+      colorScheme={colorScheme}
+      {...props}
+    >
       {content}
     </Badge>
   );
