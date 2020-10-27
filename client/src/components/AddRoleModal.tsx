@@ -135,7 +135,9 @@ export default function AddRoleModal({
               >
                 <option value={0}>No Preference</option>
                 {Object.values(GENDER).map((value, i) => (
-                  <option value={i + 1}>{value}</option>
+                  <option key={i} value={i + 1}>
+                    {value}
+                  </option>
                 ))}
               </Select>
 
@@ -151,7 +153,9 @@ export default function AddRoleModal({
               >
                 <option value={0}>No Preference</option>
                 {Object.values(ETHNICITY).map((value, i) => (
-                  <option value={i + 1}>{value}</option>
+                  <option key={i} value={i + 1}>
+                    {value}
+                  </option>
                 ))}
               </Select>
 
@@ -167,7 +171,9 @@ export default function AddRoleModal({
               >
                 <option value={0}>No Preference</option>
                 {Object.values(EYE_COLOR).map((value, i) => (
-                  <option value={i + 1}>{value}</option>
+                  <option key={i} value={i + 1}>
+                    {value}
+                  </option>
                 ))}
               </Select>
 
@@ -183,7 +189,9 @@ export default function AddRoleModal({
               >
                 <option value={0}>No Preference</option>
                 {Object.values(HAIR_COLOR).map((value, i) => (
-                  <option value={i + 1}>{value}</option>
+                  <option key={i} value={i + 1}>
+                    {value}
+                  </option>
                 ))}
               </Select>
 
@@ -199,7 +207,9 @@ export default function AddRoleModal({
               >
                 <option value={0}>No Preference</option>
                 {Object.values(BODY_SHAPE).map((value, i) => (
-                  <option value={i + 1}>{value}</option>
+                  <option key={i} value={i + 1}>
+                    {value}
+                  </option>
                 ))}
               </Select>
 

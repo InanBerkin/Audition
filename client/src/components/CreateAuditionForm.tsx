@@ -18,22 +18,34 @@ import {
   AccordionPanel,
   Flex,
   Spacer,
+  Divider,
+  FormErrorMessage,
+  Text,
 } from "@chakra-ui/core";
-import React, { ReactElement, useState } from "react";
+import React, { ReactElement, useState, useEffect } from "react";
+import { useForm } from "react-hook-form";
 import { MdAdd, MdEdit, MdDelete } from "react-icons/md";
 import { Role } from "../types";
 import { AUDITION_TYPE } from "../utils/constants";
 import AddRoleModal from "./AddRoleModal";
 import AuditionIcon from "./AuditionIcon";
 
+type AuditionForm = {
+  title: string;
+  description: string;
+  company_name: string;
+  audition_type: string;
+  roles: string;
+};
+
 export default function CreateAuditionForm(): ReactElement {
+  const { register, errors, handleSubmit, setError } = useForm<AuditionForm>();
   const [roles, setRoles] = useState<Array<Role>>([]);
   const [editIndex, setEditIndex] = useState<number>(-1);
   const options = Object.values(AUDITION_TYPE);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { getRootProps, getRadioProps } = useRadioGroup({
-    name: "framework",
-    onChange: console.log,
+    name: "audition_type",
   });
   const group = getRootProps();
 
@@ -54,43 +66,88 @@ export default function CreateAuditionForm(): ReactElement {
     onClose();
   }
 
+  function onSubmit(form_data: AuditionForm) {
+    console.log(form_data);
+  }
+
+  useEffect(() => {
+    setError("roles", { message: "" });
+  }, [setError, roles]);
+
   return (
-    <FormControl w="full">
-      <FormLabel mt={4} htmlFor="title">
-        Title
-      </FormLabel>
-      <Input name="title" placeholder="What is the name of your production?" />
-      <FormLabel mt={4} htmlFor="type">
-        Type
-      </FormLabel>
-      <HStack wrap="wrap" {...group}>
-        {options.map((value) => {
-          const radio = getRadioProps({ value });
-          return (
-            <RadioCard icon={value} key={value} {...radio}>
-              {value}
-            </RadioCard>
-          );
-        })}
-      </HStack>
-      <FormLabel mt={4} htmlFor="company">
-        Company
-      </FormLabel>
-      <Input name="company" placeholder="What is the name of your company?" />
-      <FormLabel mt={4} htmlFor="description">
-        Description
-      </FormLabel>
-      <Textarea
-        name="description"
-        placeholder="Describe your audition in more detail..."
-        resize="vertical"
-      />
-      <FormLabel mt={4} mb={0} htmlFor="roles">
-        Roles
-      </FormLabel>
-      <FormHelperText mt={1} mb={2}>
-        Add the roles you are holding the audition
-      </FormHelperText>
+    <form style={{ width: "100%" }} onSubmit={handleSubmit(onSubmit)}>
+      <FormControl isInvalid={!!errors.title}>
+        <FormLabel mt={4} htmlFor="title">
+          Title
+        </FormLabel>
+        <Input
+          name="title"
+          placeholder="What is the name of your production?"
+          ref={register({
+            required: "Please enter a name for the audition",
+          })}
+        />
+        <FormErrorMessage>{errors.title?.message}</FormErrorMessage>
+      </FormControl>
+      <FormControl isInvalid={!!errors.audition_type}>
+        <FormLabel mt={4} htmlFor="type">
+          Type
+        </FormLabel>
+        <HStack wrap="wrap" {...group}>
+          {options.map((value) => {
+            const radio = getRadioProps({ value });
+            return (
+              <RadioCard
+                register={register}
+                {...radio}
+                icon={value}
+                key={value}
+              >
+                {value}
+              </RadioCard>
+            );
+          })}
+        </HStack>
+        <FormErrorMessage>{errors.audition_type?.message}</FormErrorMessage>
+      </FormControl>
+      <FormControl isInvalid={!!errors.company_name}>
+        <FormLabel mt={4} htmlFor="company">
+          Company
+        </FormLabel>
+        <Input
+          name="company_name"
+          placeholder="What is the name of your company?"
+          ref={register({
+            required: "Please enter a company name",
+          })}
+        />
+        <FormErrorMessage>{errors.company_name?.message}</FormErrorMessage>
+      </FormControl>
+      <FormControl isInvalid={!!errors.description}>
+        <FormLabel mt={4} htmlFor="description">
+          Description
+        </FormLabel>
+        <Textarea
+          name="description"
+          placeholder="Describe your audition in more detail..."
+          resize="vertical"
+          ref={register({
+            required: "Please enter a description",
+          })}
+        />
+        <FormErrorMessage>{errors.description?.message}</FormErrorMessage>
+      </FormControl>
+      <FormControl isInvalid={!!errors.roles}>
+        <FormLabel mt={4} mb={0} htmlFor="roles">
+          Roles
+        </FormLabel>
+        <FormHelperText mt={1} mb={2}>
+          Add the roles you are holding the audition
+        </FormHelperText>
+        <Text fontSize="0.875rem" color="#E53E3E" mb={2}>
+          {errors.roles?.message}
+        </Text>
+      </FormControl>
       {roles.length !== 0 && (
         <Accordion mb={4} allowToggle border="1px solid #eee" defaultIndex={0}>
           {roles.map(
@@ -162,7 +219,20 @@ export default function CreateAuditionForm(): ReactElement {
       >
         <ModalOverlay />
       </AddRoleModal>
-    </FormControl>
+      <Divider my={2} w="full" orientation="horizontal" />
+      <Flex justify="flex-end">
+        <Button
+          type="submit"
+          colorScheme="green"
+          onClick={() => {
+            if (roles.length === 0)
+              setError("roles", { message: "Add at least one role" });
+          }}
+        >
+          Publish Audition
+        </Button>
+      </Flex>
+    </form>
   );
 }
 
@@ -173,7 +243,13 @@ function RadioCard(props: any) {
 
   return (
     <Box as="label">
-      <input {...input} />
+      <input
+        {...input}
+        name="audition_type"
+        ref={props.register({
+          required: "Please select an audition type",
+        })}
+      />
       <Box
         {...checkbox}
         display="flex"
