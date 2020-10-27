@@ -9,14 +9,14 @@ export type SignUpFormData = {
 export type SignInFormData = Pick<SignUpFormData, "email" | "password">;
 
 export type Role = {
-  name: String;
-  description: String;
+  name: string;
+  description: string;
   requirements: {
-    gender?: Number;
-    ethnicity?: Number;
-    eye_color?: Number;
-    hair_color?: Number;
-    body_shape?: Number;
-    height?: Number;
+    gender?: number;
+    ethnicity?: number;
+    eye_color?: number;
+    hair_color?: number;
+    body_shape?: number;
+    height?: number;
   };
 };

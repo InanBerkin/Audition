@@ -22,7 +22,7 @@ import {
   Button,
   FormErrorMessage,
 } from "@chakra-ui/core";
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { BiBody } from "react-icons/bi";
 import { CgEye, CgRuler } from "react-icons/cg";
@@ -37,38 +37,54 @@ import {
   HAIR_COLOR,
   BODY_SHAPE,
 } from "../utils/constants";
+import objectMap from "../utils/objectMap";
 
 type RoleModalProps = {
-  onClose: (role: Role) => void;
+  initialData?: Role | null;
+  onClose: (role?: Role) => void;
 } & Omit<ModalProps, "onClose">;
 
-const objectMap = (obj: any, fn: any) =>
-  Object.fromEntries(Object.entries(obj).map(([k, v], i) => [k, fn(v, k, i)]));
-
-export default function RoleModal({
+export default function AddRoleModal({
+  initialData,
   isOpen,
   onClose,
   children,
 }: RoleModalProps) {
-  const { register, errors, handleSubmit } = useForm();
-  const onSubmit = ({ name, description, ...requirements }: any) => {
+  const { register, errors, handleSubmit, setValue, reset } = useForm<Role>();
+  const onSubmit = (data: Role) => {
     const role: Role = {
-      name,
-      description,
-      requirements: objectMap(requirements, (val: any) => parseInt(val)),
+      ...data,
+      requirements: objectMap(data.requirements, (val: any) => parseInt(val)),
     };
     onClose(role);
   };
 
+  //Sets the values for edit form
+  useEffect(() => {
+    if (initialData != null) {
+      setValue("name", initialData.name);
+      setValue("description", initialData.description);
+      setValue("requirements", initialData.requirements);
+    } else {
+      reset();
+    }
+  }, [isOpen, initialData, setValue, reset]);
+
   return (
-    <Modal isOpen={isOpen} onClose={() => {}} closeOnOverlayClick={false}>
+    <Modal
+      isOpen={isOpen}
+      onClose={() => {
+        onClose();
+      }}
+      closeOnOverlayClick={false}
+    >
       {children}
       <ModalContent width={["100%", "800px"]} maxW="100%">
         <form onSubmit={handleSubmit(onSubmit)}>
           <ModalHeader>Add Role</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <FormControl isInvalid={errors.name}>
+            <FormControl isInvalid={!!errors.name}>
               <FormLabel htmlFor="name">Name</FormLabel>
               <Input
                 name="name"
@@ -79,7 +95,7 @@ export default function RoleModal({
               />
               <FormErrorMessage>{errors.name?.message}</FormErrorMessage>
             </FormControl>
-            <FormControl isInvalid={errors.description}>
+            <FormControl isInvalid={!!errors.description}>
               <FormLabel mt={4} htmlFor="description">
                 Description
               </FormLabel>
@@ -111,7 +127,12 @@ export default function RoleModal({
                 <Icon as={FaTransgenderAlt} />
                 <FormLabel mb={0}>Gender</FormLabel>
               </HStack>
-              <Select name="gender" ref={register} defaultValue={0}>
+              <Select
+                id="gender"
+                name="requirements.gender"
+                ref={register}
+                defaultValue={0}
+              >
                 <option value={0}>No Preference</option>
                 {Object.values(GENDER).map((value, i) => (
                   <option value={i + 1}>{value}</option>
@@ -122,7 +143,12 @@ export default function RoleModal({
                 <Icon as={MdPeople} />
                 <FormLabel mb={0}>Ethnicity</FormLabel>
               </HStack>
-              <Select name="ethnicity" ref={register} defaultValue={0}>
+              <Select
+                id="ethnicity"
+                name="requirements.ethnicity"
+                ref={register}
+                defaultValue={0}
+              >
                 <option value={0}>No Preference</option>
                 {Object.values(ETHNICITY).map((value, i) => (
                   <option value={i + 1}>{value}</option>
@@ -133,7 +159,12 @@ export default function RoleModal({
                 <Icon as={CgEye} />
                 <FormLabel mb={0}>Eye Color</FormLabel>
               </HStack>
-              <Select name="eye_color" ref={register} defaultValue={0}>
+              <Select
+                id="eye_color"
+                name="requirements.eye_color"
+                ref={register}
+                defaultValue={0}
+              >
                 <option value={0}>No Preference</option>
                 {Object.values(EYE_COLOR).map((value, i) => (
                   <option value={i + 1}>{value}</option>
@@ -144,7 +175,12 @@ export default function RoleModal({
                 <Icon as={GiHairStrands} />
                 <FormLabel mb={0}>Hair Color</FormLabel>
               </HStack>
-              <Select name="hair_color" ref={register} defaultValue={0}>
+              <Select
+                id="hair_color"
+                name="requirements.hair_color"
+                ref={register}
+                defaultValue={0}
+              >
                 <option value={0}>No Preference</option>
                 {Object.values(HAIR_COLOR).map((value, i) => (
                   <option value={i + 1}>{value}</option>
@@ -155,7 +191,12 @@ export default function RoleModal({
                 <Icon as={BiBody} />
                 <FormLabel mb={0}>Body Shape</FormLabel>
               </HStack>
-              <Select name="body_shape" ref={register} defaultValue={0}>
+              <Select
+                id="body_shape"
+                name="requirements.body_shape"
+                ref={register}
+                defaultValue={0}
+              >
                 <option value={0}>No Preference</option>
                 {Object.values(BODY_SHAPE).map((value, i) => (
                   <option value={i + 1}>{value}</option>
@@ -169,7 +210,7 @@ export default function RoleModal({
               <NumberInput>
                 <InputGroup>
                   <NumberInputField
-                    name="height"
+                    name="requirements.height"
                     borderRightRadius="0"
                     ref={register}
                   />

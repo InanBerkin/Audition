@@ -11,17 +11,23 @@ import {
   useRadio,
   useRadioGroup,
   useDisclosure,
+  Accordion,
+  AccordionButton,
+  AccordionIcon,
+  AccordionItem,
+  AccordionPanel,
+  Flex,
 } from "@chakra-ui/core";
 import React, { ReactElement, useState } from "react";
-import { MdAdd } from "react-icons/md";
+import { MdAdd, MdEdit } from "react-icons/md";
 import { Role } from "../types";
 import { AUDITION_TYPE } from "../utils/constants";
 import AddRoleModal from "./AddRoleModal";
 import AuditionIcon from "./AuditionIcon";
-import AuditionRoles from "./AuditionRoles";
 
 export default function CreateAuditionForm(): ReactElement {
   const [roles, setRoles] = useState<Array<Role>>([]);
+  const [editIndex, setEditIndex] = useState<number>(-1);
   const options = Object.values(AUDITION_TYPE);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { getRootProps, getRadioProps } = useRadioGroup({
@@ -30,8 +36,20 @@ export default function CreateAuditionForm(): ReactElement {
   });
   const group = getRootProps();
 
-  function handleAddRoleModalClose(role: Role) {
-    setRoles((old_roles) => [...old_roles, role]);
+  function handleAddRoleModalClose(role?: Role) {
+    if (role != null) {
+      if (editIndex !== -1) {
+        // Edit existing role
+        setRoles((old_roles) => {
+          let new_roles = old_roles;
+          new_roles[editIndex] = role;
+          return new_roles;
+        });
+      } else {
+        // Add new role
+        setRoles((old_roles) => [...old_roles, role]);
+      }
+    }
     onClose();
   }
 
@@ -72,17 +90,59 @@ export default function CreateAuditionForm(): ReactElement {
       <FormHelperText mt={1} mb={2}>
         Add the roles you are holding the audition
       </FormHelperText>
-      <AuditionRoles mb={2} roles={roles} />
+      {roles.length !== 0 && (
+        <Accordion mb={4} allowToggle border="1px solid #eee" defaultIndex={0}>
+          {roles.map(
+            (
+              { name, description }: { name: string; description: string },
+              i
+            ) => (
+              <AccordionItem key={i}>
+                <AccordionButton>
+                  <Box flex="1" textAlign="left">
+                    {name}
+                  </Box>
+                  <AccordionIcon />
+                </AccordionButton>
+                <AccordionPanel pb={4}>
+                  {description}
+                  <Flex justify="flex-end">
+                    <Button
+                      size="sm"
+                      leftIcon={<MdEdit />}
+                      colorScheme="yellow"
+                      variant="solid"
+                      onClick={() => {
+                        onOpen();
+                        setEditIndex(i);
+                      }}
+                    >
+                      Edit
+                    </Button>
+                  </Flex>
+                </AccordionPanel>
+              </AccordionItem>
+            )
+          )}
+        </Accordion>
+      )}
       <Button
         leftIcon={<MdAdd />}
         colorScheme="teal"
         variant="solid"
         w="full"
-        onClick={onOpen}
+        onClick={() => {
+          setEditIndex(-1);
+          onOpen();
+        }}
       >
         Add Role
       </Button>
-      <AddRoleModal isOpen={isOpen} onClose={handleAddRoleModalClose}>
+      <AddRoleModal
+        initialData={editIndex !== -1 ? roles[editIndex] : null}
+        isOpen={isOpen}
+        onClose={handleAddRoleModalClose}
+      >
         <ModalOverlay />
       </AddRoleModal>
     </FormControl>

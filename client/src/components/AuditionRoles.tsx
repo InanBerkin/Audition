@@ -9,12 +9,10 @@ import {
 } from "@chakra-ui/core";
 import React, { ReactElement } from "react";
 import { RoleDetailsFragment } from "../generated/graphql";
-import { Role } from "../types";
 
 type Props = {
   roles:
     | Array<{ __typename?: "role" } & RoleDetailsFragment>
-    | Array<Role>
     | null
     | undefined;
 } & AccordionProps;
