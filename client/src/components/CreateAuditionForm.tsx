@@ -17,9 +17,10 @@ import {
   AccordionItem,
   AccordionPanel,
   Flex,
+  Spacer,
 } from "@chakra-ui/core";
 import React, { ReactElement, useState } from "react";
-import { MdAdd, MdEdit } from "react-icons/md";
+import { MdAdd, MdEdit, MdDelete } from "react-icons/md";
 import { Role } from "../types";
 import { AUDITION_TYPE } from "../utils/constants";
 import AddRoleModal from "./AddRoleModal";
@@ -41,7 +42,7 @@ export default function CreateAuditionForm(): ReactElement {
       if (editIndex !== -1) {
         // Edit existing role
         setRoles((old_roles) => {
-          let new_roles = old_roles;
+          let new_roles = [...old_roles];
           new_roles[editIndex] = role;
           return new_roles;
         });
@@ -106,7 +107,23 @@ export default function CreateAuditionForm(): ReactElement {
                 </AccordionButton>
                 <AccordionPanel pb={4}>
                   {description}
-                  <Flex justify="flex-end">
+                  <Flex mt={2}>
+                    <Button
+                      size="sm"
+                      leftIcon={<MdDelete />}
+                      colorScheme="red"
+                      variant="solid"
+                      onClick={() => {
+                        setRoles((old_roles) => {
+                          let new_roles = [...old_roles];
+                          new_roles.splice(i, 1);
+                          return new_roles;
+                        });
+                      }}
+                    >
+                      Delete
+                    </Button>
+                    <Spacer />
                     <Button
                       size="sm"
                       leftIcon={<MdEdit />}
