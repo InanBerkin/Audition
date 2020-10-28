@@ -48,7 +48,7 @@ export default function CreateAuditionForm(): ReactElement {
   const { register, errors, handleSubmit, setError, clearErrors } = useForm<
     AuditionForm
   >();
-  const [createAudition, { data, loading }] = useCreateAuditionMutation({
+  const [createAudition, { loading }] = useCreateAuditionMutation({
     onError: (err) => {
       console.log(err);
     },
