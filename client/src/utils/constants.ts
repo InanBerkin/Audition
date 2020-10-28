@@ -38,10 +38,16 @@ export enum ETHNICITY {
   WHITE = "White / European Descent",
 }
 
-export enum BODY_SHAPE {
+export enum BODY_TYPE {
   AVERAGE = "Average",
   SLIM = "Slim",
   TONED = "Toned",
   MUSCULAR = "Muscular",
   CURVY = "Curvy",
 }
+
+export const ROLE_TYPE = {
+  LEAD: { name: "Lead", id: "1" },
+  SUPPORTING: { name: "Supporting", id: "2" },
+  EXTRA: { name: "Extra / Background", id: "3" },
+} as const;

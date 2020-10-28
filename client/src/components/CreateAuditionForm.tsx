@@ -28,8 +28,8 @@ import { MdAdd, MdEdit, MdDelete } from "react-icons/md";
 import {
   useCreateAuditionMutation,
   CreateAuditionMutationVariables,
+  Role_Insert_Input,
 } from "../generated/graphql";
-import { Role } from "../types";
 import { AUDITION_TYPE } from "../utils/constants";
 import getAuditionTypeId from "../utils/getAuditionTypeIdByName";
 import { getUID } from "../utils/getUID";
@@ -53,7 +53,7 @@ export default function CreateAuditionForm(): ReactElement {
       console.log(err);
     },
   });
-  const [roles, setRoles] = useState<Array<Role>>([]);
+  const [roles, setRoles] = useState<Array<Role_Insert_Input>>([]);
   const [editIndex, setEditIndex] = useState<number>(-1);
   const options = Object.values(AUDITION_TYPE);
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -62,7 +62,7 @@ export default function CreateAuditionForm(): ReactElement {
   });
   const group = getRootProps();
 
-  function handleAddRoleModalClose(role?: Role) {
+  function handleAddRoleModalClose(role?: Role_Insert_Input) {
     if (role != null) {
       if (editIndex !== -1) {
         // Edit existing role
@@ -80,6 +80,8 @@ export default function CreateAuditionForm(): ReactElement {
   }
 
   function onSubmit(form_data: AuditionForm) {
+    console.log(roles);
+
     const created_audition: CreateAuditionMutationVariables = {
       audition_input: {
         name: form_data.title,
@@ -91,27 +93,7 @@ export default function CreateAuditionForm(): ReactElement {
           form_data.audition_type as AUDITION_TYPE
         ),
         roles: {
-          data: roles.map((role) => {
-            return {
-              name: role.name,
-              description: role.description,
-              role_type_id: 1,
-              requirement: {
-                data: {
-                  physical_attribute: {
-                    data: {
-                      eye_color_id: role.requirements.eye_color,
-                      hair_color_id: role.requirements.hair_color,
-                      ethnicity_id: role.requirements.ethnicity,
-                      gender_id: role.requirements.gender,
-                      body_type_id: role.requirements.body_shape,
-                      height: role.requirements.height,
-                    },
-                  },
-                },
-              },
-            };
-          }),
+          data: roles,
         },
       },
     };
@@ -208,54 +190,49 @@ export default function CreateAuditionForm(): ReactElement {
             border="1px solid #eee"
             defaultIndex={0}
           >
-            {roles.map(
-              (
-                { name, description }: { name: string; description: string },
-                i
-              ) => (
-                <AccordionItem key={i}>
-                  <AccordionButton>
-                    <Box flex="1" textAlign="left">
-                      {name}
-                    </Box>
-                    <AccordionIcon />
-                  </AccordionButton>
-                  <AccordionPanel pb={4}>
-                    {description}
-                    <Flex mt={2}>
-                      <Button
-                        size="sm"
-                        leftIcon={<MdDelete />}
-                        colorScheme="red"
-                        variant="solid"
-                        onClick={() => {
-                          setRoles((old_roles) => {
-                            let new_roles = [...old_roles];
-                            new_roles.splice(i, 1);
-                            return new_roles;
-                          });
-                        }}
-                      >
-                        Delete
-                      </Button>
-                      <Spacer />
-                      <Button
-                        size="sm"
-                        leftIcon={<MdEdit />}
-                        colorScheme="yellow"
-                        variant="solid"
-                        onClick={() => {
-                          onOpen();
-                          setEditIndex(i);
-                        }}
-                      >
-                        Edit
-                      </Button>
-                    </Flex>
-                  </AccordionPanel>
-                </AccordionItem>
-              )
-            )}
+            {roles.map(({ name, description }, i) => (
+              <AccordionItem key={i}>
+                <AccordionButton>
+                  <Box flex="1" textAlign="left">
+                    {name}
+                  </Box>
+                  <AccordionIcon />
+                </AccordionButton>
+                <AccordionPanel pb={4}>
+                  {description}
+                  <Flex mt={2}>
+                    <Button
+                      size="sm"
+                      leftIcon={<MdDelete />}
+                      colorScheme="red"
+                      variant="solid"
+                      onClick={() => {
+                        setRoles((old_roles) => {
+                          let new_roles = [...old_roles];
+                          new_roles.splice(i, 1);
+                          return new_roles;
+                        });
+                      }}
+                    >
+                      Delete
+                    </Button>
+                    <Spacer />
+                    <Button
+                      size="sm"
+                      leftIcon={<MdEdit />}
+                      colorScheme="yellow"
+                      variant="solid"
+                      onClick={() => {
+                        onOpen();
+                        setEditIndex(i);
+                      }}
+                    >
+                      Edit
+                    </Button>
+                  </Flex>
+                </AccordionPanel>
+              </AccordionItem>
+            ))}
           </Accordion>
         )}
         <Button

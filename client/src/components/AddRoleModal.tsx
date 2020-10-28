@@ -21,6 +21,9 @@ import {
   ModalFooter,
   Button,
   FormErrorMessage,
+  Radio,
+  RadioGroup,
+  Stack,
 } from "@chakra-ui/core";
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
@@ -29,19 +32,20 @@ import { CgEye, CgRuler } from "react-icons/cg";
 import { FaTransgenderAlt } from "react-icons/fa";
 import { GiHairStrands } from "react-icons/gi";
 import { MdPeople } from "react-icons/md";
-import { Role } from "../types";
+import { Role_Insert_Input } from "../generated/graphql";
 import {
   GENDER,
   ETHNICITY,
   EYE_COLOR,
   HAIR_COLOR,
-  BODY_SHAPE,
+  BODY_TYPE,
+  ROLE_TYPE,
 } from "../utils/constants";
 import objectMap from "../utils/objectMap";
 
 type RoleModalProps = {
-  initialData?: Role | null;
-  onClose: (role?: Role) => void;
+  initialData?: Role_Insert_Input | null;
+  onClose: (role?: Role_Insert_Input) => void;
 } & Omit<ModalProps, "onClose">;
 
 export default function AddRoleModal({
@@ -50,16 +54,26 @@ export default function AddRoleModal({
   onClose,
   children,
 }: RoleModalProps) {
-  const { register, errors, handleSubmit, setValue, reset } = useForm<Role>();
-  const onSubmit = (data: Role) => {
-    const role: Role = {
-      ...data,
-      requirements: objectMap(data.requirements, (val: any) => {
-        const req_id = parseInt(val);
-        return req_id === 0 ? null : req_id;
-      }),
-    };
-    onClose(role);
+  const { register, errors, handleSubmit, setValue, reset } = useForm<
+    Role_Insert_Input
+  >();
+  const onSubmit = (role_form_data: Role_Insert_Input) => {
+    console.log(role_form_data);
+
+    onClose({
+      ...role_form_data,
+      role_type_id: parseInt((role_form_data.role_type_id as any) as string),
+      requirement: {
+        data: {
+          physical_attribute: {
+            data: objectMap(role_form_data.requirement, (val: any) => {
+              const req_id = parseInt(val);
+              return req_id === 0 ? null : req_id;
+            }),
+          },
+        },
+      },
+    });
   };
 
   //Sets the values for edit form
@@ -67,7 +81,7 @@ export default function AddRoleModal({
     if (initialData != null) {
       setValue("name", initialData.name);
       setValue("description", initialData.description);
-      setValue("requirements", initialData.requirements);
+      setValue("requirement", initialData.requirement);
     } else {
       reset();
     }
@@ -98,6 +112,26 @@ export default function AddRoleModal({
               />
               <FormErrorMessage>{errors.name?.message}</FormErrorMessage>
             </FormControl>
+            <FormControl>
+              <FormLabel mt={4} htmlFor="role_type_id">
+                Role Type
+              </FormLabel>
+              <RadioGroup defaultValue="1">
+                <Stack spacing={4} direction="row">
+                  {Object.values(ROLE_TYPE).map(({ id, name }) => (
+                    <Radio
+                      name="role_type_id"
+                      ref={register({
+                        required: "Please select a type for the role",
+                      })}
+                      value={id}
+                    >
+                      {name}
+                    </Radio>
+                  ))}
+                </Stack>
+              </RadioGroup>
+            </FormControl>
             <FormControl isInvalid={!!errors.description}>
               <FormLabel mt={4} htmlFor="description">
                 Description
@@ -117,7 +151,7 @@ export default function AddRoleModal({
               <FormErrorMessage>{errors.description?.message}</FormErrorMessage>
             </FormControl>
 
-            <FormLabel mt={4} htmlFor="requirements">
+            <FormLabel mt={4} htmlFor="requirement">
               Requirements
             </FormLabel>
             <SimpleGrid
@@ -132,7 +166,7 @@ export default function AddRoleModal({
               </HStack>
               <Select
                 id="gender"
-                name="requirements.gender"
+                name="requirement.gender_id"
                 ref={register}
                 defaultValue={0}
               >
@@ -150,7 +184,7 @@ export default function AddRoleModal({
               </HStack>
               <Select
                 id="ethnicity"
-                name="requirements.ethnicity"
+                name="requirement.ethnicity_id"
                 ref={register}
                 defaultValue={0}
               >
@@ -168,7 +202,7 @@ export default function AddRoleModal({
               </HStack>
               <Select
                 id="eye_color"
-                name="requirements.eye_color"
+                name="requirement.eye_color_id"
                 ref={register}
                 defaultValue={0}
               >
@@ -186,7 +220,7 @@ export default function AddRoleModal({
               </HStack>
               <Select
                 id="hair_color"
-                name="requirements.hair_color"
+                name="requirement.hair_color_id"
                 ref={register}
                 defaultValue={0}
               >
@@ -200,16 +234,16 @@ export default function AddRoleModal({
 
               <HStack>
                 <Icon as={BiBody} />
-                <FormLabel mb={0}>Body Shape</FormLabel>
+                <FormLabel mb={0}>Body Type</FormLabel>
               </HStack>
               <Select
-                id="body_shape"
-                name="requirements.body_shape"
+                id="body_type"
+                name="requirement.body_type_id"
                 ref={register}
                 defaultValue={0}
               >
                 <option value={0}>No Preference</option>
-                {Object.values(BODY_SHAPE).map((value, i) => (
+                {Object.values(BODY_TYPE).map((value, i) => (
                   <option key={i} value={i + 1}>
                     {value}
                   </option>
@@ -223,7 +257,7 @@ export default function AddRoleModal({
               <NumberInput>
                 <InputGroup>
                   <NumberInputField
-                    name="requirements.height"
+                    name="requirement.height"
                     borderRightRadius="0"
                     ref={register}
                   />
