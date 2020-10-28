@@ -54,7 +54,10 @@ export default function AddRoleModal({
   const onSubmit = (data: Role) => {
     const role: Role = {
       ...data,
-      requirements: objectMap(data.requirements, (val: any) => parseInt(val)),
+      requirements: objectMap(data.requirements, (val: any) => {
+        const req_id = parseInt(val);
+        return req_id === 0 ? null : req_id;
+      }),
     };
     onClose(role);
   };
@@ -80,7 +83,7 @@ export default function AddRoleModal({
     >
       {children}
       <ModalContent width={["100%", "800px"]} maxW="100%">
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form key={2} id="role_form" onSubmit={handleSubmit(onSubmit)}>
           <ModalHeader>Add Role</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
@@ -230,7 +233,7 @@ export default function AddRoleModal({
             </SimpleGrid>
           </ModalBody>
           <ModalFooter>
-            <Button type="submit" colorScheme="green">
+            <Button type="submit" colorScheme="green" form="role_form">
               Save
             </Button>
           </ModalFooter>

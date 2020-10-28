@@ -10013,6 +10013,19 @@ export type UserProfileFragment = (
   )> }
 );
 
+export type CreateAuditionMutationVariables = Exact<{
+  audition_input: Audition_Insert_Input;
+}>;
+
+
+export type CreateAuditionMutation = (
+  { __typename?: 'mutation_root' }
+  & { insert_audition_one?: Maybe<(
+    { __typename?: 'audition' }
+    & Pick<Audition, 'id'>
+  )> }
+);
+
 export type AuditionByIdQueryVariables = Exact<{
   id: Scalars['Int'];
 }>;
@@ -10187,6 +10200,38 @@ export const UserProfileFragmentDoc = gql`
   }
 }
     ${PhysicalAttributesFragmentDoc}`;
+export const CreateAuditionDocument = gql`
+    mutation CreateAudition($audition_input: audition_insert_input!) {
+  insert_audition_one(object: $audition_input) {
+    id
+  }
+}
+    `;
+export type CreateAuditionMutationFn = Apollo.MutationFunction<CreateAuditionMutation, CreateAuditionMutationVariables>;
+
+/**
+ * __useCreateAuditionMutation__
+ *
+ * To run a mutation, you first call `useCreateAuditionMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateAuditionMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createAuditionMutation, { data, loading, error }] = useCreateAuditionMutation({
+ *   variables: {
+ *      audition_input: // value for 'audition_input'
+ *   },
+ * });
+ */
+export function useCreateAuditionMutation(baseOptions?: Apollo.MutationHookOptions<CreateAuditionMutation, CreateAuditionMutationVariables>) {
+        return Apollo.useMutation<CreateAuditionMutation, CreateAuditionMutationVariables>(CreateAuditionDocument, baseOptions);
+      }
+export type CreateAuditionMutationHookResult = ReturnType<typeof useCreateAuditionMutation>;
+export type CreateAuditionMutationResult = Apollo.MutationResult<CreateAuditionMutation>;
+export type CreateAuditionMutationOptions = Apollo.BaseMutationOptions<CreateAuditionMutation, CreateAuditionMutationVariables>;
 export const AuditionByIdDocument = gql`
     query AuditionById($id: Int!) {
   audition_by_pk(id: $id) {

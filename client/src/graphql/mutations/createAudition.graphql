@@ -1,0 +1,5 @@
+mutation CreateAudition($audition_input: audition_insert_input!) {
+  insert_audition_one(object: $audition_input) {
+    id
+  }
+}
