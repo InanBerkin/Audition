@@ -13,6 +13,7 @@ import Home from "./pages/Home";
 import Profile from "./pages/Profile";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
+import Talents from "./pages/Talents";
 
 function App() {
   return (
@@ -26,6 +27,9 @@ function App() {
         </PrivateRoute>
         <PrivateRoute path="/audition/:id">
           <Audition />
+        </PrivateRoute>
+        <PrivateRoute path="/talents">
+          <Talents />
         </PrivateRoute>
         <PrivateRoute path="/create-audition">
           <CreateAudition />

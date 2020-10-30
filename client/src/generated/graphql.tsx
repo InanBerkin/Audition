@@ -10001,6 +10001,15 @@ export type RoleDetailsFragment = (
   )> }
 );
 
+export type TalentCardFragment = (
+  { __typename?: 'user' }
+  & Pick<User, 'id' | 'name' | 'profile_picture'>
+  & { user_type: (
+    { __typename?: 'user_type' }
+    & Pick<User_Type, 'name'>
+  ) }
+);
+
 export type UserProfileFragment = (
   { __typename?: 'user' }
   & Pick<User, 'name' | 'created_at' | 'profile_picture'>
@@ -10082,6 +10091,17 @@ export type SignInUserQuery = (
   & { signin?: Maybe<(
     { __typename?: 'signinActionOutput' }
     & Pick<SigninActionOutput, 'id'>
+  )> }
+);
+
+export type TalentsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type TalentsQuery = (
+  { __typename?: 'query_root' }
+  & { user: Array<(
+    { __typename?: 'user' }
+    & TalentCardFragment
   )> }
 );
 
@@ -10168,6 +10188,16 @@ export const AuditionDetailsFragmentDoc = gql`
   }
 }
     ${RoleDetailsFragmentDoc}`;
+export const TalentCardFragmentDoc = gql`
+    fragment TalentCard on user {
+  id
+  name
+  profile_picture
+  user_type {
+    name
+  }
+}
+    `;
 export const PhysicalAttributesFragmentDoc = gql`
     fragment PhysicalAttributes on physical_attribute {
   age
@@ -10374,6 +10404,38 @@ export function useSignInUserLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions
 export type SignInUserQueryHookResult = ReturnType<typeof useSignInUserQuery>;
 export type SignInUserLazyQueryHookResult = ReturnType<typeof useSignInUserLazyQuery>;
 export type SignInUserQueryResult = Apollo.QueryResult<SignInUserQuery, SignInUserQueryVariables>;
+export const TalentsDocument = gql`
+    query Talents {
+  user(where: {user_type_id: {_lt: 5}}) {
+    ...TalentCard
+  }
+}
+    ${TalentCardFragmentDoc}`;
+
+/**
+ * __useTalentsQuery__
+ *
+ * To run a query within a React component, call `useTalentsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useTalentsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useTalentsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useTalentsQuery(baseOptions?: Apollo.QueryHookOptions<TalentsQuery, TalentsQueryVariables>) {
+        return Apollo.useQuery<TalentsQuery, TalentsQueryVariables>(TalentsDocument, baseOptions);
+      }
+export function useTalentsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<TalentsQuery, TalentsQueryVariables>) {
+          return Apollo.useLazyQuery<TalentsQuery, TalentsQueryVariables>(TalentsDocument, baseOptions);
+        }
+export type TalentsQueryHookResult = ReturnType<typeof useTalentsQuery>;
+export type TalentsLazyQueryHookResult = ReturnType<typeof useTalentsLazyQuery>;
+export type TalentsQueryResult = Apollo.QueryResult<TalentsQuery, TalentsQueryVariables>;
 export const UserByIdDocument = gql`
     query UserById($uid: Int!) {
   user(where: {id: {_eq: $uid}}) {

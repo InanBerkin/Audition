@@ -1,0 +1,8 @@
+fragment TalentCard on user {
+  id
+  name
+  profile_picture
+  user_type {
+    name
+  }
+}
