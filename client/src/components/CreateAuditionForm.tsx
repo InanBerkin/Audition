@@ -21,10 +21,12 @@ import {
   Divider,
   FormErrorMessage,
   Text,
+  useToast,
 } from "@chakra-ui/core";
 import React, { ReactElement, useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { MdAdd, MdEdit, MdDelete } from "react-icons/md";
+import { useHistory } from "react-router-dom";
 import {
   useCreateAuditionMutation,
   CreateAuditionMutationVariables,
@@ -45,12 +47,23 @@ type AuditionForm = {
 };
 
 export default function CreateAuditionForm(): ReactElement {
+  const history = useHistory();
+  const toast = useToast();
   const { register, errors, handleSubmit, setError, clearErrors } = useForm<
     AuditionForm
   >();
   const [createAudition, { loading }] = useCreateAuditionMutation({
     onError: (err) => {
       console.log(err);
+    },
+    onCompleted: (res) => {
+      toast({
+        title: "Created Audition",
+        status: "success",
+        duration: 1000,
+        isClosable: true,
+      });
+      history.push(`/audition/${res.insert_audition_one?.id}`);
     },
   });
   const [roles, setRoles] = useState<Array<Role_Insert_Input>>([]);
