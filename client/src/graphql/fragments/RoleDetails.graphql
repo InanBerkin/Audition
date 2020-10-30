@@ -1,6 +1,9 @@
 fragment RoleDetails on role {
   name
   description
+  role_type {
+    name
+  }
   requirement {
     physical_attribute {
       age

@@ -9973,7 +9973,10 @@ export type PhysicalAttributesFragment = (
 export type RoleDetailsFragment = (
   { __typename?: 'role' }
   & Pick<Role, 'name' | 'description'>
-  & { requirement?: Maybe<(
+  & { role_type: (
+    { __typename?: 'role_type' }
+    & Pick<Role_Type, 'name'>
+  ), requirement?: Maybe<(
     { __typename?: 'requirement' }
     & { physical_attribute?: Maybe<(
       { __typename?: 'physical_attribute' }
@@ -10117,6 +10120,9 @@ export const RoleDetailsFragmentDoc = gql`
     fragment RoleDetails on role {
   name
   description
+  role_type {
+    name
+  }
   requirement {
     physical_attribute {
       age
