@@ -7,9 +7,7 @@ function getRandomRow(knex, table_name) {
   return knex(table_name).orderByRaw("random()").select("id").first();
 }
 
-//Adding voiceover audition
-/** @param {Knex} knex*/
-exports.seed = async function (knex) {
+async function generateFilmAudition(knex) {
   const [user, city, role_type, tag, gender, film] = await Promise.all([
     getRandomRow(knex, tableNames.user),
     getRandomRow(knex, tableNames.city),
@@ -61,4 +59,12 @@ exports.seed = async function (knex) {
     requirement_id: requirement.id,
     role_type_id: role_type.id,
   });
+}
+
+//Adding voiceover audition
+/** @param {Knex} knex*/
+exports.seed = async function (knex) {
+  await generateFilmAudition(knex);
+  await generateFilmAudition(knex);
+  await generateFilmAudition(knex);
 };

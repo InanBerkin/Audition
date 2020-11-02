@@ -8,8 +8,7 @@ function getRandomRow(knex, table_name) {
   return knex(table_name).orderByRaw("random()").first();
 }
 
-/** @param {Knex} knex*/
-exports.seed = async function (knex) {
+async function generateUser(knex) {
   const [
     eye_color,
     hair_color,
@@ -43,10 +42,11 @@ exports.seed = async function (knex) {
     ["id"]
   );
 
+  const username = faker.name.findName();
   await knex(tableNames.user).insert([
     {
-      email: "talent@talent.com",
-      name: faker.name.findName(),
+      email: `${username}@talent.com`,
+      name: username,
       password: await bcrypt.hash("12345678", 10),
       profile_picture: faker.internet.avatar(),
       user_type_id: user_type.id,
@@ -54,4 +54,11 @@ exports.seed = async function (knex) {
       physical_attribute_id: physical_attribute.id,
     },
   ]);
+}
+
+/** @param {Knex} knex*/
+exports.seed = async function (knex) {
+  await generateUser(knex);
+  await generateUser(knex);
+  await generateUser(knex);
 };
