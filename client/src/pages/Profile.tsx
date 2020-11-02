@@ -19,6 +19,7 @@ import { BiBody } from "react-icons/bi";
 import { useUserByIdQuery } from "../generated/graphql";
 import { getUID } from "../utils/getUID";
 import HighlightVideoBox from "../components/HighlightVideoBox";
+import { useParams } from "react-router-dom";
 
 const imageSize = 100;
 
@@ -31,13 +32,18 @@ function getGenderIcon(gender?: string) {
     case "Non-Binary":
       return FaGenderless;
     default:
-      return "";
+      return FaGenderless;
   }
 }
 
+type RouteParams = {
+  id: string;
+};
+
 export default function Profile(): ReactElement {
+  const { id } = useParams<RouteParams>();
   const { data, loading, error } = useUserByIdQuery({
-    variables: { uid: getUID() },
+    variables: { uid: parseInt(id) || getUID() },
   });
 
   const user = data?.user[0];

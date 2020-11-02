@@ -1,4 +1,4 @@
-import { Box, Heading } from "@chakra-ui/core";
+import { Box, Heading, Skeleton, Stack } from "@chakra-ui/core";
 import React, { ReactElement } from "react";
 import TalentCard from "../components/TalentCard";
 import { useTalentsQuery } from "../generated/graphql";
@@ -20,9 +20,14 @@ function Talents(): ReactElement {
       <Heading fontSize="2xl" mb={4}>
         Talents
       </Heading>
-      {data?.user.map((talent) => (
-        <TalentCard talent={talent} />
-      ))}
+      <Stack spacing={2}>
+        {loading && <Skeleton h="65px" />}
+        {loading && <Skeleton h="65px" />}
+        {loading && <Skeleton h="65px" />}
+        {data?.user.map((talent, i) => (
+          <TalentCard key={i} talent={talent} />
+        ))}
+      </Stack>
     </Box>
   );
 }

@@ -22,7 +22,7 @@ function App() {
         <PrivateRoute exact path="/">
           <Home />
         </PrivateRoute>
-        <PrivateRoute path="/profile">
+        <PrivateRoute path="/profile/:id?">
           <Profile />
         </PrivateRoute>
         <PrivateRoute path="/audition/:id">
