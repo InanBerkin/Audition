@@ -46,326 +46,332 @@ export type String_Comparison_Exp = {
   _similar?: Maybe<Scalars['String']>;
 };
 
-/** columns and relationships of "applicants" */
-export type Applicants = {
-  __typename?: 'applicants';
+/** columns and relationships of "applicant" */
+export type Applicant = {
+  __typename?: 'applicant';
   apply_date?: Maybe<Scalars['timestamptz']>;
-  audition_id: Scalars['Int'];
   id: Scalars['Int'];
+  /** An object relationship */
+  role: Role;
+  role_id: Scalars['Int'];
+  /** An object relationship */
+  user: User;
   user_id: Scalars['Int'];
 };
 
-/** aggregated selection of "applicants" */
-export type Applicants_Aggregate = {
-  __typename?: 'applicants_aggregate';
-  aggregate?: Maybe<Applicants_Aggregate_Fields>;
-  nodes: Array<Applicants>;
+/** aggregated selection of "applicant" */
+export type Applicant_Aggregate = {
+  __typename?: 'applicant_aggregate';
+  aggregate?: Maybe<Applicant_Aggregate_Fields>;
+  nodes: Array<Applicant>;
 };
 
-/** aggregate fields of "applicants" */
-export type Applicants_Aggregate_Fields = {
-  __typename?: 'applicants_aggregate_fields';
-  avg?: Maybe<Applicants_Avg_Fields>;
+/** aggregate fields of "applicant" */
+export type Applicant_Aggregate_Fields = {
+  __typename?: 'applicant_aggregate_fields';
+  avg?: Maybe<Applicant_Avg_Fields>;
   count?: Maybe<Scalars['Int']>;
-  max?: Maybe<Applicants_Max_Fields>;
-  min?: Maybe<Applicants_Min_Fields>;
-  stddev?: Maybe<Applicants_Stddev_Fields>;
-  stddev_pop?: Maybe<Applicants_Stddev_Pop_Fields>;
-  stddev_samp?: Maybe<Applicants_Stddev_Samp_Fields>;
-  sum?: Maybe<Applicants_Sum_Fields>;
-  var_pop?: Maybe<Applicants_Var_Pop_Fields>;
-  var_samp?: Maybe<Applicants_Var_Samp_Fields>;
-  variance?: Maybe<Applicants_Variance_Fields>;
+  max?: Maybe<Applicant_Max_Fields>;
+  min?: Maybe<Applicant_Min_Fields>;
+  stddev?: Maybe<Applicant_Stddev_Fields>;
+  stddev_pop?: Maybe<Applicant_Stddev_Pop_Fields>;
+  stddev_samp?: Maybe<Applicant_Stddev_Samp_Fields>;
+  sum?: Maybe<Applicant_Sum_Fields>;
+  var_pop?: Maybe<Applicant_Var_Pop_Fields>;
+  var_samp?: Maybe<Applicant_Var_Samp_Fields>;
+  variance?: Maybe<Applicant_Variance_Fields>;
 };
 
 
-/** aggregate fields of "applicants" */
-export type Applicants_Aggregate_FieldsCountArgs = {
-  columns?: Maybe<Array<Applicants_Select_Column>>;
+/** aggregate fields of "applicant" */
+export type Applicant_Aggregate_FieldsCountArgs = {
+  columns?: Maybe<Array<Applicant_Select_Column>>;
   distinct?: Maybe<Scalars['Boolean']>;
 };
 
-/** order by aggregate values of table "applicants" */
-export type Applicants_Aggregate_Order_By = {
-  avg?: Maybe<Applicants_Avg_Order_By>;
+/** order by aggregate values of table "applicant" */
+export type Applicant_Aggregate_Order_By = {
+  avg?: Maybe<Applicant_Avg_Order_By>;
   count?: Maybe<Order_By>;
-  max?: Maybe<Applicants_Max_Order_By>;
-  min?: Maybe<Applicants_Min_Order_By>;
-  stddev?: Maybe<Applicants_Stddev_Order_By>;
-  stddev_pop?: Maybe<Applicants_Stddev_Pop_Order_By>;
-  stddev_samp?: Maybe<Applicants_Stddev_Samp_Order_By>;
-  sum?: Maybe<Applicants_Sum_Order_By>;
-  var_pop?: Maybe<Applicants_Var_Pop_Order_By>;
-  var_samp?: Maybe<Applicants_Var_Samp_Order_By>;
-  variance?: Maybe<Applicants_Variance_Order_By>;
+  max?: Maybe<Applicant_Max_Order_By>;
+  min?: Maybe<Applicant_Min_Order_By>;
+  stddev?: Maybe<Applicant_Stddev_Order_By>;
+  stddev_pop?: Maybe<Applicant_Stddev_Pop_Order_By>;
+  stddev_samp?: Maybe<Applicant_Stddev_Samp_Order_By>;
+  sum?: Maybe<Applicant_Sum_Order_By>;
+  var_pop?: Maybe<Applicant_Var_Pop_Order_By>;
+  var_samp?: Maybe<Applicant_Var_Samp_Order_By>;
+  variance?: Maybe<Applicant_Variance_Order_By>;
 };
 
-/** input type for inserting array relation for remote table "applicants" */
-export type Applicants_Arr_Rel_Insert_Input = {
-  data: Array<Applicants_Insert_Input>;
-  on_conflict?: Maybe<Applicants_On_Conflict>;
+/** input type for inserting array relation for remote table "applicant" */
+export type Applicant_Arr_Rel_Insert_Input = {
+  data: Array<Applicant_Insert_Input>;
+  on_conflict?: Maybe<Applicant_On_Conflict>;
 };
 
 /** aggregate avg on columns */
-export type Applicants_Avg_Fields = {
-  __typename?: 'applicants_avg_fields';
-  audition_id?: Maybe<Scalars['Float']>;
+export type Applicant_Avg_Fields = {
+  __typename?: 'applicant_avg_fields';
   id?: Maybe<Scalars['Float']>;
+  role_id?: Maybe<Scalars['Float']>;
   user_id?: Maybe<Scalars['Float']>;
 };
 
-/** order by avg() on columns of table "applicants" */
-export type Applicants_Avg_Order_By = {
-  audition_id?: Maybe<Order_By>;
+/** order by avg() on columns of table "applicant" */
+export type Applicant_Avg_Order_By = {
   id?: Maybe<Order_By>;
+  role_id?: Maybe<Order_By>;
   user_id?: Maybe<Order_By>;
 };
 
-/** Boolean expression to filter rows from the table "applicants". All fields are combined with a logical 'AND'. */
-export type Applicants_Bool_Exp = {
-  _and?: Maybe<Array<Maybe<Applicants_Bool_Exp>>>;
-  _not?: Maybe<Applicants_Bool_Exp>;
-  _or?: Maybe<Array<Maybe<Applicants_Bool_Exp>>>;
+/** Boolean expression to filter rows from the table "applicant". All fields are combined with a logical 'AND'. */
+export type Applicant_Bool_Exp = {
+  _and?: Maybe<Array<Maybe<Applicant_Bool_Exp>>>;
+  _not?: Maybe<Applicant_Bool_Exp>;
+  _or?: Maybe<Array<Maybe<Applicant_Bool_Exp>>>;
   apply_date?: Maybe<Timestamptz_Comparison_Exp>;
-  audition_id?: Maybe<Int_Comparison_Exp>;
   id?: Maybe<Int_Comparison_Exp>;
+  role?: Maybe<Role_Bool_Exp>;
+  role_id?: Maybe<Int_Comparison_Exp>;
+  user?: Maybe<User_Bool_Exp>;
   user_id?: Maybe<Int_Comparison_Exp>;
 };
 
-/** unique or primary key constraints on table "applicants" */
-export enum Applicants_Constraint {
+/** unique or primary key constraints on table "applicant" */
+export enum Applicant_Constraint {
   /** unique or primary key constraint */
-  ApplicantsPkey = 'applicants_pkey'
+  ApplicantPkey = 'applicant_pkey'
 }
 
-/** input type for incrementing integer column in table "applicants" */
-export type Applicants_Inc_Input = {
-  audition_id?: Maybe<Scalars['Int']>;
+/** input type for incrementing integer column in table "applicant" */
+export type Applicant_Inc_Input = {
   id?: Maybe<Scalars['Int']>;
+  role_id?: Maybe<Scalars['Int']>;
   user_id?: Maybe<Scalars['Int']>;
 };
 
-/** input type for inserting data into table "applicants" */
-export type Applicants_Insert_Input = {
+/** input type for inserting data into table "applicant" */
+export type Applicant_Insert_Input = {
   apply_date?: Maybe<Scalars['timestamptz']>;
-  audition_id?: Maybe<Scalars['Int']>;
   id?: Maybe<Scalars['Int']>;
+  role?: Maybe<Role_Obj_Rel_Insert_Input>;
+  role_id?: Maybe<Scalars['Int']>;
+  user?: Maybe<User_Obj_Rel_Insert_Input>;
   user_id?: Maybe<Scalars['Int']>;
 };
 
 /** aggregate max on columns */
-export type Applicants_Max_Fields = {
-  __typename?: 'applicants_max_fields';
+export type Applicant_Max_Fields = {
+  __typename?: 'applicant_max_fields';
   apply_date?: Maybe<Scalars['timestamptz']>;
-  audition_id?: Maybe<Scalars['Int']>;
   id?: Maybe<Scalars['Int']>;
+  role_id?: Maybe<Scalars['Int']>;
   user_id?: Maybe<Scalars['Int']>;
 };
 
-/** order by max() on columns of table "applicants" */
-export type Applicants_Max_Order_By = {
+/** order by max() on columns of table "applicant" */
+export type Applicant_Max_Order_By = {
   apply_date?: Maybe<Order_By>;
-  audition_id?: Maybe<Order_By>;
   id?: Maybe<Order_By>;
+  role_id?: Maybe<Order_By>;
   user_id?: Maybe<Order_By>;
 };
 
 /** aggregate min on columns */
-export type Applicants_Min_Fields = {
-  __typename?: 'applicants_min_fields';
+export type Applicant_Min_Fields = {
+  __typename?: 'applicant_min_fields';
   apply_date?: Maybe<Scalars['timestamptz']>;
-  audition_id?: Maybe<Scalars['Int']>;
   id?: Maybe<Scalars['Int']>;
+  role_id?: Maybe<Scalars['Int']>;
   user_id?: Maybe<Scalars['Int']>;
 };
 
-/** order by min() on columns of table "applicants" */
-export type Applicants_Min_Order_By = {
+/** order by min() on columns of table "applicant" */
+export type Applicant_Min_Order_By = {
   apply_date?: Maybe<Order_By>;
-  audition_id?: Maybe<Order_By>;
   id?: Maybe<Order_By>;
+  role_id?: Maybe<Order_By>;
   user_id?: Maybe<Order_By>;
 };
 
-/** response of any mutation on the table "applicants" */
-export type Applicants_Mutation_Response = {
-  __typename?: 'applicants_mutation_response';
+/** response of any mutation on the table "applicant" */
+export type Applicant_Mutation_Response = {
+  __typename?: 'applicant_mutation_response';
   /** number of affected rows by the mutation */
   affected_rows: Scalars['Int'];
   /** data of the affected rows by the mutation */
-  returning: Array<Applicants>;
+  returning: Array<Applicant>;
 };
 
-/** input type for inserting object relation for remote table "applicants" */
-export type Applicants_Obj_Rel_Insert_Input = {
-  data: Applicants_Insert_Input;
-  on_conflict?: Maybe<Applicants_On_Conflict>;
+/** input type for inserting object relation for remote table "applicant" */
+export type Applicant_Obj_Rel_Insert_Input = {
+  data: Applicant_Insert_Input;
+  on_conflict?: Maybe<Applicant_On_Conflict>;
 };
 
-/** on conflict condition type for table "applicants" */
-export type Applicants_On_Conflict = {
-  constraint: Applicants_Constraint;
-  update_columns: Array<Applicants_Update_Column>;
-  where?: Maybe<Applicants_Bool_Exp>;
+/** on conflict condition type for table "applicant" */
+export type Applicant_On_Conflict = {
+  constraint: Applicant_Constraint;
+  update_columns: Array<Applicant_Update_Column>;
+  where?: Maybe<Applicant_Bool_Exp>;
 };
 
-/** ordering options when selecting data from "applicants" */
-export type Applicants_Order_By = {
+/** ordering options when selecting data from "applicant" */
+export type Applicant_Order_By = {
   apply_date?: Maybe<Order_By>;
-  audition_id?: Maybe<Order_By>;
   id?: Maybe<Order_By>;
+  role?: Maybe<Role_Order_By>;
+  role_id?: Maybe<Order_By>;
+  user?: Maybe<User_Order_By>;
   user_id?: Maybe<Order_By>;
 };
 
-/** primary key columns input for table: "applicants" */
-export type Applicants_Pk_Columns_Input = {
+/** primary key columns input for table: "applicant" */
+export type Applicant_Pk_Columns_Input = {
   id: Scalars['Int'];
 };
 
-/** select columns of table "applicants" */
-export enum Applicants_Select_Column {
+/** select columns of table "applicant" */
+export enum Applicant_Select_Column {
   /** column name */
   ApplyDate = 'apply_date',
   /** column name */
-  AuditionId = 'audition_id',
-  /** column name */
   Id = 'id',
+  /** column name */
+  RoleId = 'role_id',
   /** column name */
   UserId = 'user_id'
 }
 
-/** input type for updating data in table "applicants" */
-export type Applicants_Set_Input = {
+/** input type for updating data in table "applicant" */
+export type Applicant_Set_Input = {
   apply_date?: Maybe<Scalars['timestamptz']>;
-  audition_id?: Maybe<Scalars['Int']>;
   id?: Maybe<Scalars['Int']>;
+  role_id?: Maybe<Scalars['Int']>;
   user_id?: Maybe<Scalars['Int']>;
 };
 
 /** aggregate stddev on columns */
-export type Applicants_Stddev_Fields = {
-  __typename?: 'applicants_stddev_fields';
-  audition_id?: Maybe<Scalars['Float']>;
+export type Applicant_Stddev_Fields = {
+  __typename?: 'applicant_stddev_fields';
   id?: Maybe<Scalars['Float']>;
+  role_id?: Maybe<Scalars['Float']>;
   user_id?: Maybe<Scalars['Float']>;
 };
 
-/** order by stddev() on columns of table "applicants" */
-export type Applicants_Stddev_Order_By = {
-  audition_id?: Maybe<Order_By>;
+/** order by stddev() on columns of table "applicant" */
+export type Applicant_Stddev_Order_By = {
   id?: Maybe<Order_By>;
+  role_id?: Maybe<Order_By>;
   user_id?: Maybe<Order_By>;
 };
 
 /** aggregate stddev_pop on columns */
-export type Applicants_Stddev_Pop_Fields = {
-  __typename?: 'applicants_stddev_pop_fields';
-  audition_id?: Maybe<Scalars['Float']>;
+export type Applicant_Stddev_Pop_Fields = {
+  __typename?: 'applicant_stddev_pop_fields';
   id?: Maybe<Scalars['Float']>;
+  role_id?: Maybe<Scalars['Float']>;
   user_id?: Maybe<Scalars['Float']>;
 };
 
-/** order by stddev_pop() on columns of table "applicants" */
-export type Applicants_Stddev_Pop_Order_By = {
-  audition_id?: Maybe<Order_By>;
+/** order by stddev_pop() on columns of table "applicant" */
+export type Applicant_Stddev_Pop_Order_By = {
   id?: Maybe<Order_By>;
+  role_id?: Maybe<Order_By>;
   user_id?: Maybe<Order_By>;
 };
 
 /** aggregate stddev_samp on columns */
-export type Applicants_Stddev_Samp_Fields = {
-  __typename?: 'applicants_stddev_samp_fields';
-  audition_id?: Maybe<Scalars['Float']>;
+export type Applicant_Stddev_Samp_Fields = {
+  __typename?: 'applicant_stddev_samp_fields';
   id?: Maybe<Scalars['Float']>;
+  role_id?: Maybe<Scalars['Float']>;
   user_id?: Maybe<Scalars['Float']>;
 };
 
-/** order by stddev_samp() on columns of table "applicants" */
-export type Applicants_Stddev_Samp_Order_By = {
-  audition_id?: Maybe<Order_By>;
+/** order by stddev_samp() on columns of table "applicant" */
+export type Applicant_Stddev_Samp_Order_By = {
   id?: Maybe<Order_By>;
+  role_id?: Maybe<Order_By>;
   user_id?: Maybe<Order_By>;
 };
 
 /** aggregate sum on columns */
-export type Applicants_Sum_Fields = {
-  __typename?: 'applicants_sum_fields';
-  audition_id?: Maybe<Scalars['Int']>;
+export type Applicant_Sum_Fields = {
+  __typename?: 'applicant_sum_fields';
   id?: Maybe<Scalars['Int']>;
+  role_id?: Maybe<Scalars['Int']>;
   user_id?: Maybe<Scalars['Int']>;
 };
 
-/** order by sum() on columns of table "applicants" */
-export type Applicants_Sum_Order_By = {
-  audition_id?: Maybe<Order_By>;
+/** order by sum() on columns of table "applicant" */
+export type Applicant_Sum_Order_By = {
   id?: Maybe<Order_By>;
+  role_id?: Maybe<Order_By>;
   user_id?: Maybe<Order_By>;
 };
 
-/** update columns of table "applicants" */
-export enum Applicants_Update_Column {
+/** update columns of table "applicant" */
+export enum Applicant_Update_Column {
   /** column name */
   ApplyDate = 'apply_date',
   /** column name */
-  AuditionId = 'audition_id',
-  /** column name */
   Id = 'id',
+  /** column name */
+  RoleId = 'role_id',
   /** column name */
   UserId = 'user_id'
 }
 
 /** aggregate var_pop on columns */
-export type Applicants_Var_Pop_Fields = {
-  __typename?: 'applicants_var_pop_fields';
-  audition_id?: Maybe<Scalars['Float']>;
+export type Applicant_Var_Pop_Fields = {
+  __typename?: 'applicant_var_pop_fields';
   id?: Maybe<Scalars['Float']>;
+  role_id?: Maybe<Scalars['Float']>;
   user_id?: Maybe<Scalars['Float']>;
 };
 
-/** order by var_pop() on columns of table "applicants" */
-export type Applicants_Var_Pop_Order_By = {
-  audition_id?: Maybe<Order_By>;
+/** order by var_pop() on columns of table "applicant" */
+export type Applicant_Var_Pop_Order_By = {
   id?: Maybe<Order_By>;
+  role_id?: Maybe<Order_By>;
   user_id?: Maybe<Order_By>;
 };
 
 /** aggregate var_samp on columns */
-export type Applicants_Var_Samp_Fields = {
-  __typename?: 'applicants_var_samp_fields';
-  audition_id?: Maybe<Scalars['Float']>;
+export type Applicant_Var_Samp_Fields = {
+  __typename?: 'applicant_var_samp_fields';
   id?: Maybe<Scalars['Float']>;
+  role_id?: Maybe<Scalars['Float']>;
   user_id?: Maybe<Scalars['Float']>;
 };
 
-/** order by var_samp() on columns of table "applicants" */
-export type Applicants_Var_Samp_Order_By = {
-  audition_id?: Maybe<Order_By>;
+/** order by var_samp() on columns of table "applicant" */
+export type Applicant_Var_Samp_Order_By = {
   id?: Maybe<Order_By>;
+  role_id?: Maybe<Order_By>;
   user_id?: Maybe<Order_By>;
 };
 
 /** aggregate variance on columns */
-export type Applicants_Variance_Fields = {
-  __typename?: 'applicants_variance_fields';
-  audition_id?: Maybe<Scalars['Float']>;
+export type Applicant_Variance_Fields = {
+  __typename?: 'applicant_variance_fields';
   id?: Maybe<Scalars['Float']>;
+  role_id?: Maybe<Scalars['Float']>;
   user_id?: Maybe<Scalars['Float']>;
 };
 
-/** order by variance() on columns of table "applicants" */
-export type Applicants_Variance_Order_By = {
-  audition_id?: Maybe<Order_By>;
+/** order by variance() on columns of table "applicant" */
+export type Applicant_Variance_Order_By = {
   id?: Maybe<Order_By>;
+  role_id?: Maybe<Order_By>;
   user_id?: Maybe<Order_By>;
 };
 
 /** columns and relationships of "audition" */
 export type Audition = {
   __typename?: 'audition';
-  /** An array relationship */
-  applicants: Array<Applicants>;
-  /** An aggregated array relationship */
-  applicants_aggregate: Applicants_Aggregate;
   /** An array relationship */
   audition_tags: Array<Audition_Tag>;
   /** An aggregated array relationship */
@@ -389,26 +395,6 @@ export type Audition = {
   roles_aggregate: Role_Aggregate;
   updated_at: Scalars['timestamptz'];
   user_id: Scalars['Int'];
-};
-
-
-/** columns and relationships of "audition" */
-export type AuditionApplicantsArgs = {
-  distinct_on?: Maybe<Array<Applicants_Select_Column>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<Applicants_Order_By>>;
-  where?: Maybe<Applicants_Bool_Exp>;
-};
-
-
-/** columns and relationships of "audition" */
-export type AuditionApplicants_AggregateArgs = {
-  distinct_on?: Maybe<Array<Applicants_Select_Column>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<Applicants_Order_By>>;
-  where?: Maybe<Applicants_Bool_Exp>;
 };
 
 
@@ -524,7 +510,6 @@ export type Audition_Bool_Exp = {
   _and?: Maybe<Array<Maybe<Audition_Bool_Exp>>>;
   _not?: Maybe<Audition_Bool_Exp>;
   _or?: Maybe<Array<Maybe<Audition_Bool_Exp>>>;
-  applicants?: Maybe<Applicants_Bool_Exp>;
   audition_tags?: Maybe<Audition_Tag_Bool_Exp>;
   audition_type?: Maybe<Audition_Type_Bool_Exp>;
   audition_type_id?: Maybe<Int_Comparison_Exp>;
@@ -557,7 +542,6 @@ export type Audition_Inc_Input = {
 
 /** input type for inserting data into table "audition" */
 export type Audition_Insert_Input = {
-  applicants?: Maybe<Applicants_Arr_Rel_Insert_Input>;
   audition_tags?: Maybe<Audition_Tag_Arr_Rel_Insert_Input>;
   audition_type?: Maybe<Audition_Type_Obj_Rel_Insert_Input>;
   audition_type_id?: Maybe<Scalars['Int']>;
@@ -652,7 +636,6 @@ export type Audition_On_Conflict = {
 
 /** ordering options when selecting data from "audition" */
 export type Audition_Order_By = {
-  applicants_aggregate?: Maybe<Applicants_Aggregate_Order_By>;
   audition_tags_aggregate?: Maybe<Audition_Tag_Aggregate_Order_By>;
   audition_type?: Maybe<Audition_Type_Order_By>;
   audition_type_id?: Maybe<Order_By>;
@@ -4163,10 +4146,10 @@ export type Knex_Migrations_Variance_Order_By = {
 /** mutation root */
 export type Mutation_Root = {
   __typename?: 'mutation_root';
-  /** delete data from the table: "applicants" */
-  delete_applicants?: Maybe<Applicants_Mutation_Response>;
-  /** delete single row from the table: "applicants" */
-  delete_applicants_by_pk?: Maybe<Applicants>;
+  /** delete data from the table: "applicant" */
+  delete_applicant?: Maybe<Applicant_Mutation_Response>;
+  /** delete single row from the table: "applicant" */
+  delete_applicant_by_pk?: Maybe<Applicant>;
   /** delete data from the table: "audition" */
   delete_audition?: Maybe<Audition_Mutation_Response>;
   /** delete single row from the table: "audition" */
@@ -4255,10 +4238,10 @@ export type Mutation_Root = {
   delete_voice_type?: Maybe<Voice_Type_Mutation_Response>;
   /** delete single row from the table: "voice_type" */
   delete_voice_type_by_pk?: Maybe<Voice_Type>;
-  /** insert data into the table: "applicants" */
-  insert_applicants?: Maybe<Applicants_Mutation_Response>;
-  /** insert a single row into the table: "applicants" */
-  insert_applicants_one?: Maybe<Applicants>;
+  /** insert data into the table: "applicant" */
+  insert_applicant?: Maybe<Applicant_Mutation_Response>;
+  /** insert a single row into the table: "applicant" */
+  insert_applicant_one?: Maybe<Applicant>;
   /** insert data into the table: "audition" */
   insert_audition?: Maybe<Audition_Mutation_Response>;
   /** insert a single row into the table: "audition" */
@@ -4349,10 +4332,10 @@ export type Mutation_Root = {
   insert_voice_type_one?: Maybe<Voice_Type>;
   /** perform the action: "signup" */
   signup?: Maybe<SignupOutput>;
-  /** update data of the table: "applicants" */
-  update_applicants?: Maybe<Applicants_Mutation_Response>;
-  /** update single row of the table: "applicants" */
-  update_applicants_by_pk?: Maybe<Applicants>;
+  /** update data of the table: "applicant" */
+  update_applicant?: Maybe<Applicant_Mutation_Response>;
+  /** update single row of the table: "applicant" */
+  update_applicant_by_pk?: Maybe<Applicant>;
   /** update data of the table: "audition" */
   update_audition?: Maybe<Audition_Mutation_Response>;
   /** update single row of the table: "audition" */
@@ -4445,13 +4428,13 @@ export type Mutation_Root = {
 
 
 /** mutation root */
-export type Mutation_RootDelete_ApplicantsArgs = {
-  where: Applicants_Bool_Exp;
+export type Mutation_RootDelete_ApplicantArgs = {
+  where: Applicant_Bool_Exp;
 };
 
 
 /** mutation root */
-export type Mutation_RootDelete_Applicants_By_PkArgs = {
+export type Mutation_RootDelete_Applicant_By_PkArgs = {
   id: Scalars['Int'];
 };
 
@@ -4721,16 +4704,16 @@ export type Mutation_RootDelete_Voice_Type_By_PkArgs = {
 
 
 /** mutation root */
-export type Mutation_RootInsert_ApplicantsArgs = {
-  objects: Array<Applicants_Insert_Input>;
-  on_conflict?: Maybe<Applicants_On_Conflict>;
+export type Mutation_RootInsert_ApplicantArgs = {
+  objects: Array<Applicant_Insert_Input>;
+  on_conflict?: Maybe<Applicant_On_Conflict>;
 };
 
 
 /** mutation root */
-export type Mutation_RootInsert_Applicants_OneArgs = {
-  object: Applicants_Insert_Input;
-  on_conflict?: Maybe<Applicants_On_Conflict>;
+export type Mutation_RootInsert_Applicant_OneArgs = {
+  object: Applicant_Insert_Input;
+  on_conflict?: Maybe<Applicant_On_Conflict>;
 };
 
 
@@ -5053,18 +5036,18 @@ export type Mutation_RootSignupArgs = {
 
 
 /** mutation root */
-export type Mutation_RootUpdate_ApplicantsArgs = {
-  _inc?: Maybe<Applicants_Inc_Input>;
-  _set?: Maybe<Applicants_Set_Input>;
-  where: Applicants_Bool_Exp;
+export type Mutation_RootUpdate_ApplicantArgs = {
+  _inc?: Maybe<Applicant_Inc_Input>;
+  _set?: Maybe<Applicant_Set_Input>;
+  where: Applicant_Bool_Exp;
 };
 
 
 /** mutation root */
-export type Mutation_RootUpdate_Applicants_By_PkArgs = {
-  _inc?: Maybe<Applicants_Inc_Input>;
-  _set?: Maybe<Applicants_Set_Input>;
-  pk_columns: Applicants_Pk_Columns_Input;
+export type Mutation_RootUpdate_Applicant_By_PkArgs = {
+  _inc?: Maybe<Applicant_Inc_Input>;
+  _set?: Maybe<Applicant_Set_Input>;
+  pk_columns: Applicant_Pk_Columns_Input;
 };
 
 
@@ -5913,12 +5896,12 @@ export type Physical_Attribute_Variance_Order_By = {
 /** query root */
 export type Query_Root = {
   __typename?: 'query_root';
-  /** fetch data from the table: "applicants" */
-  applicants: Array<Applicants>;
-  /** fetch aggregated fields from the table: "applicants" */
-  applicants_aggregate: Applicants_Aggregate;
-  /** fetch data from the table: "applicants" using primary key columns */
-  applicants_by_pk?: Maybe<Applicants>;
+  /** fetch data from the table: "applicant" */
+  applicant: Array<Applicant>;
+  /** fetch aggregated fields from the table: "applicant" */
+  applicant_aggregate: Applicant_Aggregate;
+  /** fetch data from the table: "applicant" using primary key columns */
+  applicant_by_pk?: Maybe<Applicant>;
   /** fetch data from the table: "audition" */
   audition: Array<Audition>;
   /** fetch aggregated fields from the table: "audition" */
@@ -6057,27 +6040,27 @@ export type Query_Root = {
 
 
 /** query root */
-export type Query_RootApplicantsArgs = {
-  distinct_on?: Maybe<Array<Applicants_Select_Column>>;
+export type Query_RootApplicantArgs = {
+  distinct_on?: Maybe<Array<Applicant_Select_Column>>;
   limit?: Maybe<Scalars['Int']>;
   offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<Applicants_Order_By>>;
-  where?: Maybe<Applicants_Bool_Exp>;
+  order_by?: Maybe<Array<Applicant_Order_By>>;
+  where?: Maybe<Applicant_Bool_Exp>;
 };
 
 
 /** query root */
-export type Query_RootApplicants_AggregateArgs = {
-  distinct_on?: Maybe<Array<Applicants_Select_Column>>;
+export type Query_RootApplicant_AggregateArgs = {
+  distinct_on?: Maybe<Array<Applicant_Select_Column>>;
   limit?: Maybe<Scalars['Int']>;
   offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<Applicants_Order_By>>;
-  where?: Maybe<Applicants_Bool_Exp>;
+  order_by?: Maybe<Array<Applicant_Order_By>>;
+  where?: Maybe<Applicant_Bool_Exp>;
 };
 
 
 /** query root */
-export type Query_RootApplicants_By_PkArgs = {
+export type Query_RootApplicant_By_PkArgs = {
   id: Scalars['Int'];
 };
 
@@ -6973,6 +6956,10 @@ export type Requirement_Variance_Order_By = {
 /** columns and relationships of "role" */
 export type Role = {
   __typename?: 'role';
+  /** An array relationship */
+  applicants: Array<Applicant>;
+  /** An aggregated array relationship */
+  applicants_aggregate: Applicant_Aggregate;
   audition_id: Scalars['Int'];
   description: Scalars['String'];
   id: Scalars['Int'];
@@ -6983,6 +6970,26 @@ export type Role = {
   /** An object relationship */
   role_type: Role_Type;
   role_type_id: Scalars['Int'];
+};
+
+
+/** columns and relationships of "role" */
+export type RoleApplicantsArgs = {
+  distinct_on?: Maybe<Array<Applicant_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Applicant_Order_By>>;
+  where?: Maybe<Applicant_Bool_Exp>;
+};
+
+
+/** columns and relationships of "role" */
+export type RoleApplicants_AggregateArgs = {
+  distinct_on?: Maybe<Array<Applicant_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Applicant_Order_By>>;
+  where?: Maybe<Applicant_Bool_Exp>;
 };
 
 /** aggregated selection of "role" */
@@ -7058,6 +7065,7 @@ export type Role_Bool_Exp = {
   _and?: Maybe<Array<Maybe<Role_Bool_Exp>>>;
   _not?: Maybe<Role_Bool_Exp>;
   _or?: Maybe<Array<Maybe<Role_Bool_Exp>>>;
+  applicants?: Maybe<Applicant_Bool_Exp>;
   audition_id?: Maybe<Int_Comparison_Exp>;
   description?: Maybe<String_Comparison_Exp>;
   id?: Maybe<Int_Comparison_Exp>;
@@ -7084,6 +7092,7 @@ export type Role_Inc_Input = {
 
 /** input type for inserting data into table "role" */
 export type Role_Insert_Input = {
+  applicants?: Maybe<Applicant_Arr_Rel_Insert_Input>;
   audition_id?: Maybe<Scalars['Int']>;
   description?: Maybe<Scalars['String']>;
   id?: Maybe<Scalars['Int']>;
@@ -7160,6 +7169,7 @@ export type Role_On_Conflict = {
 
 /** ordering options when selecting data from "role" */
 export type Role_Order_By = {
+  applicants_aggregate?: Maybe<Applicant_Aggregate_Order_By>;
   audition_id?: Maybe<Order_By>;
   description?: Maybe<Order_By>;
   id?: Maybe<Order_By>;
@@ -7604,12 +7614,12 @@ export type SignupOutput = {
 /** subscription root */
 export type Subscription_Root = {
   __typename?: 'subscription_root';
-  /** fetch data from the table: "applicants" */
-  applicants: Array<Applicants>;
-  /** fetch aggregated fields from the table: "applicants" */
-  applicants_aggregate: Applicants_Aggregate;
-  /** fetch data from the table: "applicants" using primary key columns */
-  applicants_by_pk?: Maybe<Applicants>;
+  /** fetch data from the table: "applicant" */
+  applicant: Array<Applicant>;
+  /** fetch aggregated fields from the table: "applicant" */
+  applicant_aggregate: Applicant_Aggregate;
+  /** fetch data from the table: "applicant" using primary key columns */
+  applicant_by_pk?: Maybe<Applicant>;
   /** fetch data from the table: "audition" */
   audition: Array<Audition>;
   /** fetch aggregated fields from the table: "audition" */
@@ -7748,27 +7758,27 @@ export type Subscription_Root = {
 
 
 /** subscription root */
-export type Subscription_RootApplicantsArgs = {
-  distinct_on?: Maybe<Array<Applicants_Select_Column>>;
+export type Subscription_RootApplicantArgs = {
+  distinct_on?: Maybe<Array<Applicant_Select_Column>>;
   limit?: Maybe<Scalars['Int']>;
   offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<Applicants_Order_By>>;
-  where?: Maybe<Applicants_Bool_Exp>;
+  order_by?: Maybe<Array<Applicant_Order_By>>;
+  where?: Maybe<Applicant_Bool_Exp>;
 };
 
 
 /** subscription root */
-export type Subscription_RootApplicants_AggregateArgs = {
-  distinct_on?: Maybe<Array<Applicants_Select_Column>>;
+export type Subscription_RootApplicant_AggregateArgs = {
+  distinct_on?: Maybe<Array<Applicant_Select_Column>>;
   limit?: Maybe<Scalars['Int']>;
   offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<Applicants_Order_By>>;
-  where?: Maybe<Applicants_Bool_Exp>;
+  order_by?: Maybe<Array<Applicant_Order_By>>;
+  where?: Maybe<Applicant_Bool_Exp>;
 };
 
 
 /** subscription root */
-export type Subscription_RootApplicants_By_PkArgs = {
+export type Subscription_RootApplicant_By_PkArgs = {
   id: Scalars['Int'];
 };
 
@@ -9972,8 +9982,11 @@ export type PhysicalAttributesFragment = (
 
 export type RoleDetailsFragment = (
   { __typename?: 'role' }
-  & Pick<Role, 'name' | 'description'>
-  & { role_type: (
+  & Pick<Role, 'id' | 'name' | 'description'>
+  & { did_user_applied: Array<(
+    { __typename?: 'applicant' }
+    & Pick<Applicant, 'user_id'>
+  )>, role_type: (
     { __typename?: 'role_type' }
     & Pick<Role_Type, 'name'>
   ), requirement?: Maybe<(
@@ -10025,6 +10038,19 @@ export type UserProfileFragment = (
   )> }
 );
 
+export type ApplyAuditionMutationVariables = Exact<{
+  applicant_input: Applicant_Insert_Input;
+}>;
+
+
+export type ApplyAuditionMutation = (
+  { __typename?: 'mutation_root' }
+  & { insert_applicant_one?: Maybe<(
+    { __typename?: 'applicant' }
+    & Pick<Applicant, 'id'>
+  )> }
+);
+
 export type CreateAuditionMutationVariables = Exact<{
   audition_input: Audition_Insert_Input;
 }>;
@@ -10040,6 +10066,7 @@ export type CreateAuditionMutation = (
 
 export type AuditionByIdQueryVariables = Exact<{
   id: Scalars['Int'];
+  user_id: Scalars['Int'];
 }>;
 
 
@@ -10138,8 +10165,12 @@ export const AuditionCardFragmentDoc = gql`
     `;
 export const RoleDetailsFragmentDoc = gql`
     fragment RoleDetails on role {
+  id
   name
   description
+  did_user_applied: applicants(where: {user_id: {_eq: $user_id}}) {
+    user_id
+  }
   role_type {
     name
   }
@@ -10236,6 +10267,38 @@ export const UserProfileFragmentDoc = gql`
   }
 }
     ${PhysicalAttributesFragmentDoc}`;
+export const ApplyAuditionDocument = gql`
+    mutation ApplyAudition($applicant_input: applicant_insert_input!) {
+  insert_applicant_one(object: $applicant_input) {
+    id
+  }
+}
+    `;
+export type ApplyAuditionMutationFn = Apollo.MutationFunction<ApplyAuditionMutation, ApplyAuditionMutationVariables>;
+
+/**
+ * __useApplyAuditionMutation__
+ *
+ * To run a mutation, you first call `useApplyAuditionMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useApplyAuditionMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [applyAuditionMutation, { data, loading, error }] = useApplyAuditionMutation({
+ *   variables: {
+ *      applicant_input: // value for 'applicant_input'
+ *   },
+ * });
+ */
+export function useApplyAuditionMutation(baseOptions?: Apollo.MutationHookOptions<ApplyAuditionMutation, ApplyAuditionMutationVariables>) {
+        return Apollo.useMutation<ApplyAuditionMutation, ApplyAuditionMutationVariables>(ApplyAuditionDocument, baseOptions);
+      }
+export type ApplyAuditionMutationHookResult = ReturnType<typeof useApplyAuditionMutation>;
+export type ApplyAuditionMutationResult = Apollo.MutationResult<ApplyAuditionMutation>;
+export type ApplyAuditionMutationOptions = Apollo.BaseMutationOptions<ApplyAuditionMutation, ApplyAuditionMutationVariables>;
 export const CreateAuditionDocument = gql`
     mutation CreateAudition($audition_input: audition_insert_input!) {
   insert_audition_one(object: $audition_input) {
@@ -10269,7 +10332,7 @@ export type CreateAuditionMutationHookResult = ReturnType<typeof useCreateAuditi
 export type CreateAuditionMutationResult = Apollo.MutationResult<CreateAuditionMutation>;
 export type CreateAuditionMutationOptions = Apollo.BaseMutationOptions<CreateAuditionMutation, CreateAuditionMutationVariables>;
 export const AuditionByIdDocument = gql`
-    query AuditionById($id: Int!) {
+    query AuditionById($id: Int!, $user_id: Int!) {
   audition_by_pk(id: $id) {
     ...AuditionDetails
   }
@@ -10289,6 +10352,7 @@ export const AuditionByIdDocument = gql`
  * const { data, loading, error } = useAuditionByIdQuery({
  *   variables: {
  *      id: // value for 'id'
+ *      user_id: // value for 'user_id'
  *   },
  * });
  */

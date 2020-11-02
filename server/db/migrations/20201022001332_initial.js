@@ -1,6 +1,5 @@
 const tableNames = require("../../src/constants/tableNames");
 const Knex = require("knex");
-const { physical_attribute } = require("../../src/constants/tableNames");
 
 /** @param {Knex} knex*/
 function createNameTable(knex, table_name) {
@@ -121,8 +120,9 @@ exports.up = async function (knex) {
   await knex.schema.createTable(tableNames.applicant, (table) => {
     table.increments().notNullable();
     references(table, tableNames.user);
-    references(table, tableNames.audition);
+    references(table, tableNames.role);
     table.datetime("apply_date").defaultTo(knex.fn.now());
+    table.unique(["user_id", "role_id"]);
   });
 };
 

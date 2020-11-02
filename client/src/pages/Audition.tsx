@@ -13,6 +13,7 @@ import { useHistory, useParams } from "react-router-dom";
 import AuditionRoles from "../components/AuditionRoles";
 import AuditionTag from "../components/AuditionTag";
 import { useAuditionByIdQuery } from "../generated/graphql";
+import { getUID } from "../utils/getUID";
 
 type RouteParams = {
   id: string;
@@ -22,8 +23,9 @@ export default function Audition(): ReactElement {
   const { id } = useParams<RouteParams>();
   const history = useHistory();
   const { data, loading, error } = useAuditionByIdQuery({
-    variables: { id: parseInt(id) },
+    variables: { id: parseInt(id), user_id: getUID() },
   });
+
   if (error) {
     return <div>Error when loading audition</div>;
   }

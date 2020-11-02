@@ -1,6 +1,10 @@
 fragment RoleDetails on role {
+  id
   name
   description
+  did_user_applied: applicants(where: { user_id: { _eq: $user_id } }) {
+    user_id
+  }
   role_type {
     name
   }

@@ -1,4 +1,4 @@
-query AuditionById($id: Int!) {
+query AuditionById($id: Int!, $user_id: Int!) {
   audition_by_pk(id: $id) {
     ...AuditionDetails
   }

@@ -1,8 +1,8 @@
 module.exports = {
   highlight: "highlight",
   audition_tag: "audition_tag",
+  applicant: "applicant",
   role: "role",
-  applicant: "applicants",
   audition: "audition",
   user: "user",
   requirement: "requirement",

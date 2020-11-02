@@ -1,0 +1,5 @@
+mutation ApplyAudition($applicant_input: applicant_insert_input!) {
+  insert_applicant_one(object: $applicant_input) {
+    id
+  }
+}
