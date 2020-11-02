@@ -4,7 +4,7 @@ import CreateAuditionForm from "../components/CreateAuditionForm";
 
 export default function CreateAudition(): ReactElement {
   return (
-    <Box p={4} paddingBottom="60px">
+    <Box p={4}>
       <Heading>Create Audition</Heading>
       <CreateAuditionForm />
     </Box>

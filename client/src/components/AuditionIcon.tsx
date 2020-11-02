@@ -8,7 +8,7 @@ import React from "react";
 import { Icon, IconProps } from "@chakra-ui/core";
 
 type AuditionIconProps = {
-  name: String;
+  name: string;
 } & IconProps;
 
 export default function AuditionIcon({

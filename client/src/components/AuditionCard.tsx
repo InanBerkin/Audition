@@ -1,27 +1,16 @@
 import { Stack, Text, StackProps, Flex } from "@chakra-ui/core";
 import React from "react";
 import { useHistory } from "react-router-dom";
+import { AuditionCardFragment } from "../generated/graphql";
 import AuditionIcon from "./AuditionIcon";
 import AuditionTag from "./AuditionTag";
 
 type AuditionCardProps = {
-  audition_id: number;
-  audition_type: string;
-  name: string;
-  tags: string[];
-  location: string;
-  timeSincePosted: string;
+  audition: AuditionCardFragment;
 } & StackProps;
 
-export function AuditionCard({
-  audition_id,
-  audition_type,
-  name,
-  tags,
-  location,
-  timeSincePosted,
-  ...props
-}: AuditionCardProps) {
+export function AuditionCard({ audition, ...props }: AuditionCardProps) {
+  const { id, audition_type, name, audition_tags } = audition;
   const history = useHistory();
   return (
     <Stack
@@ -33,18 +22,18 @@ export function AuditionCard({
       max-height="100px"
       border="1px solid #eee"
       p={4}
-      onClick={() => history.push(`/audition/${audition_id}`)}
+      onClick={() => history.push(`/audition/${id}`)}
     >
       <Stack spacing={2}>
         <Flex align="center">
-          <AuditionIcon name={audition_type} mr={2} />
+          <AuditionIcon name={audition_type?.name} mr={2} />
           <Text lineHeight={1.25} fontWeight="bold">
             {name}
           </Text>
         </Flex>
         <div>
-          {tags.map((tag, i) => (
-            <AuditionTag key={i} content={tag} />
+          {audition_tags.map(({ tag }, i) => (
+            <AuditionTag key={i} content={tag.name} />
           ))}
         </div>
       </Stack>
@@ -54,3 +43,5 @@ export function AuditionCard({
     </Stack>
   );
 }
+
+export default AuditionCard;

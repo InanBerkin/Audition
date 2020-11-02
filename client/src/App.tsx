@@ -1,3 +1,4 @@
+import { Box } from "@chakra-ui/core";
 import React from "react";
 import {
   BrowserRouter as Router,
@@ -7,6 +8,7 @@ import {
 } from "react-router-dom";
 import BottomNav from "./components/BottomNav";
 import Header from "./components/Header";
+import AllAuditions from "./pages/AllAuditions";
 import Audition from "./pages/Audition";
 import CreateAudition from "./pages/CreateAudition";
 import Home from "./pages/Home";
@@ -27,6 +29,9 @@ function App() {
         </PrivateRoute>
         <PrivateRoute path="/audition/:id">
           <Audition />
+        </PrivateRoute>
+        <PrivateRoute path="/auditions">
+          <AllAuditions />
         </PrivateRoute>
         <PrivateRoute path="/talents">
           <Talents />
@@ -54,7 +59,7 @@ function PrivateRoute({ children, ...props }: any) {
         isAuth ? (
           <>
             <Header />
-            {children}
+            <Box paddingBottom="60px">{children}</Box>
             <BottomNav />
           </>
         ) : (

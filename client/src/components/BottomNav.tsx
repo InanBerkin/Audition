@@ -8,6 +8,7 @@ const routes = {
   home: "/",
   profile: "/profile",
   talents: "/talents",
+  auditions: "/auditions",
 };
 
 function BottomNav() {
@@ -44,8 +45,12 @@ function BottomNav() {
           opacity={pathname === routes.talents ? 1 : 0.5}
         />
       </Link>
-      <Link to="#">
-        <Box as={MdMovie} size="32px" opacity={0.5} />
+      <Link to={routes.auditions}>
+        <Box
+          as={MdMovie}
+          size="32px"
+          opacity={pathname === routes.auditions ? 1 : 0.5}
+        />
       </Link>
       <Link to={routes.profile}>
         <Box

@@ -53,7 +53,7 @@ export default function Profile(): ReactElement {
   }
 
   return (
-    <Box bg="#fff" paddingBottom="60px">
+    <Box bg="#fff">
       <Box height="185px" position="relative">
         <Box
           backgroundSize="cover"
