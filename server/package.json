@@ -23,6 +23,7 @@
     "nodemon": "^2.0.6"
   },
   "scripts": {
+    "prod": "node src/index.js",
     "dev": "nodemon src/index.js",
     "migrate": "knex migrate:latest",
     "rollback": "knex migrate:rollback",
