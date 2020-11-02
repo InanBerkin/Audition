@@ -1,5 +1,6 @@
 import {
   Button,
+  Divider,
   Drawer,
   DrawerBody,
   DrawerCloseButton,
@@ -8,10 +9,15 @@ import {
   DrawerHeader,
   DrawerOverlay,
   DrawerProps,
-  Link,
+  HStack,
+  Icon,
+  Stack,
 } from "@chakra-ui/core";
 import React, { ReactElement } from "react";
-import { useHistory } from "react-router-dom";
+import { CgAdd } from "react-icons/cg";
+import { GoChecklist } from "react-icons/go";
+import { BsFilePost } from "react-icons/bs";
+import { useHistory, Link } from "react-router-dom";
 
 export default function DrawerMenu({
   isOpen,
@@ -26,25 +32,40 @@ export default function DrawerMenu({
       placement="left"
       onClose={onClose}
     >
-      <DrawerOverlay />
-      <DrawerContent>
-        <DrawerCloseButton />
-        <DrawerHeader>Audition</DrawerHeader>
-        <DrawerBody>
-          <Link href="/post_audition">Post Audition</Link>
-        </DrawerBody>
-        <DrawerFooter>
-          <Button
-            colorScheme="red"
-            onClick={() => {
-              localStorage.removeItem("uid");
-              history.push("/signin");
-            }}
-          >
-            Logout
-          </Button>
-        </DrawerFooter>
-      </DrawerContent>
+      <DrawerOverlay>
+        <DrawerContent>
+          <DrawerCloseButton />
+          <DrawerHeader>Audition</DrawerHeader>
+          <Divider />
+          <DrawerBody>
+            <Stack mt={2} spacing={4}>
+              <HStack>
+                <Icon as={CgAdd} />
+                <Link to="/create-audition">Create Audition</Link>
+              </HStack>
+              <HStack>
+                <Icon as={GoChecklist} />
+                <Link to="/applied-auditions">Applied Auditions</Link>
+              </HStack>
+              <HStack>
+                <Icon as={BsFilePost} />
+                <Link to="/posted-auditions">Posted Auditions</Link>
+              </HStack>
+            </Stack>
+          </DrawerBody>
+          <DrawerFooter>
+            <Button
+              colorScheme="red"
+              onClick={() => {
+                localStorage.removeItem("uid");
+                history.push("/signin");
+              }}
+            >
+              Logout
+            </Button>
+          </DrawerFooter>
+        </DrawerContent>
+      </DrawerOverlay>
     </Drawer>
   );
 }
