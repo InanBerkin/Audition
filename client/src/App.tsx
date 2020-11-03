@@ -9,6 +9,7 @@ import {
 import BottomNav from "./components/BottomNav";
 import Header from "./components/Header";
 import AllAuditions from "./pages/AllAuditions";
+import AppliedAuditions from "./pages/AppliedAuditions";
 import Audition from "./pages/Audition";
 import CreateAudition from "./pages/CreateAudition";
 import Home from "./pages/Home";
@@ -32,6 +33,9 @@ function App() {
         </PrivateRoute>
         <PrivateRoute path="/auditions">
           <AllAuditions />
+        </PrivateRoute>
+        <PrivateRoute path="/applied-auditions">
+          <AppliedAuditions />
         </PrivateRoute>
         <PrivateRoute path="/talents">
           <Talents />

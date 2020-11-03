@@ -9731,6 +9731,19 @@ export type CreateAuditionMutation = (
   )> }
 );
 
+export type AppliedAuditionsQueryVariables = Exact<{
+  uid: Scalars['Int'];
+}>;
+
+
+export type AppliedAuditionsQuery = (
+  { __typename?: 'query_root' }
+  & { audition: Array<(
+    { __typename?: 'audition' }
+    & AuditionCardFragment
+  )> }
+);
+
 export type AuditionByIdQueryVariables = Exact<{
   id: Scalars['Int'];
   user_id: Scalars['Int'];
@@ -9999,6 +10012,39 @@ export function useCreateAuditionMutation(baseOptions?: Apollo.MutationHookOptio
 export type CreateAuditionMutationHookResult = ReturnType<typeof useCreateAuditionMutation>;
 export type CreateAuditionMutationResult = Apollo.MutationResult<CreateAuditionMutation>;
 export type CreateAuditionMutationOptions = Apollo.BaseMutationOptions<CreateAuditionMutation, CreateAuditionMutationVariables>;
+export const AppliedAuditionsDocument = gql`
+    query AppliedAuditions($uid: Int!) {
+  audition(where: {roles: {applicants: {user_id: {_eq: $uid}}}}) {
+    ...AuditionCard
+  }
+}
+    ${AuditionCardFragmentDoc}`;
+
+/**
+ * __useAppliedAuditionsQuery__
+ *
+ * To run a query within a React component, call `useAppliedAuditionsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useAppliedAuditionsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useAppliedAuditionsQuery({
+ *   variables: {
+ *      uid: // value for 'uid'
+ *   },
+ * });
+ */
+export function useAppliedAuditionsQuery(baseOptions?: Apollo.QueryHookOptions<AppliedAuditionsQuery, AppliedAuditionsQueryVariables>) {
+        return Apollo.useQuery<AppliedAuditionsQuery, AppliedAuditionsQueryVariables>(AppliedAuditionsDocument, baseOptions);
+      }
+export function useAppliedAuditionsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<AppliedAuditionsQuery, AppliedAuditionsQueryVariables>) {
+          return Apollo.useLazyQuery<AppliedAuditionsQuery, AppliedAuditionsQueryVariables>(AppliedAuditionsDocument, baseOptions);
+        }
+export type AppliedAuditionsQueryHookResult = ReturnType<typeof useAppliedAuditionsQuery>;
+export type AppliedAuditionsLazyQueryHookResult = ReturnType<typeof useAppliedAuditionsLazyQuery>;
+export type AppliedAuditionsQueryResult = Apollo.QueryResult<AppliedAuditionsQuery, AppliedAuditionsQueryVariables>;
 export const AuditionByIdDocument = gql`
     query AuditionById($id: Int!, $user_id: Int!) {
   audition_by_pk(id: $id) {

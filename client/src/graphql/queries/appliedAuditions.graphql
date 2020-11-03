@@ -1,0 +1,5 @@
+query AppliedAuditions($uid: Int!) {
+  audition(where: { roles: { applicants: { user_id: { _eq: $uid } } } }) {
+    ...AuditionCard
+  }
+}

@@ -53,7 +53,9 @@ function Home() {
         {loading && <Skeleton height="100px" />}
         {loading && <Skeleton height="100px" />}
         {data &&
-          data.audition.map((audition) => <AuditionCard audition={audition} />)}
+          data.audition.map((audition) => (
+            <AuditionCard key={audition.id} audition={audition} />
+          ))}
       </Stack>
     </Box>
   );

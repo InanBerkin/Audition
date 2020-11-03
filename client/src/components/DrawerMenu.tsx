@@ -41,15 +41,21 @@ export default function DrawerMenu({
             <Stack mt={2} spacing={4}>
               <HStack>
                 <Icon as={CgAdd} />
-                <Link to="/create-audition">Create Audition</Link>
+                <Link onClick={onClose} to="/create-audition">
+                  Create Audition
+                </Link>
               </HStack>
               <HStack>
                 <Icon as={GoChecklist} />
-                <Link to="/applied-auditions">Applied Auditions</Link>
+                <Link onClick={onClose} to="/applied-auditions">
+                  Applied Auditions
+                </Link>
               </HStack>
               <HStack>
                 <Icon as={BsFilePost} />
-                <Link to="/posted-auditions">Posted Auditions</Link>
+                <Link onClick={onClose} to="/posted-auditions">
+                  Posted Auditions
+                </Link>
               </HStack>
             </Stack>
           </DrawerBody>
@@ -57,6 +63,7 @@ export default function DrawerMenu({
             <Button
               colorScheme="red"
               onClick={() => {
+                onClose();
                 localStorage.removeItem("uid");
                 history.push("/signin");
               }}

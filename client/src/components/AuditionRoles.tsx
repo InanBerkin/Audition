@@ -14,6 +14,7 @@ import {
 import React, { ReactElement } from "react";
 import { GoChecklist } from "react-icons/go";
 import {
+  AppliedAuditionsDocument,
   AuditionByIdQuery,
   Exact,
   RoleDetailsFragment,
@@ -50,6 +51,12 @@ export default function AuditionRoles({
     onCompleted: async () => {
       await refetch();
     },
+    refetchQueries: [
+      {
+        query: AppliedAuditionsDocument,
+        variables: { uid: getUID() },
+      },
+    ],
   });
 
   if (roles == null || roles.length === 0) {
