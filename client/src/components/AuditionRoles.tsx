@@ -1,3 +1,4 @@
+import { ApolloQueryResult, gql } from "@apollo/client";
 import {
   Accordion,
   AccordionButton,
@@ -13,6 +14,8 @@ import {
 import React, { ReactElement } from "react";
 import { GoChecklist } from "react-icons/go";
 import {
+  AuditionByIdQuery,
+  Exact,
   RoleDetailsFragment,
   useApplyAuditionMutation,
 } from "../generated/graphql";
@@ -23,15 +26,29 @@ type Props = {
     | Array<{ __typename?: "role" } & RoleDetailsFragment>
     | null
     | undefined;
+  refetch: (
+    variables?:
+      | Partial<
+          Exact<{
+            id: number;
+            user_id: number;
+          }>
+        >
+      | undefined
+  ) => Promise<ApolloQueryResult<AuditionByIdQuery>>;
 } & AccordionProps;
 
 export default function AuditionRoles({
   roles,
+  refetch,
   ...props
 }: Props): ReactElement | null {
   const [applyAudition, { loading }] = useApplyAuditionMutation({
     onError: (e) => {
       console.log(e);
+    },
+    onCompleted: async () => {
+      await refetch();
     },
   });
 

@@ -22,7 +22,7 @@ type RouteParams = {
 export default function Audition(): ReactElement {
   const { id } = useParams<RouteParams>();
   const history = useHistory();
-  const { data, loading, error } = useAuditionByIdQuery({
+  const { data, loading, error, refetch } = useAuditionByIdQuery({
     variables: { id: parseInt(id), user_id: getUID() },
   });
 
@@ -70,7 +70,9 @@ export default function Audition(): ReactElement {
         Roles
       </Text>
       {loading && <Skeleton height="100px" />}
-      {audition?.roles && <AuditionRoles roles={audition.roles} mt={2} />}
+      {audition?.roles && (
+        <AuditionRoles refetch={refetch} roles={audition.roles} mt={2} />
+      )}
     </Box>
   );
 }
