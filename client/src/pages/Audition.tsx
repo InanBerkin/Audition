@@ -29,6 +29,7 @@ export default function Audition(): ReactElement {
   if (error) {
     return <div>Error when loading audition</div>;
   }
+
   const audition = data?.audition_by_pk;
 
   return (

@@ -1,4 +1,5 @@
 fragment AuditionDetails on audition {
+  id
   name
   description
   created_at

@@ -141,7 +141,9 @@ export type Applicant_Bool_Exp = {
 /** unique or primary key constraints on table "applicant" */
 export enum Applicant_Constraint {
   /** unique or primary key constraint */
-  ApplicantPkey = 'applicant_pkey'
+  ApplicantPkey = 'applicant_pkey',
+  /** unique or primary key constraint */
+  ApplicantUserIdRoleIdUnique = 'applicant_user_id_role_id_unique'
 }
 
 /** input type for incrementing integer column in table "applicant" */
@@ -387,13 +389,13 @@ export type Audition = {
   description: Scalars['String'];
   id: Scalars['Int'];
   name: Scalars['String'];
-  /** An object relationship */
-  posted_by: User;
   /** An array relationship */
   roles: Array<Role>;
   /** An aggregated array relationship */
   roles_aggregate: Role_Aggregate;
   updated_at: Scalars['timestamptz'];
+  /** An object relationship */
+  user: User;
   user_id: Scalars['Int'];
 };
 
@@ -520,9 +522,9 @@ export type Audition_Bool_Exp = {
   description?: Maybe<String_Comparison_Exp>;
   id?: Maybe<Int_Comparison_Exp>;
   name?: Maybe<String_Comparison_Exp>;
-  posted_by?: Maybe<User_Bool_Exp>;
   roles?: Maybe<Role_Bool_Exp>;
   updated_at?: Maybe<Timestamptz_Comparison_Exp>;
+  user?: Maybe<User_Bool_Exp>;
   user_id?: Maybe<Int_Comparison_Exp>;
 };
 
@@ -552,9 +554,9 @@ export type Audition_Insert_Input = {
   description?: Maybe<Scalars['String']>;
   id?: Maybe<Scalars['Int']>;
   name?: Maybe<Scalars['String']>;
-  posted_by?: Maybe<User_Obj_Rel_Insert_Input>;
   roles?: Maybe<Role_Arr_Rel_Insert_Input>;
   updated_at?: Maybe<Scalars['timestamptz']>;
+  user?: Maybe<User_Obj_Rel_Insert_Input>;
   user_id?: Maybe<Scalars['Int']>;
 };
 
@@ -646,9 +648,9 @@ export type Audition_Order_By = {
   description?: Maybe<Order_By>;
   id?: Maybe<Order_By>;
   name?: Maybe<Order_By>;
-  posted_by?: Maybe<User_Order_By>;
   roles_aggregate?: Maybe<Role_Aggregate_Order_By>;
   updated_at?: Maybe<Order_By>;
+  user?: Maybe<User_Order_By>;
   user_id?: Maybe<Order_By>;
 };
 
@@ -1430,6 +1432,30 @@ export type Body_Type = {
   __typename?: 'body_type';
   id: Scalars['Int'];
   name: Scalars['String'];
+  /** An array relationship */
+  physical_attributes: Array<Physical_Attribute>;
+  /** An aggregated array relationship */
+  physical_attributes_aggregate: Physical_Attribute_Aggregate;
+};
+
+
+/** columns and relationships of "body_type" */
+export type Body_TypePhysical_AttributesArgs = {
+  distinct_on?: Maybe<Array<Physical_Attribute_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Physical_Attribute_Order_By>>;
+  where?: Maybe<Physical_Attribute_Bool_Exp>;
+};
+
+
+/** columns and relationships of "body_type" */
+export type Body_TypePhysical_Attributes_AggregateArgs = {
+  distinct_on?: Maybe<Array<Physical_Attribute_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Physical_Attribute_Order_By>>;
+  where?: Maybe<Physical_Attribute_Bool_Exp>;
 };
 
 /** aggregated selection of "body_type" */
@@ -1501,6 +1527,7 @@ export type Body_Type_Bool_Exp = {
   _or?: Maybe<Array<Maybe<Body_Type_Bool_Exp>>>;
   id?: Maybe<Int_Comparison_Exp>;
   name?: Maybe<String_Comparison_Exp>;
+  physical_attributes?: Maybe<Physical_Attribute_Bool_Exp>;
 };
 
 /** unique or primary key constraints on table "body_type" */
@@ -1520,6 +1547,7 @@ export type Body_Type_Inc_Input = {
 export type Body_Type_Insert_Input = {
   id?: Maybe<Scalars['Int']>;
   name?: Maybe<Scalars['String']>;
+  physical_attributes?: Maybe<Physical_Attribute_Arr_Rel_Insert_Input>;
 };
 
 /** aggregate max on columns */
@@ -1574,6 +1602,7 @@ export type Body_Type_On_Conflict = {
 export type Body_Type_Order_By = {
   id?: Maybe<Order_By>;
   name?: Maybe<Order_By>;
+  physical_attributes_aggregate?: Maybe<Physical_Attribute_Aggregate_Order_By>;
 };
 
 /** primary key columns input for table: "body_type" */
@@ -1683,12 +1712,36 @@ export type Body_Type_Variance_Order_By = {
 /** columns and relationships of "city" */
 export type City = {
   __typename?: 'city';
+  /** An array relationship */
+  auditions: Array<Audition>;
+  /** An aggregated array relationship */
+  auditions_aggregate: Audition_Aggregate;
   id: Scalars['Int'];
   name: Scalars['String'];
   /** An array relationship */
   users: Array<User>;
   /** An aggregated array relationship */
   users_aggregate: User_Aggregate;
+};
+
+
+/** columns and relationships of "city" */
+export type CityAuditionsArgs = {
+  distinct_on?: Maybe<Array<Audition_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Audition_Order_By>>;
+  where?: Maybe<Audition_Bool_Exp>;
+};
+
+
+/** columns and relationships of "city" */
+export type CityAuditions_AggregateArgs = {
+  distinct_on?: Maybe<Array<Audition_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Audition_Order_By>>;
+  where?: Maybe<Audition_Bool_Exp>;
 };
 
 
@@ -1778,6 +1831,7 @@ export type City_Bool_Exp = {
   _and?: Maybe<Array<Maybe<City_Bool_Exp>>>;
   _not?: Maybe<City_Bool_Exp>;
   _or?: Maybe<Array<Maybe<City_Bool_Exp>>>;
+  auditions?: Maybe<Audition_Bool_Exp>;
   id?: Maybe<Int_Comparison_Exp>;
   name?: Maybe<String_Comparison_Exp>;
   users?: Maybe<User_Bool_Exp>;
@@ -1798,6 +1852,7 @@ export type City_Inc_Input = {
 
 /** input type for inserting data into table "city" */
 export type City_Insert_Input = {
+  auditions?: Maybe<Audition_Arr_Rel_Insert_Input>;
   id?: Maybe<Scalars['Int']>;
   name?: Maybe<Scalars['String']>;
   users?: Maybe<User_Arr_Rel_Insert_Input>;
@@ -1853,6 +1908,7 @@ export type City_On_Conflict = {
 
 /** ordering options when selecting data from "city" */
 export type City_Order_By = {
+  auditions_aggregate?: Maybe<Audition_Aggregate_Order_By>;
   id?: Maybe<Order_By>;
   name?: Maybe<Order_By>;
   users_aggregate?: Maybe<User_Aggregate_Order_By>;
@@ -1967,6 +2023,30 @@ export type Ethnicity = {
   __typename?: 'ethnicity';
   id: Scalars['Int'];
   name: Scalars['String'];
+  /** An array relationship */
+  physical_attributes: Array<Physical_Attribute>;
+  /** An aggregated array relationship */
+  physical_attributes_aggregate: Physical_Attribute_Aggregate;
+};
+
+
+/** columns and relationships of "ethnicity" */
+export type EthnicityPhysical_AttributesArgs = {
+  distinct_on?: Maybe<Array<Physical_Attribute_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Physical_Attribute_Order_By>>;
+  where?: Maybe<Physical_Attribute_Bool_Exp>;
+};
+
+
+/** columns and relationships of "ethnicity" */
+export type EthnicityPhysical_Attributes_AggregateArgs = {
+  distinct_on?: Maybe<Array<Physical_Attribute_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Physical_Attribute_Order_By>>;
+  where?: Maybe<Physical_Attribute_Bool_Exp>;
 };
 
 /** aggregated selection of "ethnicity" */
@@ -2038,6 +2118,7 @@ export type Ethnicity_Bool_Exp = {
   _or?: Maybe<Array<Maybe<Ethnicity_Bool_Exp>>>;
   id?: Maybe<Int_Comparison_Exp>;
   name?: Maybe<String_Comparison_Exp>;
+  physical_attributes?: Maybe<Physical_Attribute_Bool_Exp>;
 };
 
 /** unique or primary key constraints on table "ethnicity" */
@@ -2057,6 +2138,7 @@ export type Ethnicity_Inc_Input = {
 export type Ethnicity_Insert_Input = {
   id?: Maybe<Scalars['Int']>;
   name?: Maybe<Scalars['String']>;
+  physical_attributes?: Maybe<Physical_Attribute_Arr_Rel_Insert_Input>;
 };
 
 /** aggregate max on columns */
@@ -2111,6 +2193,7 @@ export type Ethnicity_On_Conflict = {
 export type Ethnicity_Order_By = {
   id?: Maybe<Order_By>;
   name?: Maybe<Order_By>;
+  physical_attributes_aggregate?: Maybe<Physical_Attribute_Aggregate_Order_By>;
 };
 
 /** primary key columns input for table: "ethnicity" */
@@ -2222,6 +2305,30 @@ export type Eye_Color = {
   __typename?: 'eye_color';
   id: Scalars['Int'];
   name: Scalars['String'];
+  /** An array relationship */
+  physical_attributes: Array<Physical_Attribute>;
+  /** An aggregated array relationship */
+  physical_attributes_aggregate: Physical_Attribute_Aggregate;
+};
+
+
+/** columns and relationships of "eye_color" */
+export type Eye_ColorPhysical_AttributesArgs = {
+  distinct_on?: Maybe<Array<Physical_Attribute_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Physical_Attribute_Order_By>>;
+  where?: Maybe<Physical_Attribute_Bool_Exp>;
+};
+
+
+/** columns and relationships of "eye_color" */
+export type Eye_ColorPhysical_Attributes_AggregateArgs = {
+  distinct_on?: Maybe<Array<Physical_Attribute_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Physical_Attribute_Order_By>>;
+  where?: Maybe<Physical_Attribute_Bool_Exp>;
 };
 
 /** aggregated selection of "eye_color" */
@@ -2293,6 +2400,7 @@ export type Eye_Color_Bool_Exp = {
   _or?: Maybe<Array<Maybe<Eye_Color_Bool_Exp>>>;
   id?: Maybe<Int_Comparison_Exp>;
   name?: Maybe<String_Comparison_Exp>;
+  physical_attributes?: Maybe<Physical_Attribute_Bool_Exp>;
 };
 
 /** unique or primary key constraints on table "eye_color" */
@@ -2312,6 +2420,7 @@ export type Eye_Color_Inc_Input = {
 export type Eye_Color_Insert_Input = {
   id?: Maybe<Scalars['Int']>;
   name?: Maybe<Scalars['String']>;
+  physical_attributes?: Maybe<Physical_Attribute_Arr_Rel_Insert_Input>;
 };
 
 /** aggregate max on columns */
@@ -2366,6 +2475,7 @@ export type Eye_Color_On_Conflict = {
 export type Eye_Color_Order_By = {
   id?: Maybe<Order_By>;
   name?: Maybe<Order_By>;
+  physical_attributes_aggregate?: Maybe<Physical_Attribute_Aggregate_Order_By>;
 };
 
 /** primary key columns input for table: "eye_color" */
@@ -2477,6 +2587,30 @@ export type Gender = {
   __typename?: 'gender';
   id: Scalars['Int'];
   name: Scalars['String'];
+  /** An array relationship */
+  physical_attributes: Array<Physical_Attribute>;
+  /** An aggregated array relationship */
+  physical_attributes_aggregate: Physical_Attribute_Aggregate;
+};
+
+
+/** columns and relationships of "gender" */
+export type GenderPhysical_AttributesArgs = {
+  distinct_on?: Maybe<Array<Physical_Attribute_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Physical_Attribute_Order_By>>;
+  where?: Maybe<Physical_Attribute_Bool_Exp>;
+};
+
+
+/** columns and relationships of "gender" */
+export type GenderPhysical_Attributes_AggregateArgs = {
+  distinct_on?: Maybe<Array<Physical_Attribute_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Physical_Attribute_Order_By>>;
+  where?: Maybe<Physical_Attribute_Bool_Exp>;
 };
 
 /** aggregated selection of "gender" */
@@ -2548,6 +2682,7 @@ export type Gender_Bool_Exp = {
   _or?: Maybe<Array<Maybe<Gender_Bool_Exp>>>;
   id?: Maybe<Int_Comparison_Exp>;
   name?: Maybe<String_Comparison_Exp>;
+  physical_attributes?: Maybe<Physical_Attribute_Bool_Exp>;
 };
 
 /** unique or primary key constraints on table "gender" */
@@ -2567,6 +2702,7 @@ export type Gender_Inc_Input = {
 export type Gender_Insert_Input = {
   id?: Maybe<Scalars['Int']>;
   name?: Maybe<Scalars['String']>;
+  physical_attributes?: Maybe<Physical_Attribute_Arr_Rel_Insert_Input>;
 };
 
 /** aggregate max on columns */
@@ -2621,6 +2757,7 @@ export type Gender_On_Conflict = {
 export type Gender_Order_By = {
   id?: Maybe<Order_By>;
   name?: Maybe<Order_By>;
+  physical_attributes_aggregate?: Maybe<Physical_Attribute_Aggregate_Order_By>;
 };
 
 /** primary key columns input for table: "gender" */
@@ -2732,6 +2869,30 @@ export type Hair_Color = {
   __typename?: 'hair_color';
   id: Scalars['Int'];
   name: Scalars['String'];
+  /** An array relationship */
+  physical_attributes: Array<Physical_Attribute>;
+  /** An aggregated array relationship */
+  physical_attributes_aggregate: Physical_Attribute_Aggregate;
+};
+
+
+/** columns and relationships of "hair_color" */
+export type Hair_ColorPhysical_AttributesArgs = {
+  distinct_on?: Maybe<Array<Physical_Attribute_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Physical_Attribute_Order_By>>;
+  where?: Maybe<Physical_Attribute_Bool_Exp>;
+};
+
+
+/** columns and relationships of "hair_color" */
+export type Hair_ColorPhysical_Attributes_AggregateArgs = {
+  distinct_on?: Maybe<Array<Physical_Attribute_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Physical_Attribute_Order_By>>;
+  where?: Maybe<Physical_Attribute_Bool_Exp>;
 };
 
 /** aggregated selection of "hair_color" */
@@ -2803,6 +2964,7 @@ export type Hair_Color_Bool_Exp = {
   _or?: Maybe<Array<Maybe<Hair_Color_Bool_Exp>>>;
   id?: Maybe<Int_Comparison_Exp>;
   name?: Maybe<String_Comparison_Exp>;
+  physical_attributes?: Maybe<Physical_Attribute_Bool_Exp>;
 };
 
 /** unique or primary key constraints on table "hair_color" */
@@ -2822,6 +2984,7 @@ export type Hair_Color_Inc_Input = {
 export type Hair_Color_Insert_Input = {
   id?: Maybe<Scalars['Int']>;
   name?: Maybe<Scalars['String']>;
+  physical_attributes?: Maybe<Physical_Attribute_Arr_Rel_Insert_Input>;
 };
 
 /** aggregate max on columns */
@@ -2876,6 +3039,7 @@ export type Hair_Color_On_Conflict = {
 export type Hair_Color_Order_By = {
   id?: Maybe<Order_By>;
   name?: Maybe<Order_By>;
+  physical_attributes_aggregate?: Maybe<Physical_Attribute_Aggregate_Order_By>;
 };
 
 /** primary key columns input for table: "hair_color" */
@@ -2985,10 +3149,14 @@ export type Hair_Color_Variance_Order_By = {
 /** columns and relationships of "highlight" */
 export type Highlight = {
   __typename?: 'highlight';
+  /** An object relationship */
+  highlight_type: Highlight_Type;
   highlight_type_id: Scalars['Int'];
   id: Scalars['Int'];
   name: Scalars['String'];
   source_url?: Maybe<Scalars['String']>;
+  /** An object relationship */
+  user: User;
   user_id: Scalars['Int'];
 };
 
@@ -3063,10 +3231,12 @@ export type Highlight_Bool_Exp = {
   _and?: Maybe<Array<Maybe<Highlight_Bool_Exp>>>;
   _not?: Maybe<Highlight_Bool_Exp>;
   _or?: Maybe<Array<Maybe<Highlight_Bool_Exp>>>;
+  highlight_type?: Maybe<Highlight_Type_Bool_Exp>;
   highlight_type_id?: Maybe<Int_Comparison_Exp>;
   id?: Maybe<Int_Comparison_Exp>;
   name?: Maybe<String_Comparison_Exp>;
   source_url?: Maybe<String_Comparison_Exp>;
+  user?: Maybe<User_Bool_Exp>;
   user_id?: Maybe<Int_Comparison_Exp>;
 };
 
@@ -3085,10 +3255,12 @@ export type Highlight_Inc_Input = {
 
 /** input type for inserting data into table "highlight" */
 export type Highlight_Insert_Input = {
+  highlight_type?: Maybe<Highlight_Type_Obj_Rel_Insert_Input>;
   highlight_type_id?: Maybe<Scalars['Int']>;
   id?: Maybe<Scalars['Int']>;
   name?: Maybe<Scalars['String']>;
   source_url?: Maybe<Scalars['String']>;
+  user?: Maybe<User_Obj_Rel_Insert_Input>;
   user_id?: Maybe<Scalars['Int']>;
 };
 
@@ -3154,10 +3326,12 @@ export type Highlight_On_Conflict = {
 
 /** ordering options when selecting data from "highlight" */
 export type Highlight_Order_By = {
+  highlight_type?: Maybe<Highlight_Type_Order_By>;
   highlight_type_id?: Maybe<Order_By>;
   id?: Maybe<Order_By>;
   name?: Maybe<Order_By>;
   source_url?: Maybe<Order_By>;
+  user?: Maybe<User_Order_By>;
   user_id?: Maybe<Order_By>;
 };
 
@@ -3252,8 +3426,32 @@ export type Highlight_Sum_Order_By = {
 /** columns and relationships of "highlight_type" */
 export type Highlight_Type = {
   __typename?: 'highlight_type';
+  /** An array relationship */
+  highlights: Array<Highlight>;
+  /** An aggregated array relationship */
+  highlights_aggregate: Highlight_Aggregate;
   id: Scalars['Int'];
   name: Scalars['String'];
+};
+
+
+/** columns and relationships of "highlight_type" */
+export type Highlight_TypeHighlightsArgs = {
+  distinct_on?: Maybe<Array<Highlight_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Highlight_Order_By>>;
+  where?: Maybe<Highlight_Bool_Exp>;
+};
+
+
+/** columns and relationships of "highlight_type" */
+export type Highlight_TypeHighlights_AggregateArgs = {
+  distinct_on?: Maybe<Array<Highlight_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Highlight_Order_By>>;
+  where?: Maybe<Highlight_Bool_Exp>;
 };
 
 /** aggregated selection of "highlight_type" */
@@ -3323,6 +3521,7 @@ export type Highlight_Type_Bool_Exp = {
   _and?: Maybe<Array<Maybe<Highlight_Type_Bool_Exp>>>;
   _not?: Maybe<Highlight_Type_Bool_Exp>;
   _or?: Maybe<Array<Maybe<Highlight_Type_Bool_Exp>>>;
+  highlights?: Maybe<Highlight_Bool_Exp>;
   id?: Maybe<Int_Comparison_Exp>;
   name?: Maybe<String_Comparison_Exp>;
 };
@@ -3342,6 +3541,7 @@ export type Highlight_Type_Inc_Input = {
 
 /** input type for inserting data into table "highlight_type" */
 export type Highlight_Type_Insert_Input = {
+  highlights?: Maybe<Highlight_Arr_Rel_Insert_Input>;
   id?: Maybe<Scalars['Int']>;
   name?: Maybe<Scalars['String']>;
 };
@@ -3396,6 +3596,7 @@ export type Highlight_Type_On_Conflict = {
 
 /** ordering options when selecting data from "highlight_type" */
 export type Highlight_Type_Order_By = {
+  highlights_aggregate?: Maybe<Highlight_Aggregate_Order_By>;
   id?: Maybe<Order_By>;
   name?: Maybe<Order_By>;
 };
@@ -3577,572 +3778,6 @@ export type Json_Comparison_Exp = {
   _nin?: Maybe<Array<Scalars['json']>>;
 };
 
-/** columns and relationships of "knex_migrations" */
-export type Knex_Migrations = {
-  __typename?: 'knex_migrations';
-  batch?: Maybe<Scalars['Int']>;
-  id: Scalars['Int'];
-  migration_time?: Maybe<Scalars['timestamptz']>;
-  name?: Maybe<Scalars['String']>;
-};
-
-/** aggregated selection of "knex_migrations" */
-export type Knex_Migrations_Aggregate = {
-  __typename?: 'knex_migrations_aggregate';
-  aggregate?: Maybe<Knex_Migrations_Aggregate_Fields>;
-  nodes: Array<Knex_Migrations>;
-};
-
-/** aggregate fields of "knex_migrations" */
-export type Knex_Migrations_Aggregate_Fields = {
-  __typename?: 'knex_migrations_aggregate_fields';
-  avg?: Maybe<Knex_Migrations_Avg_Fields>;
-  count?: Maybe<Scalars['Int']>;
-  max?: Maybe<Knex_Migrations_Max_Fields>;
-  min?: Maybe<Knex_Migrations_Min_Fields>;
-  stddev?: Maybe<Knex_Migrations_Stddev_Fields>;
-  stddev_pop?: Maybe<Knex_Migrations_Stddev_Pop_Fields>;
-  stddev_samp?: Maybe<Knex_Migrations_Stddev_Samp_Fields>;
-  sum?: Maybe<Knex_Migrations_Sum_Fields>;
-  var_pop?: Maybe<Knex_Migrations_Var_Pop_Fields>;
-  var_samp?: Maybe<Knex_Migrations_Var_Samp_Fields>;
-  variance?: Maybe<Knex_Migrations_Variance_Fields>;
-};
-
-
-/** aggregate fields of "knex_migrations" */
-export type Knex_Migrations_Aggregate_FieldsCountArgs = {
-  columns?: Maybe<Array<Knex_Migrations_Select_Column>>;
-  distinct?: Maybe<Scalars['Boolean']>;
-};
-
-/** order by aggregate values of table "knex_migrations" */
-export type Knex_Migrations_Aggregate_Order_By = {
-  avg?: Maybe<Knex_Migrations_Avg_Order_By>;
-  count?: Maybe<Order_By>;
-  max?: Maybe<Knex_Migrations_Max_Order_By>;
-  min?: Maybe<Knex_Migrations_Min_Order_By>;
-  stddev?: Maybe<Knex_Migrations_Stddev_Order_By>;
-  stddev_pop?: Maybe<Knex_Migrations_Stddev_Pop_Order_By>;
-  stddev_samp?: Maybe<Knex_Migrations_Stddev_Samp_Order_By>;
-  sum?: Maybe<Knex_Migrations_Sum_Order_By>;
-  var_pop?: Maybe<Knex_Migrations_Var_Pop_Order_By>;
-  var_samp?: Maybe<Knex_Migrations_Var_Samp_Order_By>;
-  variance?: Maybe<Knex_Migrations_Variance_Order_By>;
-};
-
-/** input type for inserting array relation for remote table "knex_migrations" */
-export type Knex_Migrations_Arr_Rel_Insert_Input = {
-  data: Array<Knex_Migrations_Insert_Input>;
-  on_conflict?: Maybe<Knex_Migrations_On_Conflict>;
-};
-
-/** aggregate avg on columns */
-export type Knex_Migrations_Avg_Fields = {
-  __typename?: 'knex_migrations_avg_fields';
-  batch?: Maybe<Scalars['Float']>;
-  id?: Maybe<Scalars['Float']>;
-};
-
-/** order by avg() on columns of table "knex_migrations" */
-export type Knex_Migrations_Avg_Order_By = {
-  batch?: Maybe<Order_By>;
-  id?: Maybe<Order_By>;
-};
-
-/** Boolean expression to filter rows from the table "knex_migrations". All fields are combined with a logical 'AND'. */
-export type Knex_Migrations_Bool_Exp = {
-  _and?: Maybe<Array<Maybe<Knex_Migrations_Bool_Exp>>>;
-  _not?: Maybe<Knex_Migrations_Bool_Exp>;
-  _or?: Maybe<Array<Maybe<Knex_Migrations_Bool_Exp>>>;
-  batch?: Maybe<Int_Comparison_Exp>;
-  id?: Maybe<Int_Comparison_Exp>;
-  migration_time?: Maybe<Timestamptz_Comparison_Exp>;
-  name?: Maybe<String_Comparison_Exp>;
-};
-
-/** unique or primary key constraints on table "knex_migrations" */
-export enum Knex_Migrations_Constraint {
-  /** unique or primary key constraint */
-  KnexMigrationsPkey = 'knex_migrations_pkey'
-}
-
-/** input type for incrementing integer column in table "knex_migrations" */
-export type Knex_Migrations_Inc_Input = {
-  batch?: Maybe<Scalars['Int']>;
-  id?: Maybe<Scalars['Int']>;
-};
-
-/** input type for inserting data into table "knex_migrations" */
-export type Knex_Migrations_Insert_Input = {
-  batch?: Maybe<Scalars['Int']>;
-  id?: Maybe<Scalars['Int']>;
-  migration_time?: Maybe<Scalars['timestamptz']>;
-  name?: Maybe<Scalars['String']>;
-};
-
-/** columns and relationships of "knex_migrations_lock" */
-export type Knex_Migrations_Lock = {
-  __typename?: 'knex_migrations_lock';
-  index: Scalars['Int'];
-  is_locked?: Maybe<Scalars['Int']>;
-};
-
-/** aggregated selection of "knex_migrations_lock" */
-export type Knex_Migrations_Lock_Aggregate = {
-  __typename?: 'knex_migrations_lock_aggregate';
-  aggregate?: Maybe<Knex_Migrations_Lock_Aggregate_Fields>;
-  nodes: Array<Knex_Migrations_Lock>;
-};
-
-/** aggregate fields of "knex_migrations_lock" */
-export type Knex_Migrations_Lock_Aggregate_Fields = {
-  __typename?: 'knex_migrations_lock_aggregate_fields';
-  avg?: Maybe<Knex_Migrations_Lock_Avg_Fields>;
-  count?: Maybe<Scalars['Int']>;
-  max?: Maybe<Knex_Migrations_Lock_Max_Fields>;
-  min?: Maybe<Knex_Migrations_Lock_Min_Fields>;
-  stddev?: Maybe<Knex_Migrations_Lock_Stddev_Fields>;
-  stddev_pop?: Maybe<Knex_Migrations_Lock_Stddev_Pop_Fields>;
-  stddev_samp?: Maybe<Knex_Migrations_Lock_Stddev_Samp_Fields>;
-  sum?: Maybe<Knex_Migrations_Lock_Sum_Fields>;
-  var_pop?: Maybe<Knex_Migrations_Lock_Var_Pop_Fields>;
-  var_samp?: Maybe<Knex_Migrations_Lock_Var_Samp_Fields>;
-  variance?: Maybe<Knex_Migrations_Lock_Variance_Fields>;
-};
-
-
-/** aggregate fields of "knex_migrations_lock" */
-export type Knex_Migrations_Lock_Aggregate_FieldsCountArgs = {
-  columns?: Maybe<Array<Knex_Migrations_Lock_Select_Column>>;
-  distinct?: Maybe<Scalars['Boolean']>;
-};
-
-/** order by aggregate values of table "knex_migrations_lock" */
-export type Knex_Migrations_Lock_Aggregate_Order_By = {
-  avg?: Maybe<Knex_Migrations_Lock_Avg_Order_By>;
-  count?: Maybe<Order_By>;
-  max?: Maybe<Knex_Migrations_Lock_Max_Order_By>;
-  min?: Maybe<Knex_Migrations_Lock_Min_Order_By>;
-  stddev?: Maybe<Knex_Migrations_Lock_Stddev_Order_By>;
-  stddev_pop?: Maybe<Knex_Migrations_Lock_Stddev_Pop_Order_By>;
-  stddev_samp?: Maybe<Knex_Migrations_Lock_Stddev_Samp_Order_By>;
-  sum?: Maybe<Knex_Migrations_Lock_Sum_Order_By>;
-  var_pop?: Maybe<Knex_Migrations_Lock_Var_Pop_Order_By>;
-  var_samp?: Maybe<Knex_Migrations_Lock_Var_Samp_Order_By>;
-  variance?: Maybe<Knex_Migrations_Lock_Variance_Order_By>;
-};
-
-/** input type for inserting array relation for remote table "knex_migrations_lock" */
-export type Knex_Migrations_Lock_Arr_Rel_Insert_Input = {
-  data: Array<Knex_Migrations_Lock_Insert_Input>;
-  on_conflict?: Maybe<Knex_Migrations_Lock_On_Conflict>;
-};
-
-/** aggregate avg on columns */
-export type Knex_Migrations_Lock_Avg_Fields = {
-  __typename?: 'knex_migrations_lock_avg_fields';
-  index?: Maybe<Scalars['Float']>;
-  is_locked?: Maybe<Scalars['Float']>;
-};
-
-/** order by avg() on columns of table "knex_migrations_lock" */
-export type Knex_Migrations_Lock_Avg_Order_By = {
-  index?: Maybe<Order_By>;
-  is_locked?: Maybe<Order_By>;
-};
-
-/** Boolean expression to filter rows from the table "knex_migrations_lock". All fields are combined with a logical 'AND'. */
-export type Knex_Migrations_Lock_Bool_Exp = {
-  _and?: Maybe<Array<Maybe<Knex_Migrations_Lock_Bool_Exp>>>;
-  _not?: Maybe<Knex_Migrations_Lock_Bool_Exp>;
-  _or?: Maybe<Array<Maybe<Knex_Migrations_Lock_Bool_Exp>>>;
-  index?: Maybe<Int_Comparison_Exp>;
-  is_locked?: Maybe<Int_Comparison_Exp>;
-};
-
-/** unique or primary key constraints on table "knex_migrations_lock" */
-export enum Knex_Migrations_Lock_Constraint {
-  /** unique or primary key constraint */
-  KnexMigrationsLockPkey = 'knex_migrations_lock_pkey'
-}
-
-/** input type for incrementing integer column in table "knex_migrations_lock" */
-export type Knex_Migrations_Lock_Inc_Input = {
-  index?: Maybe<Scalars['Int']>;
-  is_locked?: Maybe<Scalars['Int']>;
-};
-
-/** input type for inserting data into table "knex_migrations_lock" */
-export type Knex_Migrations_Lock_Insert_Input = {
-  index?: Maybe<Scalars['Int']>;
-  is_locked?: Maybe<Scalars['Int']>;
-};
-
-/** aggregate max on columns */
-export type Knex_Migrations_Lock_Max_Fields = {
-  __typename?: 'knex_migrations_lock_max_fields';
-  index?: Maybe<Scalars['Int']>;
-  is_locked?: Maybe<Scalars['Int']>;
-};
-
-/** order by max() on columns of table "knex_migrations_lock" */
-export type Knex_Migrations_Lock_Max_Order_By = {
-  index?: Maybe<Order_By>;
-  is_locked?: Maybe<Order_By>;
-};
-
-/** aggregate min on columns */
-export type Knex_Migrations_Lock_Min_Fields = {
-  __typename?: 'knex_migrations_lock_min_fields';
-  index?: Maybe<Scalars['Int']>;
-  is_locked?: Maybe<Scalars['Int']>;
-};
-
-/** order by min() on columns of table "knex_migrations_lock" */
-export type Knex_Migrations_Lock_Min_Order_By = {
-  index?: Maybe<Order_By>;
-  is_locked?: Maybe<Order_By>;
-};
-
-/** response of any mutation on the table "knex_migrations_lock" */
-export type Knex_Migrations_Lock_Mutation_Response = {
-  __typename?: 'knex_migrations_lock_mutation_response';
-  /** number of affected rows by the mutation */
-  affected_rows: Scalars['Int'];
-  /** data of the affected rows by the mutation */
-  returning: Array<Knex_Migrations_Lock>;
-};
-
-/** input type for inserting object relation for remote table "knex_migrations_lock" */
-export type Knex_Migrations_Lock_Obj_Rel_Insert_Input = {
-  data: Knex_Migrations_Lock_Insert_Input;
-  on_conflict?: Maybe<Knex_Migrations_Lock_On_Conflict>;
-};
-
-/** on conflict condition type for table "knex_migrations_lock" */
-export type Knex_Migrations_Lock_On_Conflict = {
-  constraint: Knex_Migrations_Lock_Constraint;
-  update_columns: Array<Knex_Migrations_Lock_Update_Column>;
-  where?: Maybe<Knex_Migrations_Lock_Bool_Exp>;
-};
-
-/** ordering options when selecting data from "knex_migrations_lock" */
-export type Knex_Migrations_Lock_Order_By = {
-  index?: Maybe<Order_By>;
-  is_locked?: Maybe<Order_By>;
-};
-
-/** primary key columns input for table: "knex_migrations_lock" */
-export type Knex_Migrations_Lock_Pk_Columns_Input = {
-  index: Scalars['Int'];
-};
-
-/** select columns of table "knex_migrations_lock" */
-export enum Knex_Migrations_Lock_Select_Column {
-  /** column name */
-  Index = 'index',
-  /** column name */
-  IsLocked = 'is_locked'
-}
-
-/** input type for updating data in table "knex_migrations_lock" */
-export type Knex_Migrations_Lock_Set_Input = {
-  index?: Maybe<Scalars['Int']>;
-  is_locked?: Maybe<Scalars['Int']>;
-};
-
-/** aggregate stddev on columns */
-export type Knex_Migrations_Lock_Stddev_Fields = {
-  __typename?: 'knex_migrations_lock_stddev_fields';
-  index?: Maybe<Scalars['Float']>;
-  is_locked?: Maybe<Scalars['Float']>;
-};
-
-/** order by stddev() on columns of table "knex_migrations_lock" */
-export type Knex_Migrations_Lock_Stddev_Order_By = {
-  index?: Maybe<Order_By>;
-  is_locked?: Maybe<Order_By>;
-};
-
-/** aggregate stddev_pop on columns */
-export type Knex_Migrations_Lock_Stddev_Pop_Fields = {
-  __typename?: 'knex_migrations_lock_stddev_pop_fields';
-  index?: Maybe<Scalars['Float']>;
-  is_locked?: Maybe<Scalars['Float']>;
-};
-
-/** order by stddev_pop() on columns of table "knex_migrations_lock" */
-export type Knex_Migrations_Lock_Stddev_Pop_Order_By = {
-  index?: Maybe<Order_By>;
-  is_locked?: Maybe<Order_By>;
-};
-
-/** aggregate stddev_samp on columns */
-export type Knex_Migrations_Lock_Stddev_Samp_Fields = {
-  __typename?: 'knex_migrations_lock_stddev_samp_fields';
-  index?: Maybe<Scalars['Float']>;
-  is_locked?: Maybe<Scalars['Float']>;
-};
-
-/** order by stddev_samp() on columns of table "knex_migrations_lock" */
-export type Knex_Migrations_Lock_Stddev_Samp_Order_By = {
-  index?: Maybe<Order_By>;
-  is_locked?: Maybe<Order_By>;
-};
-
-/** aggregate sum on columns */
-export type Knex_Migrations_Lock_Sum_Fields = {
-  __typename?: 'knex_migrations_lock_sum_fields';
-  index?: Maybe<Scalars['Int']>;
-  is_locked?: Maybe<Scalars['Int']>;
-};
-
-/** order by sum() on columns of table "knex_migrations_lock" */
-export type Knex_Migrations_Lock_Sum_Order_By = {
-  index?: Maybe<Order_By>;
-  is_locked?: Maybe<Order_By>;
-};
-
-/** update columns of table "knex_migrations_lock" */
-export enum Knex_Migrations_Lock_Update_Column {
-  /** column name */
-  Index = 'index',
-  /** column name */
-  IsLocked = 'is_locked'
-}
-
-/** aggregate var_pop on columns */
-export type Knex_Migrations_Lock_Var_Pop_Fields = {
-  __typename?: 'knex_migrations_lock_var_pop_fields';
-  index?: Maybe<Scalars['Float']>;
-  is_locked?: Maybe<Scalars['Float']>;
-};
-
-/** order by var_pop() on columns of table "knex_migrations_lock" */
-export type Knex_Migrations_Lock_Var_Pop_Order_By = {
-  index?: Maybe<Order_By>;
-  is_locked?: Maybe<Order_By>;
-};
-
-/** aggregate var_samp on columns */
-export type Knex_Migrations_Lock_Var_Samp_Fields = {
-  __typename?: 'knex_migrations_lock_var_samp_fields';
-  index?: Maybe<Scalars['Float']>;
-  is_locked?: Maybe<Scalars['Float']>;
-};
-
-/** order by var_samp() on columns of table "knex_migrations_lock" */
-export type Knex_Migrations_Lock_Var_Samp_Order_By = {
-  index?: Maybe<Order_By>;
-  is_locked?: Maybe<Order_By>;
-};
-
-/** aggregate variance on columns */
-export type Knex_Migrations_Lock_Variance_Fields = {
-  __typename?: 'knex_migrations_lock_variance_fields';
-  index?: Maybe<Scalars['Float']>;
-  is_locked?: Maybe<Scalars['Float']>;
-};
-
-/** order by variance() on columns of table "knex_migrations_lock" */
-export type Knex_Migrations_Lock_Variance_Order_By = {
-  index?: Maybe<Order_By>;
-  is_locked?: Maybe<Order_By>;
-};
-
-/** aggregate max on columns */
-export type Knex_Migrations_Max_Fields = {
-  __typename?: 'knex_migrations_max_fields';
-  batch?: Maybe<Scalars['Int']>;
-  id?: Maybe<Scalars['Int']>;
-  migration_time?: Maybe<Scalars['timestamptz']>;
-  name?: Maybe<Scalars['String']>;
-};
-
-/** order by max() on columns of table "knex_migrations" */
-export type Knex_Migrations_Max_Order_By = {
-  batch?: Maybe<Order_By>;
-  id?: Maybe<Order_By>;
-  migration_time?: Maybe<Order_By>;
-  name?: Maybe<Order_By>;
-};
-
-/** aggregate min on columns */
-export type Knex_Migrations_Min_Fields = {
-  __typename?: 'knex_migrations_min_fields';
-  batch?: Maybe<Scalars['Int']>;
-  id?: Maybe<Scalars['Int']>;
-  migration_time?: Maybe<Scalars['timestamptz']>;
-  name?: Maybe<Scalars['String']>;
-};
-
-/** order by min() on columns of table "knex_migrations" */
-export type Knex_Migrations_Min_Order_By = {
-  batch?: Maybe<Order_By>;
-  id?: Maybe<Order_By>;
-  migration_time?: Maybe<Order_By>;
-  name?: Maybe<Order_By>;
-};
-
-/** response of any mutation on the table "knex_migrations" */
-export type Knex_Migrations_Mutation_Response = {
-  __typename?: 'knex_migrations_mutation_response';
-  /** number of affected rows by the mutation */
-  affected_rows: Scalars['Int'];
-  /** data of the affected rows by the mutation */
-  returning: Array<Knex_Migrations>;
-};
-
-/** input type for inserting object relation for remote table "knex_migrations" */
-export type Knex_Migrations_Obj_Rel_Insert_Input = {
-  data: Knex_Migrations_Insert_Input;
-  on_conflict?: Maybe<Knex_Migrations_On_Conflict>;
-};
-
-/** on conflict condition type for table "knex_migrations" */
-export type Knex_Migrations_On_Conflict = {
-  constraint: Knex_Migrations_Constraint;
-  update_columns: Array<Knex_Migrations_Update_Column>;
-  where?: Maybe<Knex_Migrations_Bool_Exp>;
-};
-
-/** ordering options when selecting data from "knex_migrations" */
-export type Knex_Migrations_Order_By = {
-  batch?: Maybe<Order_By>;
-  id?: Maybe<Order_By>;
-  migration_time?: Maybe<Order_By>;
-  name?: Maybe<Order_By>;
-};
-
-/** primary key columns input for table: "knex_migrations" */
-export type Knex_Migrations_Pk_Columns_Input = {
-  id: Scalars['Int'];
-};
-
-/** select columns of table "knex_migrations" */
-export enum Knex_Migrations_Select_Column {
-  /** column name */
-  Batch = 'batch',
-  /** column name */
-  Id = 'id',
-  /** column name */
-  MigrationTime = 'migration_time',
-  /** column name */
-  Name = 'name'
-}
-
-/** input type for updating data in table "knex_migrations" */
-export type Knex_Migrations_Set_Input = {
-  batch?: Maybe<Scalars['Int']>;
-  id?: Maybe<Scalars['Int']>;
-  migration_time?: Maybe<Scalars['timestamptz']>;
-  name?: Maybe<Scalars['String']>;
-};
-
-/** aggregate stddev on columns */
-export type Knex_Migrations_Stddev_Fields = {
-  __typename?: 'knex_migrations_stddev_fields';
-  batch?: Maybe<Scalars['Float']>;
-  id?: Maybe<Scalars['Float']>;
-};
-
-/** order by stddev() on columns of table "knex_migrations" */
-export type Knex_Migrations_Stddev_Order_By = {
-  batch?: Maybe<Order_By>;
-  id?: Maybe<Order_By>;
-};
-
-/** aggregate stddev_pop on columns */
-export type Knex_Migrations_Stddev_Pop_Fields = {
-  __typename?: 'knex_migrations_stddev_pop_fields';
-  batch?: Maybe<Scalars['Float']>;
-  id?: Maybe<Scalars['Float']>;
-};
-
-/** order by stddev_pop() on columns of table "knex_migrations" */
-export type Knex_Migrations_Stddev_Pop_Order_By = {
-  batch?: Maybe<Order_By>;
-  id?: Maybe<Order_By>;
-};
-
-/** aggregate stddev_samp on columns */
-export type Knex_Migrations_Stddev_Samp_Fields = {
-  __typename?: 'knex_migrations_stddev_samp_fields';
-  batch?: Maybe<Scalars['Float']>;
-  id?: Maybe<Scalars['Float']>;
-};
-
-/** order by stddev_samp() on columns of table "knex_migrations" */
-export type Knex_Migrations_Stddev_Samp_Order_By = {
-  batch?: Maybe<Order_By>;
-  id?: Maybe<Order_By>;
-};
-
-/** aggregate sum on columns */
-export type Knex_Migrations_Sum_Fields = {
-  __typename?: 'knex_migrations_sum_fields';
-  batch?: Maybe<Scalars['Int']>;
-  id?: Maybe<Scalars['Int']>;
-};
-
-/** order by sum() on columns of table "knex_migrations" */
-export type Knex_Migrations_Sum_Order_By = {
-  batch?: Maybe<Order_By>;
-  id?: Maybe<Order_By>;
-};
-
-/** update columns of table "knex_migrations" */
-export enum Knex_Migrations_Update_Column {
-  /** column name */
-  Batch = 'batch',
-  /** column name */
-  Id = 'id',
-  /** column name */
-  MigrationTime = 'migration_time',
-  /** column name */
-  Name = 'name'
-}
-
-/** aggregate var_pop on columns */
-export type Knex_Migrations_Var_Pop_Fields = {
-  __typename?: 'knex_migrations_var_pop_fields';
-  batch?: Maybe<Scalars['Float']>;
-  id?: Maybe<Scalars['Float']>;
-};
-
-/** order by var_pop() on columns of table "knex_migrations" */
-export type Knex_Migrations_Var_Pop_Order_By = {
-  batch?: Maybe<Order_By>;
-  id?: Maybe<Order_By>;
-};
-
-/** aggregate var_samp on columns */
-export type Knex_Migrations_Var_Samp_Fields = {
-  __typename?: 'knex_migrations_var_samp_fields';
-  batch?: Maybe<Scalars['Float']>;
-  id?: Maybe<Scalars['Float']>;
-};
-
-/** order by var_samp() on columns of table "knex_migrations" */
-export type Knex_Migrations_Var_Samp_Order_By = {
-  batch?: Maybe<Order_By>;
-  id?: Maybe<Order_By>;
-};
-
-/** aggregate variance on columns */
-export type Knex_Migrations_Variance_Fields = {
-  __typename?: 'knex_migrations_variance_fields';
-  batch?: Maybe<Scalars['Float']>;
-  id?: Maybe<Scalars['Float']>;
-};
-
-/** order by variance() on columns of table "knex_migrations" */
-export type Knex_Migrations_Variance_Order_By = {
-  batch?: Maybe<Order_By>;
-  id?: Maybe<Order_By>;
-};
-
 /** mutation root */
 export type Mutation_Root = {
   __typename?: 'mutation_root';
@@ -4194,14 +3829,6 @@ export type Mutation_Root = {
   delete_highlight_type?: Maybe<Highlight_Type_Mutation_Response>;
   /** delete single row from the table: "highlight_type" */
   delete_highlight_type_by_pk?: Maybe<Highlight_Type>;
-  /** delete data from the table: "knex_migrations" */
-  delete_knex_migrations?: Maybe<Knex_Migrations_Mutation_Response>;
-  /** delete single row from the table: "knex_migrations" */
-  delete_knex_migrations_by_pk?: Maybe<Knex_Migrations>;
-  /** delete data from the table: "knex_migrations_lock" */
-  delete_knex_migrations_lock?: Maybe<Knex_Migrations_Lock_Mutation_Response>;
-  /** delete single row from the table: "knex_migrations_lock" */
-  delete_knex_migrations_lock_by_pk?: Maybe<Knex_Migrations_Lock>;
   /** delete data from the table: "physical_attribute" */
   delete_physical_attribute?: Maybe<Physical_Attribute_Mutation_Response>;
   /** delete single row from the table: "physical_attribute" */
@@ -4286,14 +3913,6 @@ export type Mutation_Root = {
   insert_highlight_type?: Maybe<Highlight_Type_Mutation_Response>;
   /** insert a single row into the table: "highlight_type" */
   insert_highlight_type_one?: Maybe<Highlight_Type>;
-  /** insert data into the table: "knex_migrations" */
-  insert_knex_migrations?: Maybe<Knex_Migrations_Mutation_Response>;
-  /** insert data into the table: "knex_migrations_lock" */
-  insert_knex_migrations_lock?: Maybe<Knex_Migrations_Lock_Mutation_Response>;
-  /** insert a single row into the table: "knex_migrations_lock" */
-  insert_knex_migrations_lock_one?: Maybe<Knex_Migrations_Lock>;
-  /** insert a single row into the table: "knex_migrations" */
-  insert_knex_migrations_one?: Maybe<Knex_Migrations>;
   /** insert data into the table: "physical_attribute" */
   insert_physical_attribute?: Maybe<Physical_Attribute_Mutation_Response>;
   /** insert a single row into the table: "physical_attribute" */
@@ -4330,8 +3949,6 @@ export type Mutation_Root = {
   insert_voice_type?: Maybe<Voice_Type_Mutation_Response>;
   /** insert a single row into the table: "voice_type" */
   insert_voice_type_one?: Maybe<Voice_Type>;
-  /** perform the action: "signup" */
-  signup?: Maybe<SignupOutput>;
   /** update data of the table: "applicant" */
   update_applicant?: Maybe<Applicant_Mutation_Response>;
   /** update single row of the table: "applicant" */
@@ -4380,14 +3997,6 @@ export type Mutation_Root = {
   update_highlight_type?: Maybe<Highlight_Type_Mutation_Response>;
   /** update single row of the table: "highlight_type" */
   update_highlight_type_by_pk?: Maybe<Highlight_Type>;
-  /** update data of the table: "knex_migrations" */
-  update_knex_migrations?: Maybe<Knex_Migrations_Mutation_Response>;
-  /** update single row of the table: "knex_migrations" */
-  update_knex_migrations_by_pk?: Maybe<Knex_Migrations>;
-  /** update data of the table: "knex_migrations_lock" */
-  update_knex_migrations_lock?: Maybe<Knex_Migrations_Lock_Mutation_Response>;
-  /** update single row of the table: "knex_migrations_lock" */
-  update_knex_migrations_lock_by_pk?: Maybe<Knex_Migrations_Lock>;
   /** update data of the table: "physical_attribute" */
   update_physical_attribute?: Maybe<Physical_Attribute_Mutation_Response>;
   /** update single row of the table: "physical_attribute" */
@@ -4568,30 +4177,6 @@ export type Mutation_RootDelete_Highlight_TypeArgs = {
 /** mutation root */
 export type Mutation_RootDelete_Highlight_Type_By_PkArgs = {
   id: Scalars['Int'];
-};
-
-
-/** mutation root */
-export type Mutation_RootDelete_Knex_MigrationsArgs = {
-  where: Knex_Migrations_Bool_Exp;
-};
-
-
-/** mutation root */
-export type Mutation_RootDelete_Knex_Migrations_By_PkArgs = {
-  id: Scalars['Int'];
-};
-
-
-/** mutation root */
-export type Mutation_RootDelete_Knex_Migrations_LockArgs = {
-  where: Knex_Migrations_Lock_Bool_Exp;
-};
-
-
-/** mutation root */
-export type Mutation_RootDelete_Knex_Migrations_Lock_By_PkArgs = {
-  index: Scalars['Int'];
 };
 
 
@@ -4872,34 +4457,6 @@ export type Mutation_RootInsert_Highlight_Type_OneArgs = {
 
 
 /** mutation root */
-export type Mutation_RootInsert_Knex_MigrationsArgs = {
-  objects: Array<Knex_Migrations_Insert_Input>;
-  on_conflict?: Maybe<Knex_Migrations_On_Conflict>;
-};
-
-
-/** mutation root */
-export type Mutation_RootInsert_Knex_Migrations_LockArgs = {
-  objects: Array<Knex_Migrations_Lock_Insert_Input>;
-  on_conflict?: Maybe<Knex_Migrations_Lock_On_Conflict>;
-};
-
-
-/** mutation root */
-export type Mutation_RootInsert_Knex_Migrations_Lock_OneArgs = {
-  object: Knex_Migrations_Lock_Insert_Input;
-  on_conflict?: Maybe<Knex_Migrations_Lock_On_Conflict>;
-};
-
-
-/** mutation root */
-export type Mutation_RootInsert_Knex_Migrations_OneArgs = {
-  object: Knex_Migrations_Insert_Input;
-  on_conflict?: Maybe<Knex_Migrations_On_Conflict>;
-};
-
-
-/** mutation root */
 export type Mutation_RootInsert_Physical_AttributeArgs = {
   objects: Array<Physical_Attribute_Insert_Input>;
   on_conflict?: Maybe<Physical_Attribute_On_Conflict>;
@@ -5022,16 +4579,6 @@ export type Mutation_RootInsert_Voice_TypeArgs = {
 export type Mutation_RootInsert_Voice_Type_OneArgs = {
   object: Voice_Type_Insert_Input;
   on_conflict?: Maybe<Voice_Type_On_Conflict>;
-};
-
-
-/** mutation root */
-export type Mutation_RootSignupArgs = {
-  email: Scalars['String'];
-  name: Scalars['String'];
-  password: Scalars['String'];
-  profile_picture: Scalars['String'];
-  user_type_id: Scalars['Int'];
 };
 
 
@@ -5228,38 +4775,6 @@ export type Mutation_RootUpdate_Highlight_Type_By_PkArgs = {
 
 
 /** mutation root */
-export type Mutation_RootUpdate_Knex_MigrationsArgs = {
-  _inc?: Maybe<Knex_Migrations_Inc_Input>;
-  _set?: Maybe<Knex_Migrations_Set_Input>;
-  where: Knex_Migrations_Bool_Exp;
-};
-
-
-/** mutation root */
-export type Mutation_RootUpdate_Knex_Migrations_By_PkArgs = {
-  _inc?: Maybe<Knex_Migrations_Inc_Input>;
-  _set?: Maybe<Knex_Migrations_Set_Input>;
-  pk_columns: Knex_Migrations_Pk_Columns_Input;
-};
-
-
-/** mutation root */
-export type Mutation_RootUpdate_Knex_Migrations_LockArgs = {
-  _inc?: Maybe<Knex_Migrations_Lock_Inc_Input>;
-  _set?: Maybe<Knex_Migrations_Lock_Set_Input>;
-  where: Knex_Migrations_Lock_Bool_Exp;
-};
-
-
-/** mutation root */
-export type Mutation_RootUpdate_Knex_Migrations_Lock_By_PkArgs = {
-  _inc?: Maybe<Knex_Migrations_Lock_Inc_Input>;
-  _set?: Maybe<Knex_Migrations_Lock_Set_Input>;
-  pk_columns: Knex_Migrations_Lock_Pk_Columns_Input;
-};
-
-
-/** mutation root */
 export type Mutation_RootUpdate_Physical_AttributeArgs = {
   _inc?: Maybe<Physical_Attribute_Inc_Input>;
   _set?: Maybe<Physical_Attribute_Set_Input>;
@@ -5439,6 +4954,54 @@ export type Physical_Attribute = {
   hair_color_id?: Maybe<Scalars['Int']>;
   height?: Maybe<Scalars['Int']>;
   id: Scalars['Int'];
+  /** An array relationship */
+  requirements: Array<Requirement>;
+  /** An aggregated array relationship */
+  requirements_aggregate: Requirement_Aggregate;
+  /** An array relationship */
+  users: Array<User>;
+  /** An aggregated array relationship */
+  users_aggregate: User_Aggregate;
+};
+
+
+/** columns and relationships of "physical_attribute" */
+export type Physical_AttributeRequirementsArgs = {
+  distinct_on?: Maybe<Array<Requirement_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Requirement_Order_By>>;
+  where?: Maybe<Requirement_Bool_Exp>;
+};
+
+
+/** columns and relationships of "physical_attribute" */
+export type Physical_AttributeRequirements_AggregateArgs = {
+  distinct_on?: Maybe<Array<Requirement_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Requirement_Order_By>>;
+  where?: Maybe<Requirement_Bool_Exp>;
+};
+
+
+/** columns and relationships of "physical_attribute" */
+export type Physical_AttributeUsersArgs = {
+  distinct_on?: Maybe<Array<User_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<User_Order_By>>;
+  where?: Maybe<User_Bool_Exp>;
+};
+
+
+/** columns and relationships of "physical_attribute" */
+export type Physical_AttributeUsers_AggregateArgs = {
+  distinct_on?: Maybe<Array<User_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<User_Order_By>>;
+  where?: Maybe<User_Bool_Exp>;
 };
 
 /** aggregated selection of "physical_attribute" */
@@ -5535,6 +5098,8 @@ export type Physical_Attribute_Bool_Exp = {
   hair_color_id?: Maybe<Int_Comparison_Exp>;
   height?: Maybe<Int_Comparison_Exp>;
   id?: Maybe<Int_Comparison_Exp>;
+  requirements?: Maybe<Requirement_Bool_Exp>;
+  users?: Maybe<User_Bool_Exp>;
 };
 
 /** unique or primary key constraints on table "physical_attribute" */
@@ -5570,6 +5135,8 @@ export type Physical_Attribute_Insert_Input = {
   hair_color_id?: Maybe<Scalars['Int']>;
   height?: Maybe<Scalars['Int']>;
   id?: Maybe<Scalars['Int']>;
+  requirements?: Maybe<Requirement_Arr_Rel_Insert_Input>;
+  users?: Maybe<User_Arr_Rel_Insert_Input>;
 };
 
 /** aggregate max on columns */
@@ -5659,6 +5226,8 @@ export type Physical_Attribute_Order_By = {
   hair_color_id?: Maybe<Order_By>;
   height?: Maybe<Order_By>;
   id?: Maybe<Order_By>;
+  requirements_aggregate?: Maybe<Requirement_Aggregate_Order_By>;
+  users_aggregate?: Maybe<User_Aggregate_Order_By>;
 };
 
 /** primary key columns input for table: "physical_attribute" */
@@ -5968,18 +5537,6 @@ export type Query_Root = {
   highlight_type_aggregate: Highlight_Type_Aggregate;
   /** fetch data from the table: "highlight_type" using primary key columns */
   highlight_type_by_pk?: Maybe<Highlight_Type>;
-  /** fetch data from the table: "knex_migrations" */
-  knex_migrations: Array<Knex_Migrations>;
-  /** fetch aggregated fields from the table: "knex_migrations" */
-  knex_migrations_aggregate: Knex_Migrations_Aggregate;
-  /** fetch data from the table: "knex_migrations" using primary key columns */
-  knex_migrations_by_pk?: Maybe<Knex_Migrations>;
-  /** fetch data from the table: "knex_migrations_lock" */
-  knex_migrations_lock: Array<Knex_Migrations_Lock>;
-  /** fetch aggregated fields from the table: "knex_migrations_lock" */
-  knex_migrations_lock_aggregate: Knex_Migrations_Lock_Aggregate;
-  /** fetch data from the table: "knex_migrations_lock" using primary key columns */
-  knex_migrations_lock_by_pk?: Maybe<Knex_Migrations_Lock>;
   /** fetch data from the table: "physical_attribute" */
   physical_attribute: Array<Physical_Attribute>;
   /** fetch aggregated fields from the table: "physical_attribute" */
@@ -6005,7 +5562,7 @@ export type Query_Root = {
   /** fetch data from the table: "role_type" using primary key columns */
   role_type_by_pk?: Maybe<Role_Type>;
   /** perform the action: "signin" */
-  signin?: Maybe<SigninActionOutput>;
+  signin?: Maybe<SigninOutput>;
   /** fetch data from the table: "tag" */
   tag: Array<Tag>;
   /** fetch aggregated fields from the table: "tag" */
@@ -6352,58 +5909,6 @@ export type Query_RootHighlight_Type_By_PkArgs = {
 
 
 /** query root */
-export type Query_RootKnex_MigrationsArgs = {
-  distinct_on?: Maybe<Array<Knex_Migrations_Select_Column>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<Knex_Migrations_Order_By>>;
-  where?: Maybe<Knex_Migrations_Bool_Exp>;
-};
-
-
-/** query root */
-export type Query_RootKnex_Migrations_AggregateArgs = {
-  distinct_on?: Maybe<Array<Knex_Migrations_Select_Column>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<Knex_Migrations_Order_By>>;
-  where?: Maybe<Knex_Migrations_Bool_Exp>;
-};
-
-
-/** query root */
-export type Query_RootKnex_Migrations_By_PkArgs = {
-  id: Scalars['Int'];
-};
-
-
-/** query root */
-export type Query_RootKnex_Migrations_LockArgs = {
-  distinct_on?: Maybe<Array<Knex_Migrations_Lock_Select_Column>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<Knex_Migrations_Lock_Order_By>>;
-  where?: Maybe<Knex_Migrations_Lock_Bool_Exp>;
-};
-
-
-/** query root */
-export type Query_RootKnex_Migrations_Lock_AggregateArgs = {
-  distinct_on?: Maybe<Array<Knex_Migrations_Lock_Select_Column>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<Knex_Migrations_Lock_Order_By>>;
-  where?: Maybe<Knex_Migrations_Lock_Bool_Exp>;
-};
-
-
-/** query root */
-export type Query_RootKnex_Migrations_Lock_By_PkArgs = {
-  index: Scalars['Int'];
-};
-
-
-/** query root */
 export type Query_RootPhysical_AttributeArgs = {
   distinct_on?: Maybe<Array<Physical_Attribute_Select_Column>>;
   limit?: Maybe<Scalars['Int']>;
@@ -6650,9 +6155,33 @@ export type Requirement = {
   /** An object relationship */
   physical_attribute?: Maybe<Physical_Attribute>;
   physical_attribute_id?: Maybe<Scalars['Int']>;
+  /** An array relationship */
+  roles: Array<Role>;
+  /** An aggregated array relationship */
+  roles_aggregate: Role_Aggregate;
   /** An object relationship */
   voice_attribute?: Maybe<Voice_Attribute>;
   voice_attribute_id?: Maybe<Scalars['Int']>;
+};
+
+
+/** columns and relationships of "requirement" */
+export type RequirementRolesArgs = {
+  distinct_on?: Maybe<Array<Role_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Role_Order_By>>;
+  where?: Maybe<Role_Bool_Exp>;
+};
+
+
+/** columns and relationships of "requirement" */
+export type RequirementRoles_AggregateArgs = {
+  distinct_on?: Maybe<Array<Role_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Role_Order_By>>;
+  where?: Maybe<Role_Bool_Exp>;
 };
 
 /** aggregated selection of "requirement" */
@@ -6729,6 +6258,7 @@ export type Requirement_Bool_Exp = {
   id?: Maybe<Int_Comparison_Exp>;
   physical_attribute?: Maybe<Physical_Attribute_Bool_Exp>;
   physical_attribute_id?: Maybe<Int_Comparison_Exp>;
+  roles?: Maybe<Role_Bool_Exp>;
   voice_attribute?: Maybe<Voice_Attribute_Bool_Exp>;
   voice_attribute_id?: Maybe<Int_Comparison_Exp>;
 };
@@ -6751,6 +6281,7 @@ export type Requirement_Insert_Input = {
   id?: Maybe<Scalars['Int']>;
   physical_attribute?: Maybe<Physical_Attribute_Obj_Rel_Insert_Input>;
   physical_attribute_id?: Maybe<Scalars['Int']>;
+  roles?: Maybe<Role_Arr_Rel_Insert_Input>;
   voice_attribute?: Maybe<Voice_Attribute_Obj_Rel_Insert_Input>;
   voice_attribute_id?: Maybe<Scalars['Int']>;
 };
@@ -6812,6 +6343,7 @@ export type Requirement_Order_By = {
   id?: Maybe<Order_By>;
   physical_attribute?: Maybe<Physical_Attribute_Order_By>;
   physical_attribute_id?: Maybe<Order_By>;
+  roles_aggregate?: Maybe<Role_Aggregate_Order_By>;
   voice_attribute?: Maybe<Voice_Attribute_Order_By>;
   voice_attribute_id?: Maybe<Order_By>;
 };
@@ -6960,6 +6492,8 @@ export type Role = {
   applicants: Array<Applicant>;
   /** An aggregated array relationship */
   applicants_aggregate: Applicant_Aggregate;
+  /** An object relationship */
+  audition: Audition;
   audition_id: Scalars['Int'];
   description: Scalars['String'];
   id: Scalars['Int'];
@@ -7066,6 +6600,7 @@ export type Role_Bool_Exp = {
   _not?: Maybe<Role_Bool_Exp>;
   _or?: Maybe<Array<Maybe<Role_Bool_Exp>>>;
   applicants?: Maybe<Applicant_Bool_Exp>;
+  audition?: Maybe<Audition_Bool_Exp>;
   audition_id?: Maybe<Int_Comparison_Exp>;
   description?: Maybe<String_Comparison_Exp>;
   id?: Maybe<Int_Comparison_Exp>;
@@ -7093,6 +6628,7 @@ export type Role_Inc_Input = {
 /** input type for inserting data into table "role" */
 export type Role_Insert_Input = {
   applicants?: Maybe<Applicant_Arr_Rel_Insert_Input>;
+  audition?: Maybe<Audition_Obj_Rel_Insert_Input>;
   audition_id?: Maybe<Scalars['Int']>;
   description?: Maybe<Scalars['String']>;
   id?: Maybe<Scalars['Int']>;
@@ -7170,6 +6706,7 @@ export type Role_On_Conflict = {
 /** ordering options when selecting data from "role" */
 export type Role_Order_By = {
   applicants_aggregate?: Maybe<Applicant_Aggregate_Order_By>;
+  audition?: Maybe<Audition_Order_By>;
   audition_id?: Maybe<Order_By>;
   description?: Maybe<Order_By>;
   id?: Maybe<Order_By>;
@@ -7284,6 +6821,30 @@ export type Role_Type = {
   __typename?: 'role_type';
   id: Scalars['Int'];
   name: Scalars['String'];
+  /** An array relationship */
+  roles: Array<Role>;
+  /** An aggregated array relationship */
+  roles_aggregate: Role_Aggregate;
+};
+
+
+/** columns and relationships of "role_type" */
+export type Role_TypeRolesArgs = {
+  distinct_on?: Maybe<Array<Role_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Role_Order_By>>;
+  where?: Maybe<Role_Bool_Exp>;
+};
+
+
+/** columns and relationships of "role_type" */
+export type Role_TypeRoles_AggregateArgs = {
+  distinct_on?: Maybe<Array<Role_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Role_Order_By>>;
+  where?: Maybe<Role_Bool_Exp>;
 };
 
 /** aggregated selection of "role_type" */
@@ -7355,6 +6916,7 @@ export type Role_Type_Bool_Exp = {
   _or?: Maybe<Array<Maybe<Role_Type_Bool_Exp>>>;
   id?: Maybe<Int_Comparison_Exp>;
   name?: Maybe<String_Comparison_Exp>;
+  roles?: Maybe<Role_Bool_Exp>;
 };
 
 /** unique or primary key constraints on table "role_type" */
@@ -7374,6 +6936,7 @@ export type Role_Type_Inc_Input = {
 export type Role_Type_Insert_Input = {
   id?: Maybe<Scalars['Int']>;
   name?: Maybe<Scalars['String']>;
+  roles?: Maybe<Role_Arr_Rel_Insert_Input>;
 };
 
 /** aggregate max on columns */
@@ -7428,6 +6991,7 @@ export type Role_Type_On_Conflict = {
 export type Role_Type_Order_By = {
   id?: Maybe<Order_By>;
   name?: Maybe<Order_By>;
+  roles_aggregate?: Maybe<Role_Aggregate_Order_By>;
 };
 
 /** primary key columns input for table: "role_type" */
@@ -7601,13 +7165,8 @@ export type Role_Variance_Order_By = {
   role_type_id?: Maybe<Order_By>;
 };
 
-export type SigninActionOutput = {
-  __typename?: 'signinActionOutput';
-  id: Scalars['String'];
-};
-
-export type SignupOutput = {
-  __typename?: 'signupOutput';
+export type SigninOutput = {
+  __typename?: 'signinOutput';
   id: Scalars['Int'];
 };
 
@@ -7686,18 +7245,6 @@ export type Subscription_Root = {
   highlight_type_aggregate: Highlight_Type_Aggregate;
   /** fetch data from the table: "highlight_type" using primary key columns */
   highlight_type_by_pk?: Maybe<Highlight_Type>;
-  /** fetch data from the table: "knex_migrations" */
-  knex_migrations: Array<Knex_Migrations>;
-  /** fetch aggregated fields from the table: "knex_migrations" */
-  knex_migrations_aggregate: Knex_Migrations_Aggregate;
-  /** fetch data from the table: "knex_migrations" using primary key columns */
-  knex_migrations_by_pk?: Maybe<Knex_Migrations>;
-  /** fetch data from the table: "knex_migrations_lock" */
-  knex_migrations_lock: Array<Knex_Migrations_Lock>;
-  /** fetch aggregated fields from the table: "knex_migrations_lock" */
-  knex_migrations_lock_aggregate: Knex_Migrations_Lock_Aggregate;
-  /** fetch data from the table: "knex_migrations_lock" using primary key columns */
-  knex_migrations_lock_by_pk?: Maybe<Knex_Migrations_Lock>;
   /** fetch data from the table: "physical_attribute" */
   physical_attribute: Array<Physical_Attribute>;
   /** fetch aggregated fields from the table: "physical_attribute" */
@@ -7723,7 +7270,7 @@ export type Subscription_Root = {
   /** fetch data from the table: "role_type" using primary key columns */
   role_type_by_pk?: Maybe<Role_Type>;
   /** perform the action: "signin" */
-  signin?: Maybe<SigninActionOutput>;
+  signin?: Maybe<SigninOutput>;
   /** fetch data from the table: "tag" */
   tag: Array<Tag>;
   /** fetch aggregated fields from the table: "tag" */
@@ -8066,58 +7613,6 @@ export type Subscription_RootHighlight_Type_AggregateArgs = {
 /** subscription root */
 export type Subscription_RootHighlight_Type_By_PkArgs = {
   id: Scalars['Int'];
-};
-
-
-/** subscription root */
-export type Subscription_RootKnex_MigrationsArgs = {
-  distinct_on?: Maybe<Array<Knex_Migrations_Select_Column>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<Knex_Migrations_Order_By>>;
-  where?: Maybe<Knex_Migrations_Bool_Exp>;
-};
-
-
-/** subscription root */
-export type Subscription_RootKnex_Migrations_AggregateArgs = {
-  distinct_on?: Maybe<Array<Knex_Migrations_Select_Column>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<Knex_Migrations_Order_By>>;
-  where?: Maybe<Knex_Migrations_Bool_Exp>;
-};
-
-
-/** subscription root */
-export type Subscription_RootKnex_Migrations_By_PkArgs = {
-  id: Scalars['Int'];
-};
-
-
-/** subscription root */
-export type Subscription_RootKnex_Migrations_LockArgs = {
-  distinct_on?: Maybe<Array<Knex_Migrations_Lock_Select_Column>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<Knex_Migrations_Lock_Order_By>>;
-  where?: Maybe<Knex_Migrations_Lock_Bool_Exp>;
-};
-
-
-/** subscription root */
-export type Subscription_RootKnex_Migrations_Lock_AggregateArgs = {
-  distinct_on?: Maybe<Array<Knex_Migrations_Lock_Select_Column>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<Knex_Migrations_Lock_Order_By>>;
-  where?: Maybe<Knex_Migrations_Lock_Bool_Exp>;
-};
-
-
-/** subscription root */
-export type Subscription_RootKnex_Migrations_Lock_By_PkArgs = {
-  index: Scalars['Int'];
 };
 
 
@@ -8660,11 +8155,23 @@ export type Timestamptz_Comparison_Exp = {
 /** columns and relationships of "user" */
 export type User = {
   __typename?: 'user';
+  /** An array relationship */
+  applicants: Array<Applicant>;
+  /** An aggregated array relationship */
+  applicants_aggregate: Applicant_Aggregate;
+  /** An array relationship */
+  auditions: Array<Audition>;
+  /** An aggregated array relationship */
+  auditions_aggregate: Audition_Aggregate;
   /** An object relationship */
   city?: Maybe<City>;
   city_id?: Maybe<Scalars['Int']>;
   created_at: Scalars['timestamptz'];
   email?: Maybe<Scalars['String']>;
+  /** An array relationship */
+  highlights: Array<Highlight>;
+  /** An aggregated array relationship */
+  highlights_aggregate: Highlight_Aggregate;
   id: Scalars['Int'];
   name: Scalars['String'];
   password: Scalars['String'];
@@ -8676,7 +8183,69 @@ export type User = {
   /** An object relationship */
   user_type: User_Type;
   user_type_id: Scalars['Int'];
+  /** An object relationship */
+  voice_attribute?: Maybe<Voice_Attribute>;
   voice_attribute_id?: Maybe<Scalars['Int']>;
+};
+
+
+/** columns and relationships of "user" */
+export type UserApplicantsArgs = {
+  distinct_on?: Maybe<Array<Applicant_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Applicant_Order_By>>;
+  where?: Maybe<Applicant_Bool_Exp>;
+};
+
+
+/** columns and relationships of "user" */
+export type UserApplicants_AggregateArgs = {
+  distinct_on?: Maybe<Array<Applicant_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Applicant_Order_By>>;
+  where?: Maybe<Applicant_Bool_Exp>;
+};
+
+
+/** columns and relationships of "user" */
+export type UserAuditionsArgs = {
+  distinct_on?: Maybe<Array<Audition_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Audition_Order_By>>;
+  where?: Maybe<Audition_Bool_Exp>;
+};
+
+
+/** columns and relationships of "user" */
+export type UserAuditions_AggregateArgs = {
+  distinct_on?: Maybe<Array<Audition_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Audition_Order_By>>;
+  where?: Maybe<Audition_Bool_Exp>;
+};
+
+
+/** columns and relationships of "user" */
+export type UserHighlightsArgs = {
+  distinct_on?: Maybe<Array<Highlight_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Highlight_Order_By>>;
+  where?: Maybe<Highlight_Bool_Exp>;
+};
+
+
+/** columns and relationships of "user" */
+export type UserHighlights_AggregateArgs = {
+  distinct_on?: Maybe<Array<Highlight_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Highlight_Order_By>>;
+  where?: Maybe<Highlight_Bool_Exp>;
 };
 
 /** aggregated selection of "user" */
@@ -8754,10 +8323,13 @@ export type User_Bool_Exp = {
   _and?: Maybe<Array<Maybe<User_Bool_Exp>>>;
   _not?: Maybe<User_Bool_Exp>;
   _or?: Maybe<Array<Maybe<User_Bool_Exp>>>;
+  applicants?: Maybe<Applicant_Bool_Exp>;
+  auditions?: Maybe<Audition_Bool_Exp>;
   city?: Maybe<City_Bool_Exp>;
   city_id?: Maybe<Int_Comparison_Exp>;
   created_at?: Maybe<Timestamptz_Comparison_Exp>;
   email?: Maybe<String_Comparison_Exp>;
+  highlights?: Maybe<Highlight_Bool_Exp>;
   id?: Maybe<Int_Comparison_Exp>;
   name?: Maybe<String_Comparison_Exp>;
   password?: Maybe<String_Comparison_Exp>;
@@ -8767,6 +8339,7 @@ export type User_Bool_Exp = {
   updated_at?: Maybe<Timestamptz_Comparison_Exp>;
   user_type?: Maybe<User_Type_Bool_Exp>;
   user_type_id?: Maybe<Int_Comparison_Exp>;
+  voice_attribute?: Maybe<Voice_Attribute_Bool_Exp>;
   voice_attribute_id?: Maybe<Int_Comparison_Exp>;
 };
 
@@ -8789,10 +8362,13 @@ export type User_Inc_Input = {
 
 /** input type for inserting data into table "user" */
 export type User_Insert_Input = {
+  applicants?: Maybe<Applicant_Arr_Rel_Insert_Input>;
+  auditions?: Maybe<Audition_Arr_Rel_Insert_Input>;
   city?: Maybe<City_Obj_Rel_Insert_Input>;
   city_id?: Maybe<Scalars['Int']>;
   created_at?: Maybe<Scalars['timestamptz']>;
   email?: Maybe<Scalars['String']>;
+  highlights?: Maybe<Highlight_Arr_Rel_Insert_Input>;
   id?: Maybe<Scalars['Int']>;
   name?: Maybe<Scalars['String']>;
   password?: Maybe<Scalars['String']>;
@@ -8802,6 +8378,7 @@ export type User_Insert_Input = {
   updated_at?: Maybe<Scalars['timestamptz']>;
   user_type?: Maybe<User_Type_Obj_Rel_Insert_Input>;
   user_type_id?: Maybe<Scalars['Int']>;
+  voice_attribute?: Maybe<Voice_Attribute_Obj_Rel_Insert_Input>;
   voice_attribute_id?: Maybe<Scalars['Int']>;
 };
 
@@ -8891,10 +8468,13 @@ export type User_On_Conflict = {
 
 /** ordering options when selecting data from "user" */
 export type User_Order_By = {
+  applicants_aggregate?: Maybe<Applicant_Aggregate_Order_By>;
+  auditions_aggregate?: Maybe<Audition_Aggregate_Order_By>;
   city?: Maybe<City_Order_By>;
   city_id?: Maybe<Order_By>;
   created_at?: Maybe<Order_By>;
   email?: Maybe<Order_By>;
+  highlights_aggregate?: Maybe<Highlight_Aggregate_Order_By>;
   id?: Maybe<Order_By>;
   name?: Maybe<Order_By>;
   password?: Maybe<Order_By>;
@@ -8904,6 +8484,7 @@ export type User_Order_By = {
   updated_at?: Maybe<Order_By>;
   user_type?: Maybe<User_Type_Order_By>;
   user_type_id?: Maybe<Order_By>;
+  voice_attribute?: Maybe<Voice_Attribute_Order_By>;
   voice_attribute_id?: Maybe<Order_By>;
 };
 
@@ -9399,7 +8980,57 @@ export type User_Variance_Order_By = {
 export type Voice_Attribute = {
   __typename?: 'voice_attribute';
   id: Scalars['Int'];
+  /** An array relationship */
+  requirements: Array<Requirement>;
+  /** An aggregated array relationship */
+  requirements_aggregate: Requirement_Aggregate;
+  /** An array relationship */
+  users: Array<User>;
+  /** An aggregated array relationship */
+  users_aggregate: User_Aggregate;
+  /** An object relationship */
+  voice_type?: Maybe<Voice_Type>;
   voice_type_id?: Maybe<Scalars['Int']>;
+};
+
+
+/** columns and relationships of "voice_attribute" */
+export type Voice_AttributeRequirementsArgs = {
+  distinct_on?: Maybe<Array<Requirement_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Requirement_Order_By>>;
+  where?: Maybe<Requirement_Bool_Exp>;
+};
+
+
+/** columns and relationships of "voice_attribute" */
+export type Voice_AttributeRequirements_AggregateArgs = {
+  distinct_on?: Maybe<Array<Requirement_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Requirement_Order_By>>;
+  where?: Maybe<Requirement_Bool_Exp>;
+};
+
+
+/** columns and relationships of "voice_attribute" */
+export type Voice_AttributeUsersArgs = {
+  distinct_on?: Maybe<Array<User_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<User_Order_By>>;
+  where?: Maybe<User_Bool_Exp>;
+};
+
+
+/** columns and relationships of "voice_attribute" */
+export type Voice_AttributeUsers_AggregateArgs = {
+  distinct_on?: Maybe<Array<User_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<User_Order_By>>;
+  where?: Maybe<User_Bool_Exp>;
 };
 
 /** aggregated selection of "voice_attribute" */
@@ -9472,6 +9103,9 @@ export type Voice_Attribute_Bool_Exp = {
   _not?: Maybe<Voice_Attribute_Bool_Exp>;
   _or?: Maybe<Array<Maybe<Voice_Attribute_Bool_Exp>>>;
   id?: Maybe<Int_Comparison_Exp>;
+  requirements?: Maybe<Requirement_Bool_Exp>;
+  users?: Maybe<User_Bool_Exp>;
+  voice_type?: Maybe<Voice_Type_Bool_Exp>;
   voice_type_id?: Maybe<Int_Comparison_Exp>;
 };
 
@@ -9490,6 +9124,9 @@ export type Voice_Attribute_Inc_Input = {
 /** input type for inserting data into table "voice_attribute" */
 export type Voice_Attribute_Insert_Input = {
   id?: Maybe<Scalars['Int']>;
+  requirements?: Maybe<Requirement_Arr_Rel_Insert_Input>;
+  users?: Maybe<User_Arr_Rel_Insert_Input>;
+  voice_type?: Maybe<Voice_Type_Obj_Rel_Insert_Input>;
   voice_type_id?: Maybe<Scalars['Int']>;
 };
 
@@ -9544,6 +9181,9 @@ export type Voice_Attribute_On_Conflict = {
 /** ordering options when selecting data from "voice_attribute" */
 export type Voice_Attribute_Order_By = {
   id?: Maybe<Order_By>;
+  requirements_aggregate?: Maybe<Requirement_Aggregate_Order_By>;
+  users_aggregate?: Maybe<User_Aggregate_Order_By>;
+  voice_type?: Maybe<Voice_Type_Order_By>;
   voice_type_id?: Maybe<Order_By>;
 };
 
@@ -9670,6 +9310,30 @@ export type Voice_Type = {
   __typename?: 'voice_type';
   id: Scalars['Int'];
   name: Scalars['String'];
+  /** An array relationship */
+  voice_attributes: Array<Voice_Attribute>;
+  /** An aggregated array relationship */
+  voice_attributes_aggregate: Voice_Attribute_Aggregate;
+};
+
+
+/** columns and relationships of "voice_type" */
+export type Voice_TypeVoice_AttributesArgs = {
+  distinct_on?: Maybe<Array<Voice_Attribute_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Voice_Attribute_Order_By>>;
+  where?: Maybe<Voice_Attribute_Bool_Exp>;
+};
+
+
+/** columns and relationships of "voice_type" */
+export type Voice_TypeVoice_Attributes_AggregateArgs = {
+  distinct_on?: Maybe<Array<Voice_Attribute_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Voice_Attribute_Order_By>>;
+  where?: Maybe<Voice_Attribute_Bool_Exp>;
 };
 
 /** aggregated selection of "voice_type" */
@@ -9741,6 +9405,7 @@ export type Voice_Type_Bool_Exp = {
   _or?: Maybe<Array<Maybe<Voice_Type_Bool_Exp>>>;
   id?: Maybe<Int_Comparison_Exp>;
   name?: Maybe<String_Comparison_Exp>;
+  voice_attributes?: Maybe<Voice_Attribute_Bool_Exp>;
 };
 
 /** unique or primary key constraints on table "voice_type" */
@@ -9760,6 +9425,7 @@ export type Voice_Type_Inc_Input = {
 export type Voice_Type_Insert_Input = {
   id?: Maybe<Scalars['Int']>;
   name?: Maybe<Scalars['String']>;
+  voice_attributes?: Maybe<Voice_Attribute_Arr_Rel_Insert_Input>;
 };
 
 /** aggregate max on columns */
@@ -9814,6 +9480,7 @@ export type Voice_Type_On_Conflict = {
 export type Voice_Type_Order_By = {
   id?: Maybe<Order_By>;
   name?: Maybe<Order_By>;
+  voice_attributes_aggregate?: Maybe<Voice_Attribute_Aggregate_Order_By>;
 };
 
 /** primary key columns input for table: "voice_type" */
@@ -9940,7 +9607,7 @@ export type AuditionCardFragment = (
 
 export type AuditionDetailsFragment = (
   { __typename?: 'audition' }
-  & Pick<Audition, 'name' | 'description' | 'created_at' | 'company_name'>
+  & Pick<Audition, 'id' | 'name' | 'description' | 'created_at' | 'company_name'>
   & { city: (
     { __typename?: 'city' }
     & Pick<City, 'name'>
@@ -10116,8 +9783,8 @@ export type SignInUserQueryVariables = Exact<{
 export type SignInUserQuery = (
   { __typename?: 'query_root' }
   & { signin?: Maybe<(
-    { __typename?: 'signinActionOutput' }
-    & Pick<SigninActionOutput, 'id'>
+    { __typename?: 'signinOutput' }
+    & Pick<SigninOutput, 'id'>
   )> }
 );
 
@@ -10199,6 +9866,7 @@ export const RoleDetailsFragmentDoc = gql`
     `;
 export const AuditionDetailsFragmentDoc = gql`
     fragment AuditionDetails on audition {
+  id
   name
   description
   created_at
