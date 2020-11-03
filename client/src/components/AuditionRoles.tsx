@@ -1,4 +1,4 @@
-import { ApolloQueryResult, gql } from "@apollo/client";
+import { ApolloQueryResult } from "@apollo/client";
 import {
   Accordion,
   AccordionButton,
