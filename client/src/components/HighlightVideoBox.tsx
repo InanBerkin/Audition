@@ -31,7 +31,7 @@ export default function HighlightVideoBox({
     if (url) {
       onOpen();
     } else {
-      onClick();
+      onClick && onClick();
     }
   }
 
