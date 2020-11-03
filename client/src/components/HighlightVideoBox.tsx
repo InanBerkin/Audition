@@ -17,9 +17,13 @@ export const MotionBox = motion.custom(Box);
 
 type HighlightVideoBoxProps = {
   url?: string;
+  onClick?: () => void;
 };
 
-export default function HighlightVideoBox({ url }: HighlightVideoBoxProps) {
+export default function HighlightVideoBox({
+  url,
+  onClick,
+}: HighlightVideoBoxProps) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const videoRef = useRef<HTMLVideoElement>(null);
 
@@ -27,7 +31,7 @@ export default function HighlightVideoBox({ url }: HighlightVideoBoxProps) {
     if (url) {
       onOpen();
     } else {
-      console.log("click");
+      onClick();
     }
   }
 

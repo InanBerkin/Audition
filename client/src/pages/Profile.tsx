@@ -20,6 +20,7 @@ import { useUserByIdQuery } from "../generated/graphql";
 import { getUID } from "../utils/getUID";
 import HighlightVideoBox from "../components/HighlightVideoBox";
 import { useParams } from "react-router-dom";
+import useUploadHighlightModal from "../components/useUploadHighlightModal";
 
 const imageSize = 100;
 
@@ -42,6 +43,7 @@ type RouteParams = {
 
 export default function Profile(): ReactElement {
   const { id } = useParams<RouteParams>();
+  const { modal, onOpen } = useUploadHighlightModal();
   const { data, loading, error } = useUserByIdQuery({
     variables: { uid: parseInt(id) || getUID() },
   });
@@ -83,7 +85,7 @@ export default function Profile(): ReactElement {
         Highlights
       </Heading>
       <Stack isInline spacing={4} px={2} overflowX="scroll">
-        <HighlightVideoBox />
+        <HighlightVideoBox onClick={onOpen} />
         <HighlightVideoBox url="/assets/highlight.webm" />
         <HighlightVideoBox url="/assets/highlight.webm" />
       </Stack>
@@ -120,6 +122,7 @@ export default function Profile(): ReactElement {
           </Box>
         </SimpleGrid>
       </Skeleton>
+      {modal()}
     </Box>
   );
 }
