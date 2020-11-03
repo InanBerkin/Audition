@@ -13,6 +13,7 @@ import AppliedAuditions from "./pages/AppliedAuditions";
 import Audition from "./pages/Audition";
 import CreateAudition from "./pages/CreateAudition";
 import Home from "./pages/Home";
+import PostedAuditions from "./pages/PostedAuditions";
 import Profile from "./pages/Profile";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
@@ -36,6 +37,9 @@ function App() {
         </PrivateRoute>
         <PrivateRoute path="/applied-auditions">
           <AppliedAuditions />
+        </PrivateRoute>
+        <PrivateRoute path="/posted-auditions">
+          <PostedAuditions />
         </PrivateRoute>
         <PrivateRoute path="/talents">
           <Talents />

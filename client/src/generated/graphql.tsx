@@ -9787,6 +9787,19 @@ export type AuditionsQuery = (
   )> }
 );
 
+export type PostedAuditionsQueryVariables = Exact<{
+  uid: Scalars['Int'];
+}>;
+
+
+export type PostedAuditionsQuery = (
+  { __typename?: 'query_root' }
+  & { audition: Array<(
+    { __typename?: 'audition' }
+    & AuditionCardFragment
+  )> }
+);
+
 export type SignInUserQueryVariables = Exact<{
   email: Scalars['String'];
   password: Scalars['String'];
@@ -10148,6 +10161,39 @@ export function useAuditionsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<
 export type AuditionsQueryHookResult = ReturnType<typeof useAuditionsQuery>;
 export type AuditionsLazyQueryHookResult = ReturnType<typeof useAuditionsLazyQuery>;
 export type AuditionsQueryResult = Apollo.QueryResult<AuditionsQuery, AuditionsQueryVariables>;
+export const PostedAuditionsDocument = gql`
+    query PostedAuditions($uid: Int!) {
+  audition(where: {user_id: {_eq: $uid}}) {
+    ...AuditionCard
+  }
+}
+    ${AuditionCardFragmentDoc}`;
+
+/**
+ * __usePostedAuditionsQuery__
+ *
+ * To run a query within a React component, call `usePostedAuditionsQuery` and pass it any options that fit your needs.
+ * When your component renders, `usePostedAuditionsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = usePostedAuditionsQuery({
+ *   variables: {
+ *      uid: // value for 'uid'
+ *   },
+ * });
+ */
+export function usePostedAuditionsQuery(baseOptions?: Apollo.QueryHookOptions<PostedAuditionsQuery, PostedAuditionsQueryVariables>) {
+        return Apollo.useQuery<PostedAuditionsQuery, PostedAuditionsQueryVariables>(PostedAuditionsDocument, baseOptions);
+      }
+export function usePostedAuditionsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<PostedAuditionsQuery, PostedAuditionsQueryVariables>) {
+          return Apollo.useLazyQuery<PostedAuditionsQuery, PostedAuditionsQueryVariables>(PostedAuditionsDocument, baseOptions);
+        }
+export type PostedAuditionsQueryHookResult = ReturnType<typeof usePostedAuditionsQuery>;
+export type PostedAuditionsLazyQueryHookResult = ReturnType<typeof usePostedAuditionsLazyQuery>;
+export type PostedAuditionsQueryResult = Apollo.QueryResult<PostedAuditionsQuery, PostedAuditionsQueryVariables>;
 export const SignInUserDocument = gql`
     query SignInUser($email: String!, $password: String!) {
   signin(email: $email, password: $password) {

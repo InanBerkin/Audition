@@ -43,7 +43,7 @@ function Home() {
       <Heading fontSize="2xl" mb={4} mt={6}>
         <Flex justify="space-between" align="center">
           Auditions For You
-          <Link color="cyan.600" fontSize="0.9rem">
+          <Link color="cyan.600" fontSize="sm">
             See all
           </Link>
         </Flex>
