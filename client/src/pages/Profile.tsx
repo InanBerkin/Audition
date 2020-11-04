@@ -4,38 +4,19 @@ import {
   Heading,
   Divider,
   Stack,
-  SimpleGrid,
-  ListIcon,
   Skeleton,
   Text,
   Avatar,
 } from "@chakra-ui/core";
 import React, { ReactElement } from "react";
-import { MdPeople } from "react-icons/md";
-import { CgGenderMale, CgGenderFemale, CgEye, CgRuler } from "react-icons/cg";
-import { GiHairStrands } from "react-icons/gi";
-import { FaGenderless } from "react-icons/fa";
-import { BiBody } from "react-icons/bi";
 import { useUserByIdQuery } from "../generated/graphql";
 import { getUID } from "../utils/getUID";
 import HighlightVideoBox from "../components/HighlightVideoBox";
 import { useParams } from "react-router-dom";
 import useUploadHighlightModal from "../components/useUploadHighlightModal";
+import RequirementsGrid from "../components/RequirementsGrid";
 
 const imageSize = 100;
-
-function getGenderIcon(gender?: string) {
-  switch (gender) {
-    case "Male":
-      return CgGenderMale;
-    case "Female":
-      return CgGenderFemale;
-    case "Non-Binary":
-      return FaGenderless;
-    default:
-      return FaGenderless;
-  }
-}
 
 type RouteParams = {
   id: string;
@@ -93,34 +74,15 @@ export default function Profile(): ReactElement {
         Attributes
       </Heading>
       <Skeleton isLoaded={!loading}>
-        <SimpleGrid columns={2} spacing={3} px={4}>
-          <Box>
-            <ListIcon
-              as={getGenderIcon(user?.physical_attribute?.gender?.name)}
-            />
-            {user?.physical_attribute?.gender?.name}
-          </Box>
-          <Box>
-            <ListIcon as={MdPeople} />
-            {user?.physical_attribute?.ethnicity?.name}
-          </Box>
-          <Box>
-            <ListIcon as={CgEye} />
-            {user?.physical_attribute?.eye_color?.name} Eyed
-          </Box>
-          <Box>
-            <ListIcon as={GiHairStrands} />
-            {user?.physical_attribute?.hair_color?.name} Haired
-          </Box>
-          <Box>
-            <ListIcon as={CgRuler} />
-            {user?.physical_attribute?.height} cm tall
-          </Box>
-          <Box>
-            <ListIcon as={BiBody} />
-            {user?.physical_attribute?.body_type?.name} Shape
-          </Box>
-        </SimpleGrid>
+        <RequirementsGrid
+          px={4}
+          gender={user?.physical_attribute?.gender?.name}
+          ethnicity={user?.physical_attribute?.ethnicity?.name}
+          eye_color={user?.physical_attribute?.ethnicity?.name}
+          hair_color={user?.physical_attribute?.ethnicity?.name}
+          body_height={user?.physical_attribute?.height}
+          body_type={user?.physical_attribute?.body_type?.name}
+        />
       </Skeleton>
       {modal()}
     </Box>

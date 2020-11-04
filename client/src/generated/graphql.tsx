@@ -9656,7 +9656,13 @@ export type RoleDetailsFragment = (
   )>, role_type: (
     { __typename?: 'role_type' }
     & Pick<Role_Type, 'name'>
-  ), requirement?: Maybe<(
+  ) }
+  & RoleRequirementsFragment
+);
+
+export type RoleRequirementsFragment = (
+  { __typename?: 'role' }
+  & { requirement?: Maybe<(
     { __typename?: 'requirement' }
     & { physical_attribute?: Maybe<(
       { __typename?: 'physical_attribute' }
@@ -9856,17 +9862,8 @@ export const AuditionCardFragmentDoc = gql`
   }
 }
     `;
-export const RoleDetailsFragmentDoc = gql`
-    fragment RoleDetails on role {
-  id
-  name
-  description
-  did_user_applied: applicants(where: {user_id: {_eq: $user_id}}) {
-    user_id
-  }
-  role_type {
-    name
-  }
+export const RoleRequirementsFragmentDoc = gql`
+    fragment RoleRequirements on role {
   requirement {
     physical_attribute {
       age
@@ -9890,6 +9887,20 @@ export const RoleDetailsFragmentDoc = gql`
   }
 }
     `;
+export const RoleDetailsFragmentDoc = gql`
+    fragment RoleDetails on role {
+  id
+  name
+  description
+  did_user_applied: applicants(where: {user_id: {_eq: $user_id}}) {
+    user_id
+  }
+  role_type {
+    name
+  }
+  ...RoleRequirements
+}
+    ${RoleRequirementsFragmentDoc}`;
 export const AuditionDetailsFragmentDoc = gql`
     fragment AuditionDetails on audition {
   id

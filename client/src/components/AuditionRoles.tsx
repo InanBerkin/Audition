@@ -9,7 +9,9 @@ import {
   Badge,
   Box,
   Button,
+  Divider,
   Flex,
+  Text,
 } from "@chakra-ui/core";
 import React, { ReactElement } from "react";
 import { GoChecklist } from "react-icons/go";
@@ -21,6 +23,7 @@ import {
   useApplyAuditionMutation,
 } from "../generated/graphql";
 import { getUID } from "../utils/getUID";
+import RequirementsGrid from "./RequirementsGrid";
 
 type Props = {
   roles:
@@ -72,6 +75,7 @@ export default function AuditionRoles({
           description,
           role_type,
           did_user_applied,
+          requirement,
         }: RoleDetailsFragment) => (
           <AccordionItem key={id}>
             <AccordionButton>
@@ -83,6 +87,19 @@ export default function AuditionRoles({
             </AccordionButton>
             <AccordionPanel pb={4}>
               {description}
+              <Divider my={2} />
+              <Box>
+                <Text fontWeight="bold">Requirements</Text>
+                <RequirementsGrid
+                  mt={2}
+                  gender={requirement?.physical_attribute?.gender?.name}
+                  ethnicity={requirement?.physical_attribute?.ethnicity?.name}
+                  eye_color={requirement?.physical_attribute?.ethnicity?.name}
+                  hair_color={requirement?.physical_attribute?.ethnicity?.name}
+                  body_height={requirement?.physical_attribute?.height}
+                  body_type={requirement?.physical_attribute?.body_type?.name}
+                />
+              </Box>
               <Flex mt={2} justify="flex-end">
                 <Button
                   isLoading={loading}
