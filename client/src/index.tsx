@@ -5,6 +5,7 @@ import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
 import { theme, ChakraProvider } from "@chakra-ui/core";
+import "./utils/i18n";
 
 const client = new ApolloClient({
   uri: "http://localhost:8080/v1/graphql",
