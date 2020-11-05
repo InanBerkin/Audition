@@ -29,7 +29,13 @@ function Home() {
       <Heading fontSize="2xl" mb={4}>
         Welcome
       </Heading>
-      <Stack isInline spacing={4} pr={2} overflowX="scroll">
+      <Stack
+        isInline
+        spacing={4}
+        pr={2}
+        overflowX="scroll"
+        justify={{ md: "center" }}
+      >
         {typeLoading && <Skeleton minW="150px" h="200px" />}
         {typeLoading && <Skeleton minW="150px" h="200px" />}
         {typeLoading && <Skeleton minW="150px" h="200px" />}
@@ -48,7 +54,12 @@ function Home() {
           </Link>
         </Flex>
       </Heading>
-      <Stack spacing={4} shouldWrapChildren>
+      <Stack
+        spacing={4}
+        shouldWrapChildren
+        m={{ md: "auto" }}
+        w={{ md: "850px" }}
+      >
         {loading && <Skeleton height="100px" />}
         {loading && <Skeleton height="100px" />}
         {loading && <Skeleton height="100px" />}
