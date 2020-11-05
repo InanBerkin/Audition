@@ -25,32 +25,19 @@ function NavBar() {
       fontSize={["24px", "32px"]}
     >
       <Link to={routes.home}>
-        <Box
-          as={MdHome}
-          // size="32px"
-          opacity={pathname === routes.home ? 1 : 0.5}
-        />
+        <Box as={MdHome} opacity={pathname === routes.home ? 1 : 0.5} />
       </Link>
       <Link to={routes.talents}>
         <Box
           as={FaTheaterMasks}
-          // size="32px"
           opacity={pathname === routes.talents ? 1 : 0.5}
         />
       </Link>
       <Link to={routes.auditions}>
-        <Box
-          as={MdMovie}
-          // size="32px"
-          opacity={pathname === routes.auditions ? 1 : 0.5}
-        />
+        <Box as={MdMovie} opacity={pathname === routes.auditions ? 1 : 0.5} />
       </Link>
       <Link to={routes.profile}>
-        <Box
-          as={MdPerson}
-          // size="32px"
-          opacity={pathname === routes.profile ? 1 : 0.5}
-        />
+        <Box as={MdPerson} opacity={pathname === routes.profile ? 1 : 0.5} />
       </Link>
     </HStack>
   );

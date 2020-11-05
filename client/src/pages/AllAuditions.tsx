@@ -20,7 +20,7 @@ function AllAuditions(): ReactElement {
       <Heading fontSize="2xl" mb={4}>
         Auditions
       </Heading>
-      <Stack spacing={2}>
+      <Stack spacing={2} m={{ md: "auto" }} w={{ md: "850px" }}>
         {loading && <Skeleton h="100px" />}
         {loading && <Skeleton h="100px" />}
         {loading && <Skeleton h="100px" />}

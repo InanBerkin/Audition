@@ -33,7 +33,7 @@ export default function Audition(): ReactElement {
   const audition = data?.audition_by_pk;
 
   return (
-    <Box p={4} bg="#fff">
+    <Box p={4} w={{ md: 1 / 2 }} m={{ md: "auto" }}>
       <Flex align="baseline">
         <IconButton
           justifyContent="start"

@@ -20,7 +20,7 @@ function Talents(): ReactElement {
       <Heading fontSize="2xl" mb={4}>
         Talents
       </Heading>
-      <Stack spacing={2}>
+      <Stack spacing={2} m={{ md: "auto" }} w={{ md: "850px" }}>
         {loading && <Skeleton h="65px" />}
         {loading && <Skeleton h="65px" />}
         {loading && <Skeleton h="65px" />}
