@@ -6,7 +6,6 @@ import {
   Route,
   Redirect,
 } from "react-router-dom";
-import BottomNav from "./components/BottomNav";
 import Header from "./components/Header";
 import AllAuditions from "./pages/AllAuditions";
 import AppliedAuditions from "./pages/AppliedAuditions";
@@ -67,8 +66,7 @@ function PrivateRoute({ children, ...props }: any) {
         isAuth ? (
           <>
             <Header />
-            <Box paddingBottom="60px">{children}</Box>
-            <BottomNav />
+            <Box>{children}</Box>
           </>
         ) : (
           <Redirect
