@@ -11,12 +11,12 @@ export default function TalentCard({ talent, ...props }: Props): ReactElement {
   const history = useHistory();
   return (
     <Flex
-      {...props}
       alignItems="center"
       p={2}
       rounded="lg"
       border="1px solid #eee"
       onClick={() => history.push(`/profile/${talent.id}`)}
+      {...props}
     >
       <Avatar name={talent.name} src={talent.profile_picture || ""} />
       <Box ml="3">

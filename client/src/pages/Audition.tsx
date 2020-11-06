@@ -12,6 +12,7 @@ import { MdChevronLeft } from "react-icons/md";
 import { useHistory, useParams } from "react-router-dom";
 import AuditionRoles from "../components/AuditionRoles";
 import AuditionTag from "../components/AuditionTag";
+import TalentCard from "../components/TalentCard";
 import { useAuditionByIdQuery } from "../generated/graphql";
 import { getUID } from "../utils/getUID";
 
@@ -55,6 +56,10 @@ export default function Audition(): ReactElement {
         <AuditionTag content={audition?.audition_type.name || ""} />
       </Skeleton>
       <Text mt={4} fontWeight="bold">
+        Created By
+      </Text>
+      <TalentCard mt={2} border="none" talent={audition?.user} />
+      <Text mt={2} fontWeight="bold">
         Company
       </Text>
       <Skeleton isLoaded={!loading}>

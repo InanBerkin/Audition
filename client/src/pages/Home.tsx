@@ -41,6 +41,7 @@ function Home() {
         {typeLoading && <Skeleton minW="150px" h="200px" />}
         {typeData?.audition_type.map(({ name, auditions_aggregate }) => (
           <AuditionTypeCard
+            key={name}
             name={name}
             audition_number={auditions_aggregate.aggregate?.count || 0}
           />

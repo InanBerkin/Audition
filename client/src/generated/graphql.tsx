@@ -9608,7 +9608,10 @@ export type AuditionCardFragment = (
 export type AuditionDetailsFragment = (
   { __typename?: 'audition' }
   & Pick<Audition, 'id' | 'user_id' | 'name' | 'description' | 'created_at' | 'company_name'>
-  & { city: (
+  & { user: (
+    { __typename?: 'user' }
+    & TalentCardFragment
+  ), city: (
     { __typename?: 'city' }
     & Pick<City, 'name'>
   ), audition_type: (
@@ -9862,6 +9865,16 @@ export const AuditionCardFragmentDoc = gql`
   }
 }
     `;
+export const TalentCardFragmentDoc = gql`
+    fragment TalentCard on user {
+  id
+  name
+  profile_picture
+  user_type {
+    name
+  }
+}
+    `;
 export const RoleRequirementsFragmentDoc = gql`
     fragment RoleRequirements on role {
   requirement {
@@ -9905,6 +9918,9 @@ export const AuditionDetailsFragmentDoc = gql`
     fragment AuditionDetails on audition {
   id
   user_id
+  user {
+    ...TalentCard
+  }
   name
   description
   created_at
@@ -9924,17 +9940,8 @@ export const AuditionDetailsFragmentDoc = gql`
     ...RoleDetails
   }
 }
-    ${RoleDetailsFragmentDoc}`;
-export const TalentCardFragmentDoc = gql`
-    fragment TalentCard on user {
-  id
-  name
-  profile_picture
-  user_type {
-    name
-  }
-}
-    `;
+    ${TalentCardFragmentDoc}
+${RoleDetailsFragmentDoc}`;
 export const PhysicalAttributesFragmentDoc = gql`
     fragment PhysicalAttributes on physical_attribute {
   age
