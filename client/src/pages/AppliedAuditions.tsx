@@ -30,7 +30,7 @@ function AppliedAuditions(): ReactElement {
           <Text>You haven't applied to any auditions</Text>
         </Stack>
       ) : (
-        <Stack spacing={2}>
+        <Stack spacing={2} m={{ md: "auto" }} w={{ md: "850px" }}>
           {loading && <Skeleton h="100px" />}
           {loading && <Skeleton h="100px" />}
           {loading && <Skeleton h="100px" />}

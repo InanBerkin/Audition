@@ -36,9 +36,9 @@ function Home() {
         overflowX="scroll"
         justify={{ md: "center" }}
       >
-        {typeLoading && <Skeleton minW="150px" h="200px" />}
-        {typeLoading && <Skeleton minW="150px" h="200px" />}
-        {typeLoading && <Skeleton minW="150px" h="200px" />}
+        {typeLoading && <Skeleton minW="125px" h="40px" />}
+        {typeLoading && <Skeleton minW="125px" h="40px" />}
+        {typeLoading && <Skeleton minW="125px" h="40px" />}
         {typeData?.audition_type.map(({ name, auditions_aggregate }) => (
           <AuditionTypeCard
             key={name}
