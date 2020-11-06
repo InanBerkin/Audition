@@ -9607,7 +9607,7 @@ export type AuditionCardFragment = (
 
 export type AuditionDetailsFragment = (
   { __typename?: 'audition' }
-  & Pick<Audition, 'id' | 'name' | 'description' | 'created_at' | 'company_name'>
+  & Pick<Audition, 'id' | 'user_id' | 'name' | 'description' | 'created_at' | 'company_name'>
   & { city: (
     { __typename?: 'city' }
     & Pick<City, 'name'>
@@ -9904,6 +9904,7 @@ export const RoleDetailsFragmentDoc = gql`
 export const AuditionDetailsFragmentDoc = gql`
     fragment AuditionDetails on audition {
   id
+  user_id
   name
   description
   created_at

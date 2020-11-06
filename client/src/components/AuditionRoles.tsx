@@ -40,11 +40,13 @@ type Props = {
         >
       | undefined
   ) => Promise<ApolloQueryResult<AuditionByIdQuery>>;
+  isPostedByUser: boolean;
 } & AccordionProps;
 
 export default function AuditionRoles({
   roles,
   refetch,
+  isPostedByUser,
   ...props
 }: Props): ReactElement | null {
   const [applyAudition, { loading }] = useApplyAuditionMutation({
@@ -103,24 +105,30 @@ export default function AuditionRoles({
                 />
               </Box>
               <Flex mt={2} justify="flex-end">
-                <Button
-                  isLoading={loading}
-                  isDisabled={did_user_applied.length !== 0}
-                  colorScheme="green"
-                  leftIcon={<GoChecklist />}
-                  onClick={() => {
-                    applyAudition({
-                      variables: {
-                        applicant_input: {
-                          user_id: getUID(),
-                          role_id: id,
+                {isPostedByUser ? (
+                  <Button colorScheme="blue" leftIcon={<GoChecklist />}>
+                    List Applicants
+                  </Button>
+                ) : (
+                  <Button
+                    isLoading={loading}
+                    isDisabled={did_user_applied.length !== 0}
+                    colorScheme="green"
+                    leftIcon={<GoChecklist />}
+                    onClick={() => {
+                      applyAudition({
+                        variables: {
+                          applicant_input: {
+                            user_id: getUID(),
+                            role_id: id,
+                          },
                         },
-                      },
-                    });
-                  }}
-                >
-                  {did_user_applied.length !== 0 ? "Applied" : "Apply"}
-                </Button>
+                      });
+                    }}
+                  >
+                    {did_user_applied.length !== 0 ? "Applied" : "Apply"}
+                  </Button>
+                )}
               </Flex>
             </AccordionPanel>
           </AccordionItem>

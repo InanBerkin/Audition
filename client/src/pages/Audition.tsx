@@ -45,9 +45,11 @@ export default function Audition(): ReactElement {
             history.goBack();
           }}
         />
-        <Heading mb={2} fontSize={24}>
-          <Skeleton isLoaded={!loading}>{audition?.name}</Skeleton>
-        </Heading>
+        <Skeleton isLoaded={!loading}>
+          <Heading mb={2} fontSize={24}>
+            {audition?.name}
+          </Heading>
+        </Skeleton>
       </Flex>
       <Skeleton isLoaded={!loading}>
         <AuditionTag content={audition?.audition_type.name || ""} />
@@ -61,17 +63,20 @@ export default function Audition(): ReactElement {
       <Text mt={4} fontWeight="bold">
         Description
       </Text>
-      <Text>
-        <SkeletonText noOfLines={4} spacing="4" isLoaded={!loading}>
-          {audition?.description}
-        </SkeletonText>
-      </Text>
+      <SkeletonText noOfLines={4} spacing="4" isLoaded={!loading}>
+        {audition?.description}
+      </SkeletonText>
       <Text mt={4} fontWeight="bold">
         Roles
       </Text>
       {loading && <Skeleton height="100px" />}
       {audition?.roles && (
-        <AuditionRoles refetch={refetch} roles={audition.roles} mt={2} />
+        <AuditionRoles
+          refetch={refetch}
+          isPostedByUser={audition.user_id === getUID()}
+          roles={audition.roles}
+          mt={2}
+        />
       )}
     </Box>
   );
