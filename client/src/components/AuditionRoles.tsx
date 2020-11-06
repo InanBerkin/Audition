@@ -80,7 +80,9 @@ export default function AuditionRoles({
           <AccordionItem key={id}>
             <AccordionButton>
               <Box flex="1" textAlign="left">
-                <Badge mr={2}>{role_type.name}</Badge>
+                <Badge mr={2} colorScheme="purple">
+                  {role_type.name}
+                </Badge>
                 {name}
               </Box>
               <AccordionIcon />
@@ -94,8 +96,8 @@ export default function AuditionRoles({
                   mt={2}
                   gender={requirement?.physical_attribute?.gender?.name}
                   ethnicity={requirement?.physical_attribute?.ethnicity?.name}
-                  eye_color={requirement?.physical_attribute?.ethnicity?.name}
-                  hair_color={requirement?.physical_attribute?.ethnicity?.name}
+                  eye_color={requirement?.physical_attribute?.eye_color?.name}
+                  hair_color={requirement?.physical_attribute?.hair_color?.name}
                   body_height={requirement?.physical_attribute?.height}
                   body_type={requirement?.physical_attribute?.body_type?.name}
                 />
