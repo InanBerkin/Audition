@@ -58,7 +58,11 @@ export default function Audition(): ReactElement {
       <Text mt={4} fontWeight="bold">
         Created By
       </Text>
-      <TalentCard mt={2} border="none" talent={audition?.user} />
+      <Skeleton isLoaded={!loading}>
+        {audition?.user && (
+          <TalentCard mt={2} border="none" talent={audition?.user} />
+        )}
+      </Skeleton>
       <Text mt={2} fontWeight="bold">
         Company
       </Text>
