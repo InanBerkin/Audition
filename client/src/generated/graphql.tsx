@@ -9740,6 +9740,26 @@ export type CreateAuditionMutation = (
   )> }
 );
 
+export type ApplicantsByRoleIdQueryVariables = Exact<{
+  role_id: Scalars['Int'];
+}>;
+
+
+export type ApplicantsByRoleIdQuery = (
+  { __typename?: 'query_root' }
+  & { role: Array<(
+    { __typename?: 'role' }
+    & Pick<Role, 'id'>
+    & { applicants: Array<(
+      { __typename?: 'applicant' }
+      & { user: (
+        { __typename?: 'user' }
+        & TalentCardFragment
+      ) }
+    )> }
+  )> }
+);
+
 export type AppliedAuditionsQueryVariables = Exact<{
   uid: Scalars['Int'];
 }>;
@@ -10059,6 +10079,44 @@ export function useCreateAuditionMutation(baseOptions?: Apollo.MutationHookOptio
 export type CreateAuditionMutationHookResult = ReturnType<typeof useCreateAuditionMutation>;
 export type CreateAuditionMutationResult = Apollo.MutationResult<CreateAuditionMutation>;
 export type CreateAuditionMutationOptions = Apollo.BaseMutationOptions<CreateAuditionMutation, CreateAuditionMutationVariables>;
+export const ApplicantsByRoleIdDocument = gql`
+    query ApplicantsByRoleId($role_id: Int!) {
+  role(where: {id: {_eq: $role_id}}) {
+    id
+    applicants {
+      user {
+        ...TalentCard
+      }
+    }
+  }
+}
+    ${TalentCardFragmentDoc}`;
+
+/**
+ * __useApplicantsByRoleIdQuery__
+ *
+ * To run a query within a React component, call `useApplicantsByRoleIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useApplicantsByRoleIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useApplicantsByRoleIdQuery({
+ *   variables: {
+ *      role_id: // value for 'role_id'
+ *   },
+ * });
+ */
+export function useApplicantsByRoleIdQuery(baseOptions?: Apollo.QueryHookOptions<ApplicantsByRoleIdQuery, ApplicantsByRoleIdQueryVariables>) {
+        return Apollo.useQuery<ApplicantsByRoleIdQuery, ApplicantsByRoleIdQueryVariables>(ApplicantsByRoleIdDocument, baseOptions);
+      }
+export function useApplicantsByRoleIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ApplicantsByRoleIdQuery, ApplicantsByRoleIdQueryVariables>) {
+          return Apollo.useLazyQuery<ApplicantsByRoleIdQuery, ApplicantsByRoleIdQueryVariables>(ApplicantsByRoleIdDocument, baseOptions);
+        }
+export type ApplicantsByRoleIdQueryHookResult = ReturnType<typeof useApplicantsByRoleIdQuery>;
+export type ApplicantsByRoleIdLazyQueryHookResult = ReturnType<typeof useApplicantsByRoleIdLazyQuery>;
+export type ApplicantsByRoleIdQueryResult = Apollo.QueryResult<ApplicantsByRoleIdQuery, ApplicantsByRoleIdQueryVariables>;
 export const AppliedAuditionsDocument = gql`
     query AppliedAuditions($uid: Int!) {
   audition(where: {roles: {applicants: {user_id: {_eq: $uid}}}}) {

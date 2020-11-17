@@ -24,6 +24,7 @@ import {
 } from "../generated/graphql";
 import { getUID } from "../utils/getUID";
 import RequirementsGrid from "./RequirementsGrid";
+import useApplicantsModal from "./useApplicantsModal";
 
 type Props = {
   roles:
@@ -49,6 +50,7 @@ export default function AuditionRoles({
   isPostedByUser,
   ...props
 }: Props): ReactElement | null {
+  const { modal, onOpen } = useApplicantsModal();
   const [applyAudition, { loading }] = useApplyAuditionMutation({
     onError: (e) => {
       console.log(e);
@@ -106,7 +108,11 @@ export default function AuditionRoles({
               </Box>
               <Flex mt={2} justify="flex-end">
                 {isPostedByUser ? (
-                  <Button colorScheme="blue" leftIcon={<GoChecklist />}>
+                  <Button
+                    onClick={() => onOpen(id)}
+                    colorScheme="blue"
+                    leftIcon={<GoChecklist />}
+                  >
                     List Applicants
                   </Button>
                 ) : (
@@ -134,6 +140,7 @@ export default function AuditionRoles({
           </AccordionItem>
         )
       )}
+      {modal()}
     </Accordion>
   );
 }
