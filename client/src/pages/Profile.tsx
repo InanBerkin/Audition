@@ -78,8 +78,8 @@ export default function Profile(): ReactElement {
           px={4}
           gender={user?.physical_attribute?.gender?.name}
           ethnicity={user?.physical_attribute?.ethnicity?.name}
-          eye_color={user?.physical_attribute?.ethnicity?.name}
-          hair_color={user?.physical_attribute?.ethnicity?.name}
+          eye_color={user?.physical_attribute?.eye_color?.name}
+          hair_color={user?.physical_attribute?.hair_color?.name}
           body_height={user?.physical_attribute?.height}
           body_type={user?.physical_attribute?.body_type?.name}
         />

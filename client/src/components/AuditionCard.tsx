@@ -1,5 +1,6 @@
-import { Stack, Text, StackProps, Flex } from "@chakra-ui/core";
+import { Stack, Text, StackProps, Flex, Icon } from "@chakra-ui/core";
 import React from "react";
+import { FiMapPin } from "react-icons/fi";
 import { useHistory } from "react-router-dom";
 import { AuditionCardFragment } from "../generated/graphql";
 import AuditionIcon from "./AuditionIcon";
@@ -13,11 +14,9 @@ export function AuditionCard({ audition, ...props }: AuditionCardProps) {
   const { id, audition_type, name, audition_tags } = audition;
   const history = useHistory();
   return (
-    <Stack
+    <Flex
       {...props}
-      isInline
-      spacing={4}
-      bg="white"
+      justifyContent="space-between"
       rounded="lg"
       max-height="100px"
       border="1px solid #eee"
@@ -37,10 +36,16 @@ export function AuditionCard({ audition, ...props }: AuditionCardProps) {
           ))}
         </div>
       </Stack>
-      {/* <Text ml="auto" color="gray.600">
-        {timeSincePosted}
-      </Text> */}
-    </Stack>
+      <Text
+        display="flex"
+        alignItems="flex-start"
+        lineHeight="1"
+        color="gray.600"
+      >
+        <Icon color="red.500" as={FiMapPin} mr={2} />
+        {audition.city.name}
+      </Text>
+    </Flex>
   );
 }
 
