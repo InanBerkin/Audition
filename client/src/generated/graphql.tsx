@@ -9785,7 +9785,9 @@ export type GetAuditionTypeCountQuery = (
   )> }
 );
 
-export type AuditionsQueryVariables = Exact<{ [key: string]: never; }>;
+export type AuditionsQueryVariables = Exact<{
+  uid: Scalars['Int'];
+}>;
 
 
 export type AuditionsQuery = (
@@ -10149,8 +10151,8 @@ export type GetAuditionTypeCountQueryHookResult = ReturnType<typeof useGetAuditi
 export type GetAuditionTypeCountLazyQueryHookResult = ReturnType<typeof useGetAuditionTypeCountLazyQuery>;
 export type GetAuditionTypeCountQueryResult = Apollo.QueryResult<GetAuditionTypeCountQuery, GetAuditionTypeCountQueryVariables>;
 export const AuditionsDocument = gql`
-    query Auditions {
-  audition(limit: 5, order_by: {created_at: desc}) {
+    query Auditions($uid: Int!) {
+  audition(limit: 5, order_by: {created_at: desc}, where: {user_id: {_neq: $uid}}) {
     ...AuditionCard
   }
 }
@@ -10168,6 +10170,7 @@ export const AuditionsDocument = gql`
  * @example
  * const { data, loading, error } = useAuditionsQuery({
  *   variables: {
+ *      uid: // value for 'uid'
  *   },
  * });
  */

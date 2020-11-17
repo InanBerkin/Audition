@@ -6,9 +6,14 @@ import {
   useGetAuditionTypeCountQuery,
 } from "../generated/graphql";
 import AuditionTypeCard from "../components/AuditionTypeCard";
+import { getUID } from "../utils/getUID";
 
 function Home() {
-  const { data, error, loading } = useAuditionsQuery();
+  const { data, error, loading } = useAuditionsQuery({
+    variables: {
+      uid: getUID(),
+    },
+  });
   const {
     data: typeData,
     error: typeError,
