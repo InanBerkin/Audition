@@ -4,6 +4,7 @@ import { AuditionCard } from "../components/AuditionCard";
 import {
   useAuditionsQuery,
   useGetAuditionTypeCountQuery,
+  useUserNameByIdQuery,
 } from "../generated/graphql";
 import AuditionTypeCard from "../components/AuditionTypeCard";
 import { getUID } from "../utils/getUID";
@@ -19,6 +20,11 @@ function Home() {
     error: typeError,
     loading: typeLoading,
   } = useGetAuditionTypeCountQuery();
+  const { data: nameData } = useUserNameByIdQuery({
+    variables: {
+      uid: getUID(),
+    },
+  });
 
   if (error || typeError) {
     return (
@@ -32,7 +38,7 @@ function Home() {
   return (
     <Box p={4}>
       <Heading fontSize="2xl" mb={4}>
-        Welcome
+        Welcome, {nameData?.user[0].name}
       </Heading>
       <Stack
         isInline
