@@ -1,5 +1,6 @@
 import {
-  Button,
+  Stack,
+  Skeleton,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -30,9 +31,14 @@ export default function useApplicantsModal() {
           <ModalHeader>Applicants</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            {data?.role[0].applicants.map((applicant, i) => (
-              <TalentCard border="none" key={i} talent={applicant.user} />
-            ))}
+            <Stack spacing={2}>
+              {loading && <Skeleton h="65px" />}
+              {loading && <Skeleton h="65px" />}
+              {loading && <Skeleton h="65px" />}
+              {data?.role[0].applicants.map((applicant, i) => (
+                <TalentCard border="none" key={i} talent={applicant.user} />
+              ))}
+            </Stack>
           </ModalBody>
           <ModalFooter></ModalFooter>
         </ModalContent>
