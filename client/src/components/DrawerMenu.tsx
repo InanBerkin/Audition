@@ -17,6 +17,7 @@ import React, { ReactElement } from "react";
 import { CgAdd } from "react-icons/cg";
 import { GoChecklist } from "react-icons/go";
 import { BsFilePost } from "react-icons/bs";
+import { AiOutlineMessage } from "react-icons/ai";
 import { useHistory, Link } from "react-router-dom";
 
 export default function DrawerMenu({
@@ -39,6 +40,12 @@ export default function DrawerMenu({
           <Divider />
           <DrawerBody>
             <Stack mt={2} spacing={4}>
+              <HStack>
+                <Icon as={AiOutlineMessage} />
+                <Link onClick={onClose} to="/messages">
+                  Messages
+                </Link>
+              </HStack>
               <HStack>
                 <Icon as={CgAdd} />
                 <Link onClick={onClose} to="/create-audition">

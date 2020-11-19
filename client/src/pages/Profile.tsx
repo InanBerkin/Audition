@@ -7,7 +7,10 @@ import {
   Skeleton,
   Text,
   Avatar,
+  IconButton,
+  Button,
 } from "@chakra-ui/core";
+import { AiOutlineMessage } from "react-icons/ai";
 import React, { ReactElement } from "react";
 import { useUserByIdQuery } from "../generated/graphql";
 import { getUID } from "../utils/getUID";
@@ -51,12 +54,22 @@ export default function Profile(): ReactElement {
             height={`${imageSize}px`}
             width={`${imageSize}px`}
           />
-          <Box mb={4} ml={4} alignSelf="flex-end">
+          <Box mb={2} ml={4} alignSelf="flex-end">
             <Heading fontSize="1.5rem" mt={4}>
               <Skeleton isLoaded={!loading}>{user?.name}</Skeleton>
             </Heading>
             <Text mt={1} color="#666" lineHeight={1}>
-              <Skeleton isLoaded={!loading}>{user?.user_type.name}</Skeleton>
+              <Skeleton isLoaded={!loading}>
+                {user?.user_type.name}
+                <Button
+                  colorScheme="blue"
+                  leftIcon={<AiOutlineMessage />}
+                  mx={2}
+                  size="xs"
+                >
+                  Message
+                </Button>
+              </Skeleton>
             </Text>
           </Box>
         </Flex>

@@ -8,7 +8,7 @@ export default function Header(): ReactElement {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = useRef<HTMLButtonElement | null>(null);
   return (
-    <Heading px={2} py={2} bg="white" borderBottomWidth="1px">
+    <Heading h="50px" px={2} py={2} bg="white" borderBottomWidth="1px">
       <Flex justify="space-between">
         <IconButton
           variant="ghost"

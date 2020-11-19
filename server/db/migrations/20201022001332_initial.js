@@ -124,6 +124,14 @@ exports.up = async function (knex) {
     table.datetime("apply_date").defaultTo(knex.fn.now());
     table.unique(["user_id", "role_id"]);
   });
+
+  await knex.schema.createTable(tableNames.messages, (table) => {
+    table.increments().notNullable();
+    references(table, tableNames.user, true, "sender");
+    references(table, tableNames.user, true, "receiver");
+    table.string("content").notNullable();
+    table.datetime("created_at").defaultTo(knex.fn.now());
+  });
 };
 
 exports.down = async function (knex) {

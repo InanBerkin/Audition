@@ -4,6 +4,7 @@ module.exports = {
   applicant: "applicant",
   role: "role",
   audition: "audition",
+  messages: "messages",
   user: "user",
   requirement: "requirement",
   physical_attribute: "physical_attribute",
