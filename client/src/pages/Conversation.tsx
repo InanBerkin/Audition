@@ -7,10 +7,12 @@ import {
   Stack,
   IconButton,
   Button,
+  Skeleton,
 } from "@chakra-ui/core";
 import React, { ReactElement } from "react";
 import { MdChevronLeft } from "react-icons/md";
 import { useHistory } from "react-router-dom";
+import MessageBox from "../components/MessageBox";
 import {
   useConversationSubscription,
   useSendMessageMutation,
@@ -41,9 +43,9 @@ export default function Conversation({ otherUserId }: Props): ReactElement {
       },
     }
   );
-  const [sendMessage, { loading }] = useSendMessageMutation();
+  const [sendMessage] = useSendMessageMutation();
 
-  if (error) {
+  if (error || otherUserError) {
     return (
       <div>
         <div>You got query failed for some reason</div>
@@ -77,6 +79,7 @@ export default function Conversation({ otherUserId }: Props): ReactElement {
       </Flex>
       <Divider my={2} />
       <Stack mt={2} spacing={4}>
+        {loadingMessages && <MessageSkeletons />}
         {data?.messages.map(({ content, sender_id }) => (
           <MessageBox isReceived={sender_id !== getUID()} content={content} />
         ))}
@@ -98,23 +101,14 @@ export default function Conversation({ otherUserId }: Props): ReactElement {
   );
 }
 
-type MessageProps = {
-  isReceived: boolean;
-  content: string;
-};
-
-function MessageBox({ isReceived, content }: MessageProps) {
+function MessageSkeletons() {
   return (
-    <Flex
-      maxW="250px"
-      direction="column"
-      alignSelf={isReceived ? "flex-start" : "flex-end"}
-      bg={isReceived ? "gray.300" : "blue.400"}
-      color={isReceived ? "black" : "white"}
-      rounded="lg"
-      p={3}
-    >
-      <Text>{content}</Text>
-    </Flex>
+    <>
+      <Skeleton rounded="lg" alignSelf="flex-end" h="50px" w="150px" />
+      <Skeleton rounded="lg" alignSelf="flex-start" h="50px" w="200px" />
+      <Skeleton rounded="lg" alignSelf="flex-start" h="50px" w="225px" />
+      <Skeleton rounded="lg" alignSelf="flex-end" h="50px" w="120px" />
+      <Skeleton rounded="lg" alignSelf="flex-end" h="50px" w="200px" />
+    </>
   );
 }
