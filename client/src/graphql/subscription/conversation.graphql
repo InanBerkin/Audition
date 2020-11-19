@@ -1,8 +1,4 @@
-query Conversation($uid: Int!, $other_uid: Int!) {
-  user_by_pk(id: $other_uid) {
-    name
-    profile_picture
-  }
+subscription Conversation($uid: Int!, $other_uid: Int!) {
   messages(
     where: {
       _or: [

@@ -10248,6 +10248,21 @@ export type CreateAuditionMutation = (
   )> }
 );
 
+export type SendMessageMutationVariables = Exact<{
+  sender_id: Scalars['Int'];
+  receiver_id: Scalars['Int'];
+  content: Scalars['String'];
+}>;
+
+
+export type SendMessageMutation = (
+  { __typename?: 'mutation_root' }
+  & { insert_messages_one?: Maybe<(
+    { __typename?: 'messages' }
+    & Pick<Messages, 'id' | 'content'>
+  )> }
+);
+
 export type ApplicantsByRoleIdQueryVariables = Exact<{
   role_id: Scalars['Int'];
 }>;
@@ -10323,23 +10338,6 @@ export type AuditionsQuery = (
   & { audition: Array<(
     { __typename?: 'audition' }
     & AuditionCardFragment
-  )> }
-);
-
-export type ConversationQueryVariables = Exact<{
-  uid: Scalars['Int'];
-  other_uid: Scalars['Int'];
-}>;
-
-
-export type ConversationQuery = (
-  { __typename?: 'query_root' }
-  & { user_by_pk?: Maybe<(
-    { __typename?: 'user' }
-    & Pick<User, 'name' | 'profile_picture'>
-  )>, messages: Array<(
-    { __typename?: 'messages' }
-    & Pick<Messages, 'sender_id' | 'content' | 'created_at'>
   )> }
 );
 
@@ -10430,7 +10428,21 @@ export type UserNameByIdQuery = (
   { __typename?: 'query_root' }
   & { user: Array<(
     { __typename?: 'user' }
-    & Pick<User, 'name'>
+    & Pick<User, 'name' | 'profile_picture'>
+  )> }
+);
+
+export type ConversationSubscriptionVariables = Exact<{
+  uid: Scalars['Int'];
+  other_uid: Scalars['Int'];
+}>;
+
+
+export type ConversationSubscription = (
+  { __typename?: 'subscription_root' }
+  & { messages: Array<(
+    { __typename?: 'messages' }
+    & Pick<Messages, 'sender_id' | 'content' | 'created_at'>
   )> }
 );
 
@@ -10631,6 +10643,41 @@ export function useCreateAuditionMutation(baseOptions?: Apollo.MutationHookOptio
 export type CreateAuditionMutationHookResult = ReturnType<typeof useCreateAuditionMutation>;
 export type CreateAuditionMutationResult = Apollo.MutationResult<CreateAuditionMutation>;
 export type CreateAuditionMutationOptions = Apollo.BaseMutationOptions<CreateAuditionMutation, CreateAuditionMutationVariables>;
+export const SendMessageDocument = gql`
+    mutation SendMessage($sender_id: Int!, $receiver_id: Int!, $content: String!) {
+  insert_messages_one(object: {sender_id: $sender_id, receiver_id: $receiver_id, content: $content}) {
+    id
+    content
+  }
+}
+    `;
+export type SendMessageMutationFn = Apollo.MutationFunction<SendMessageMutation, SendMessageMutationVariables>;
+
+/**
+ * __useSendMessageMutation__
+ *
+ * To run a mutation, you first call `useSendMessageMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useSendMessageMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [sendMessageMutation, { data, loading, error }] = useSendMessageMutation({
+ *   variables: {
+ *      sender_id: // value for 'sender_id'
+ *      receiver_id: // value for 'receiver_id'
+ *      content: // value for 'content'
+ *   },
+ * });
+ */
+export function useSendMessageMutation(baseOptions?: Apollo.MutationHookOptions<SendMessageMutation, SendMessageMutationVariables>) {
+        return Apollo.useMutation<SendMessageMutation, SendMessageMutationVariables>(SendMessageDocument, baseOptions);
+      }
+export type SendMessageMutationHookResult = ReturnType<typeof useSendMessageMutation>;
+export type SendMessageMutationResult = Apollo.MutationResult<SendMessageMutation>;
+export type SendMessageMutationOptions = Apollo.BaseMutationOptions<SendMessageMutation, SendMessageMutationVariables>;
 export const ApplicantsByRoleIdDocument = gql`
     query ApplicantsByRoleId($role_id: Int!) {
   role(where: {id: {_eq: $role_id}}) {
@@ -10806,46 +10853,6 @@ export function useAuditionsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<
 export type AuditionsQueryHookResult = ReturnType<typeof useAuditionsQuery>;
 export type AuditionsLazyQueryHookResult = ReturnType<typeof useAuditionsLazyQuery>;
 export type AuditionsQueryResult = Apollo.QueryResult<AuditionsQuery, AuditionsQueryVariables>;
-export const ConversationDocument = gql`
-    query Conversation($uid: Int!, $other_uid: Int!) {
-  user_by_pk(id: $other_uid) {
-    name
-    profile_picture
-  }
-  messages(where: {_or: [{_and: [{sender_id: {_eq: $uid}}, {receiver_id: {_eq: $other_uid}}]}, {_and: [{sender_id: {_eq: $other_uid}}, {receiver_id: {_eq: $uid}}]}]}, order_by: {created_at: desc}) {
-    sender_id
-    content
-    created_at
-  }
-}
-    `;
-
-/**
- * __useConversationQuery__
- *
- * To run a query within a React component, call `useConversationQuery` and pass it any options that fit your needs.
- * When your component renders, `useConversationQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useConversationQuery({
- *   variables: {
- *      uid: // value for 'uid'
- *      other_uid: // value for 'other_uid'
- *   },
- * });
- */
-export function useConversationQuery(baseOptions?: Apollo.QueryHookOptions<ConversationQuery, ConversationQueryVariables>) {
-        return Apollo.useQuery<ConversationQuery, ConversationQueryVariables>(ConversationDocument, baseOptions);
-      }
-export function useConversationLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ConversationQuery, ConversationQueryVariables>) {
-          return Apollo.useLazyQuery<ConversationQuery, ConversationQueryVariables>(ConversationDocument, baseOptions);
-        }
-export type ConversationQueryHookResult = ReturnType<typeof useConversationQuery>;
-export type ConversationLazyQueryHookResult = ReturnType<typeof useConversationLazyQuery>;
-export type ConversationQueryResult = Apollo.QueryResult<ConversationQuery, ConversationQueryVariables>;
 export const MessagesDocument = gql`
     query Messages($uid: Int!) {
   user_by_pk(id: $uid) {
@@ -11026,6 +11033,7 @@ export const UserNameByIdDocument = gql`
     query UserNameById($uid: Int!) {
   user(where: {id: {_eq: $uid}}) {
     name
+    profile_picture
   }
 }
     `;
@@ -11055,3 +11063,35 @@ export function useUserNameByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptio
 export type UserNameByIdQueryHookResult = ReturnType<typeof useUserNameByIdQuery>;
 export type UserNameByIdLazyQueryHookResult = ReturnType<typeof useUserNameByIdLazyQuery>;
 export type UserNameByIdQueryResult = Apollo.QueryResult<UserNameByIdQuery, UserNameByIdQueryVariables>;
+export const ConversationDocument = gql`
+    subscription Conversation($uid: Int!, $other_uid: Int!) {
+  messages(where: {_or: [{_and: [{sender_id: {_eq: $uid}}, {receiver_id: {_eq: $other_uid}}]}, {_and: [{sender_id: {_eq: $other_uid}}, {receiver_id: {_eq: $uid}}]}]}, order_by: {created_at: desc}) {
+    sender_id
+    content
+    created_at
+  }
+}
+    `;
+
+/**
+ * __useConversationSubscription__
+ *
+ * To run a query within a React component, call `useConversationSubscription` and pass it any options that fit your needs.
+ * When your component renders, `useConversationSubscription` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the subscription, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useConversationSubscription({
+ *   variables: {
+ *      uid: // value for 'uid'
+ *      other_uid: // value for 'other_uid'
+ *   },
+ * });
+ */
+export function useConversationSubscription(baseOptions?: Apollo.SubscriptionHookOptions<ConversationSubscription, ConversationSubscriptionVariables>) {
+        return Apollo.useSubscription<ConversationSubscription, ConversationSubscriptionVariables>(ConversationDocument, baseOptions);
+      }
+export type ConversationSubscriptionHookResult = ReturnType<typeof useConversationSubscription>;
+export type ConversationSubscriptionResult = Apollo.SubscriptionResult<ConversationSubscription>;

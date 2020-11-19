@@ -6,11 +6,16 @@ import {
   Text,
   Stack,
   IconButton,
+  Button,
 } from "@chakra-ui/core";
 import React, { ReactElement } from "react";
 import { MdChevronLeft } from "react-icons/md";
 import { useHistory } from "react-router-dom";
-import { useConversationQuery } from "../generated/graphql";
+import {
+  useConversationSubscription,
+  useSendMessageMutation,
+  useUserNameByIdQuery,
+} from "../generated/graphql";
 import { getUID } from "../utils/getUID";
 
 type Props = {
@@ -19,12 +24,24 @@ type Props = {
 
 export default function Conversation({ otherUserId }: Props): ReactElement {
   const history = useHistory();
-  const { data, error, loading } = useConversationQuery({
+  const {
+    data: otherUserData,
+    error: otherUserError,
+    loading: otherUserLoading,
+  } = useUserNameByIdQuery({
     variables: {
-      uid: getUID(),
-      other_uid: otherUserId,
+      uid: otherUserId,
     },
   });
+  const { data, error, loading: loadingMessages } = useConversationSubscription(
+    {
+      variables: {
+        uid: getUID(),
+        other_uid: otherUserId,
+      },
+    }
+  );
+  const [sendMessage, { loading }] = useSendMessageMutation();
 
   if (error) {
     return (
@@ -51,11 +68,11 @@ export default function Conversation({ otherUserId }: Props): ReactElement {
           }}
         />
         <Avatar
-          name={data?.user_by_pk.name}
-          src={data?.user_by_pk.profile_picture || ""}
+          name={otherUserData?.user[0].name}
+          src={otherUserData?.user[0].profile_picture || ""}
         />
         <Text ml={2} fontSize="md" fontWeight="bold">
-          {data?.user_by_pk.name}
+          {otherUserData?.user[0].name}
         </Text>
       </Flex>
       <Divider my={2} />
@@ -64,6 +81,19 @@ export default function Conversation({ otherUserId }: Props): ReactElement {
           <MessageBox isReceived={sender_id !== getUID()} content={content} />
         ))}
       </Stack>
+      <Button
+        onClick={() => {
+          sendMessage({
+            variables: {
+              sender_id: getUID(),
+              receiver_id: otherUserId,
+              content: "test message",
+            },
+          });
+        }}
+      >
+        Send
+      </Button>
     </Box>
   );
 }

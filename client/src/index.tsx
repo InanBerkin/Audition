@@ -4,12 +4,21 @@ import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
+import { WebSocketLink } from "@apollo/client/link/ws";
 import { theme, ChakraProvider } from "@chakra-ui/core";
 import "./utils/i18n";
+
+const wsLink = new WebSocketLink({
+  uri: "ws://localhost:8080/v1/graphql",
+  options: {
+    reconnect: true,
+  },
+});
 
 const client = new ApolloClient({
   uri: "http://localhost:8080/v1/graphql",
   cache: new InMemoryCache(),
+  link: wsLink,
 });
 
 ReactDOM.render(

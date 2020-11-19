@@ -1,5 +1,6 @@
 query UserNameById($uid: Int!) {
   user(where: { id: { _eq: $uid } }) {
     name
+    profile_picture
   }
 }
