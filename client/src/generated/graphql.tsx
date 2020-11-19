@@ -11065,7 +11065,7 @@ export type UserNameByIdLazyQueryHookResult = ReturnType<typeof useUserNameByIdL
 export type UserNameByIdQueryResult = Apollo.QueryResult<UserNameByIdQuery, UserNameByIdQueryVariables>;
 export const ConversationDocument = gql`
     subscription Conversation($uid: Int!, $other_uid: Int!) {
-  messages(where: {_or: [{_and: [{sender_id: {_eq: $uid}}, {receiver_id: {_eq: $other_uid}}]}, {_and: [{sender_id: {_eq: $other_uid}}, {receiver_id: {_eq: $uid}}]}]}, order_by: {created_at: desc}) {
+  messages(where: {_or: [{_and: [{sender_id: {_eq: $uid}}, {receiver_id: {_eq: $other_uid}}]}, {_and: [{sender_id: {_eq: $other_uid}}, {receiver_id: {_eq: $uid}}]}]}, order_by: {created_at: asc}) {
     sender_id
     content
     created_at

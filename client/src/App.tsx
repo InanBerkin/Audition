@@ -68,10 +68,10 @@ function PrivateRoute({ children, ...props }: any) {
       {...props}
       render={({ location }) =>
         isAuth ? (
-          <>
+          <Box h="100vh">
             <Header />
-            <Box>{children}</Box>
-          </>
+            {children}
+          </Box>
         ) : (
           <Redirect
             to={{

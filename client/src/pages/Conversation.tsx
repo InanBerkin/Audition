@@ -1,16 +1,16 @@
 import {
   Avatar,
-  Box,
   Divider,
   Flex,
   Text,
   Stack,
   IconButton,
-  Button,
   Skeleton,
+  Input,
 } from "@chakra-ui/core";
-import React, { ReactElement } from "react";
+import React, { ReactElement, useEffect, useRef, useState } from "react";
 import { MdChevronLeft } from "react-icons/md";
+import { RiSendPlane2Line } from "react-icons/ri";
 import { useHistory } from "react-router-dom";
 import MessageBox from "../components/MessageBox";
 import {
@@ -26,11 +26,9 @@ type Props = {
 
 export default function Conversation({ otherUserId }: Props): ReactElement {
   const history = useHistory();
-  const {
-    data: otherUserData,
-    error: otherUserError,
-    loading: otherUserLoading,
-  } = useUserNameByIdQuery({
+  const dummy = useRef<HTMLSpanElement | null>(null);
+  const [message, setMessage] = useState<string>("");
+  const { data: otherUserData, error: otherUserError } = useUserNameByIdQuery({
     variables: {
       uid: otherUserId,
     },
@@ -43,7 +41,15 @@ export default function Conversation({ otherUserId }: Props): ReactElement {
       },
     }
   );
-  const [sendMessage] = useSendMessageMutation();
+  const [sendMessage] = useSendMessageMutation({
+    onCompleted: async () => {},
+  });
+
+  useEffect(() => {
+    if (data && data?.messages.length > 0) {
+      dummy?.current?.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [data]);
 
   if (error || otherUserError) {
     return (
@@ -54,10 +60,8 @@ export default function Conversation({ otherUserId }: Props): ReactElement {
     );
   }
 
-  console.log(data);
-
-  return (
-    <Box p={4}>
+  function Header() {
+    return (
       <Flex align="center">
         <IconButton
           justifyContent="start"
@@ -70,6 +74,7 @@ export default function Conversation({ otherUserId }: Props): ReactElement {
           }}
         />
         <Avatar
+          size="sm"
           name={otherUserData?.user[0].name}
           src={otherUserData?.user[0].profile_picture || ""}
         />
@@ -77,27 +82,58 @@ export default function Conversation({ otherUserId }: Props): ReactElement {
           {otherUserData?.user[0].name}
         </Text>
       </Flex>
+    );
+  }
+
+  return (
+    <Flex direction="column" p={4} h="full">
+      <Header />
       <Divider my={2} />
-      <Stack mt={2} spacing={4}>
+      <Stack mt={2} spacing={4} overflowY="scroll" pb="80px" px={4}>
         {loadingMessages && <MessageSkeletons />}
-        {data?.messages.map(({ content, sender_id }) => (
-          <MessageBox isReceived={sender_id !== getUID()} content={content} />
+        {data?.messages.map(({ content, sender_id }, i) => (
+          <MessageBox
+            key={i}
+            isReceived={sender_id !== getUID()}
+            content={content}
+          />
         ))}
+        <span ref={dummy}></span>
       </Stack>
-      <Button
-        onClick={() => {
-          sendMessage({
-            variables: {
-              sender_id: getUID(),
-              receiver_id: otherUserId,
-              content: "test message",
-            },
-          });
-        }}
+      <Flex
+        borderTop="1px solid #eee"
+        position="fixed"
+        bottom={0}
+        left={0}
+        bg="white"
+        w="full"
+        p={4}
       >
-        Send
-      </Button>
-    </Box>
+        <Input
+          value={message}
+          onChange={(event) => setMessage(event.target.value)}
+          placeholder="Type your message"
+        />
+        <IconButton
+          isDisabled={message.trim().length === 0}
+          onClick={async () => {
+            await sendMessage({
+              variables: {
+                sender_id: getUID(),
+                receiver_id: otherUserId,
+                content: message,
+              },
+            });
+            setMessage("");
+          }}
+          colorScheme="green"
+          ml={2}
+          icon={<RiSendPlane2Line />}
+          rounded="full"
+          aria-label="send message"
+        />
+      </Flex>
+    </Flex>
   );
 }
 

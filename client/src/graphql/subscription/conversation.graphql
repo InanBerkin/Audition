@@ -16,7 +16,7 @@ subscription Conversation($uid: Int!, $other_uid: Int!) {
         }
       ]
     }
-    order_by: { created_at: desc }
+    order_by: { created_at: asc }
   ) {
     sender_id
     content
