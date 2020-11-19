@@ -1,0 +1,90 @@
+import {
+  Avatar,
+  Box,
+  Divider,
+  Flex,
+  Text,
+  Stack,
+  IconButton,
+} from "@chakra-ui/core";
+import React, { ReactElement } from "react";
+import { MdChevronLeft } from "react-icons/md";
+import { useHistory } from "react-router-dom";
+import { useConversationQuery } from "../generated/graphql";
+import { getUID } from "../utils/getUID";
+
+type Props = {
+  otherUserId: number;
+};
+
+export default function Conversation({ otherUserId }: Props): ReactElement {
+  const history = useHistory();
+  const { data, error, loading } = useConversationQuery({
+    variables: {
+      uid: getUID(),
+      other_uid: otherUserId,
+    },
+  });
+
+  if (error) {
+    return (
+      <div>
+        <div>You got query failed for some reason</div>
+        <div>{error?.message}</div>
+      </div>
+    );
+  }
+
+  console.log(data);
+
+  return (
+    <Box p={4}>
+      <Flex align="center">
+        <IconButton
+          justifyContent="start"
+          size="xs"
+          variant="ghost"
+          aria-label="Go back"
+          icon={<MdChevronLeft fontSize="1rem" />}
+          onClick={() => {
+            history.goBack();
+          }}
+        />
+        <Avatar
+          name={data?.user_by_pk.name}
+          src={data?.user_by_pk.profile_picture || ""}
+        />
+        <Text ml={2} fontSize="md" fontWeight="bold">
+          {data?.user_by_pk.name}
+        </Text>
+      </Flex>
+      <Divider my={2} />
+      <Stack mt={2} spacing={4}>
+        {data?.messages.map(({ content, sender_id }) => (
+          <MessageBox isReceived={sender_id !== getUID()} content={content} />
+        ))}
+      </Stack>
+    </Box>
+  );
+}
+
+type MessageProps = {
+  isReceived: boolean;
+  content: string;
+};
+
+function MessageBox({ isReceived, content }: MessageProps) {
+  return (
+    <Flex
+      maxW="250px"
+      direction="column"
+      alignSelf={isReceived ? "flex-start" : "flex-end"}
+      bg={isReceived ? "gray.300" : "blue.400"}
+      color={isReceived ? "black" : "white"}
+      rounded="lg"
+      p={3}
+    >
+      <Text>{content}</Text>
+    </Flex>
+  );
+}

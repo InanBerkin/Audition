@@ -13,6 +13,7 @@ import { useParams } from "react-router-dom";
 import MessageUserCard from "../components/MessageUserCard";
 import { TalentCardFragment, useMessagesQuery } from "../generated/graphql";
 import { getUID } from "../utils/getUID";
+import Conversation from "./Conversation";
 
 type RouteParams = {
   id: string;
@@ -26,7 +27,7 @@ function Messages(): ReactElement {
   let messaged_users: any = {};
 
   if (id) {
-    return <h1>Hello</h1>;
+    return <Conversation otherUserId={parseInt(id)} />;
   }
 
   if (error) {

@@ -10326,6 +10326,23 @@ export type AuditionsQuery = (
   )> }
 );
 
+export type ConversationQueryVariables = Exact<{
+  uid: Scalars['Int'];
+  other_uid: Scalars['Int'];
+}>;
+
+
+export type ConversationQuery = (
+  { __typename?: 'query_root' }
+  & { user_by_pk?: Maybe<(
+    { __typename?: 'user' }
+    & Pick<User, 'name' | 'profile_picture'>
+  )>, messages: Array<(
+    { __typename?: 'messages' }
+    & Pick<Messages, 'sender_id' | 'content' | 'created_at'>
+  )> }
+);
+
 export type MessagesQueryVariables = Exact<{
   uid: Scalars['Int'];
 }>;
@@ -10789,6 +10806,46 @@ export function useAuditionsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<
 export type AuditionsQueryHookResult = ReturnType<typeof useAuditionsQuery>;
 export type AuditionsLazyQueryHookResult = ReturnType<typeof useAuditionsLazyQuery>;
 export type AuditionsQueryResult = Apollo.QueryResult<AuditionsQuery, AuditionsQueryVariables>;
+export const ConversationDocument = gql`
+    query Conversation($uid: Int!, $other_uid: Int!) {
+  user_by_pk(id: $other_uid) {
+    name
+    profile_picture
+  }
+  messages(where: {_or: [{_and: [{sender_id: {_eq: $uid}}, {receiver_id: {_eq: $other_uid}}]}, {_and: [{sender_id: {_eq: $other_uid}}, {receiver_id: {_eq: $uid}}]}]}, order_by: {created_at: desc}) {
+    sender_id
+    content
+    created_at
+  }
+}
+    `;
+
+/**
+ * __useConversationQuery__
+ *
+ * To run a query within a React component, call `useConversationQuery` and pass it any options that fit your needs.
+ * When your component renders, `useConversationQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useConversationQuery({
+ *   variables: {
+ *      uid: // value for 'uid'
+ *      other_uid: // value for 'other_uid'
+ *   },
+ * });
+ */
+export function useConversationQuery(baseOptions?: Apollo.QueryHookOptions<ConversationQuery, ConversationQueryVariables>) {
+        return Apollo.useQuery<ConversationQuery, ConversationQueryVariables>(ConversationDocument, baseOptions);
+      }
+export function useConversationLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ConversationQuery, ConversationQueryVariables>) {
+          return Apollo.useLazyQuery<ConversationQuery, ConversationQueryVariables>(ConversationDocument, baseOptions);
+        }
+export type ConversationQueryHookResult = ReturnType<typeof useConversationQuery>;
+export type ConversationLazyQueryHookResult = ReturnType<typeof useConversationLazyQuery>;
+export type ConversationQueryResult = Apollo.QueryResult<ConversationQuery, ConversationQueryVariables>;
 export const MessagesDocument = gql`
     query Messages($uid: Int!) {
   user_by_pk(id: $uid) {

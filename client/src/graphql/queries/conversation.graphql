@@ -1,0 +1,29 @@
+query Conversation($uid: Int!, $other_uid: Int!) {
+  user_by_pk(id: $other_uid) {
+    name
+    profile_picture
+  }
+  messages(
+    where: {
+      _or: [
+        {
+          _and: [
+            { sender_id: { _eq: $uid } }
+            { receiver_id: { _eq: $other_uid } }
+          ]
+        }
+        {
+          _and: [
+            { sender_id: { _eq: $other_uid } }
+            { receiver_id: { _eq: $uid } }
+          ]
+        }
+      ]
+    }
+    order_by: { created_at: desc }
+  ) {
+    sender_id
+    content
+    created_at
+  }
+}
