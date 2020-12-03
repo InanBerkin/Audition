@@ -3,7 +3,6 @@ import {
   Flex,
   Heading,
   Divider,
-  Stack,
   Skeleton,
   Text,
   Avatar,
@@ -13,9 +12,7 @@ import { AiOutlineMessage } from "react-icons/ai";
 import React, { ReactElement } from "react";
 import { useUserByIdQuery } from "../generated/graphql";
 import { getUID } from "../utils/getUID";
-import HighlightVideoBox from "../components/HighlightVideoBox";
 import { useHistory, useParams } from "react-router-dom";
-import useUploadHighlightModal from "../components/useUploadHighlightModal";
 import RequirementsGrid from "../components/RequirementsGrid";
 import Highlights from "../components/Highlights";
 
@@ -28,7 +25,6 @@ type RouteParams = {
 export default function Profile(): ReactElement {
   const { id } = useParams<RouteParams>();
   const history = useHistory();
-  const { modal, onOpen } = useUploadHighlightModal();
   const { data, loading, error } = useUserByIdQuery({
     variables: { uid: parseInt(id) || getUID() },
   });
@@ -85,7 +81,7 @@ export default function Profile(): ReactElement {
         <Heading m={4} size="lg">
           Highlights
         </Heading>
-        <Highlights showUpload={id == null}/>
+        <Highlights showUpload={id == null} />
         <Heading m={4} size="lg">
           Attributes
         </Heading>
@@ -101,7 +97,6 @@ export default function Profile(): ReactElement {
           />
         </Skeleton>
       </Box>
-      {modal()}
     </Box>
   );
 }

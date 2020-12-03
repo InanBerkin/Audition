@@ -51,3 +51,10 @@ export const ROLE_TYPE = {
   SUPPORTING: { name: "Supporting", id: "2" },
   EXTRA: { name: "Extra / Background", id: "3" },
 } as const;
+
+export const TALENT_TYPE = {
+  ACTOR: { name: "Actor", id: "1" },
+  VOICE_ACTOR: { name: "Voice Actor", id: "2" },
+  DANCER: { name: "Dancer", id: "3" },
+  MODEL: { name: "Model", id: "4" },
+} as const;

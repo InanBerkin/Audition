@@ -10415,7 +10415,9 @@ export type SignInUserQuery = (
   )> }
 );
 
-export type TalentsQueryVariables = Exact<{ [key: string]: never; }>;
+export type TalentsQueryVariables = Exact<{
+  filter?: Maybe<User_Bool_Exp>;
+}>;
 
 
 export type TalentsQuery = (
@@ -10993,8 +10995,8 @@ export type SignInUserQueryHookResult = ReturnType<typeof useSignInUserQuery>;
 export type SignInUserLazyQueryHookResult = ReturnType<typeof useSignInUserLazyQuery>;
 export type SignInUserQueryResult = Apollo.QueryResult<SignInUserQuery, SignInUserQueryVariables>;
 export const TalentsDocument = gql`
-    query Talents {
-  user(where: {user_type_id: {_lt: 5}}) {
+    query Talents($filter: user_bool_exp) {
+  user(where: {user_type_id: {_lt: 5}, _and: [$filter]}) {
     ...TalentCard
   }
 }
@@ -11012,6 +11014,7 @@ export const TalentsDocument = gql`
  * @example
  * const { data, loading, error } = useTalentsQuery({
  *   variables: {
+ *      filter: // value for 'filter'
  *   },
  * });
  */
