@@ -24,21 +24,21 @@ function getRandomPhysicalAttributes(knex) {
 }
 
 /** @param {Knex} knex*/
-async function generateFilmAudition(knex) {
+async function generateAudition(knex) {
   const [
     user,
     city,
     role_type,
     tag,
     random_physical_attribute,
-    film,
+    audition_type,
   ] = await Promise.all([
     getRandomRow(knex, tableNames.user),
     getRandomRow(knex, tableNames.city),
     getRandomRow(knex, tableNames.role_type),
     getRandomRow(knex, tableNames.tag),
     getRandomPhysicalAttributes(knex),
-    knex(tableNames.audition_type).select("id").where({ name: "Film" }).first(),
+    getRandomRow(knex, tableNames.audition_type),
   ]);
 
   const [audition] = await knex(tableNames.audition).insert(
@@ -48,8 +48,8 @@ async function generateFilmAudition(knex) {
       description: faker.lorem.paragraph(3),
       user_id: user.id,
       city_id: city.id,
-      audition_type_id: film.id,
-      address: faker.address.streetAddress(true),
+      audition_type_id: audition_type.id,
+      address: faker.address.streetAddress(),
     },
     ["id"]
   );
@@ -87,6 +87,6 @@ exports.seed = async function (knex) {
   await Promise.all(
     Array(5)
       .fill("")
-      .map(() => generateFilmAudition(knex))
+      .map(() => generateAudition(knex))
   );
 };

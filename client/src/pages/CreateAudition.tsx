@@ -4,7 +4,7 @@ import CreateAuditionForm from "../components/CreateAuditionForm";
 
 export default function CreateAudition(): ReactElement {
   return (
-    <Stack p={4} w={{ md: 1 / 2 }} m={{ md: "auto" }}>
+    <Stack p={4} w={{ md: "1080px" }} m={{ md: "auto" }}>
       <Heading>Create Audition</Heading>
       <CreateAuditionForm />
     </Stack>

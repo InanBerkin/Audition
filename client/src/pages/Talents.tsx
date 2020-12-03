@@ -1,6 +1,6 @@
-import { Box, Heading, Skeleton, Stack } from "@chakra-ui/core";
+import { Box, Heading, SimpleGrid, Skeleton, Stack } from "@chakra-ui/core";
 import React, { ReactElement } from "react";
-import TalentCard from "../components/TalentCard";
+import TalentGridCard from "../components/TalentGridCard";
 import { useTalentsQuery } from "../generated/graphql";
 
 function Talents(): ReactElement {
@@ -20,14 +20,21 @@ function Talents(): ReactElement {
       <Heading fontSize="2xl" mb={4}>
         Talents
       </Heading>
-      <Stack spacing={2} m={{ md: "auto" }} w={{ md: "1080px" }}>
-        {loading && <Skeleton h="65px" />}
-        {loading && <Skeleton h="65px" />}
-        {loading && <Skeleton h="65px" />}
+      <SimpleGrid
+        templateColumns={["70%", "repeat(4, 240px)"]}
+        justifyContent={["center", "initial"]}
+        spacing={4}
+        mx={{ md: "auto" }}
+        w={{ md: "1080px" }}
+      >
+        {loading && <Skeleton h="200px" />}
+        {loading && <Skeleton h="200px" />}
+        {loading && <Skeleton h="200px" />}
+        {loading && <Skeleton h="200px" />}
         {data?.user.map((talent, i) => (
-          <TalentCard key={i} talent={talent} />
+          <TalentGridCard key={i} talent={talent} />
         ))}
-      </Stack>
+      </SimpleGrid>
     </Box>
   );
 }

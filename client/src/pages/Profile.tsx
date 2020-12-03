@@ -80,7 +80,7 @@ export default function Profile(): ReactElement {
         </Flex>
       </Box>
       <Divider mt={4} />
-      <Box m={{ md: "auto" }} w={{ md: "1250px" }}>
+      <Box m={{ md: "auto" }} w={{ md: "1250px" }} pb={4}>
         <Heading m={4} size="lg">
           Highlights
         </Heading>

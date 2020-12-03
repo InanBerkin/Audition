@@ -58,7 +58,9 @@ async function generateUser(knex) {
 
 /** @param {Knex} knex*/
 exports.seed = async function (knex) {
-  await generateUser(knex);
-  await generateUser(knex);
-  await generateUser(knex);
+  await Promise.all(
+    Array(8)
+      .fill("")
+      .map(() => generateUser(knex))
+  );
 };

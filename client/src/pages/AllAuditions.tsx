@@ -1,5 +1,17 @@
-import { Box, Heading, Skeleton, Stack } from "@chakra-ui/core";
+import {
+  Box,
+  Button,
+  Flex,
+  Heading,
+  Icon,
+  Link,
+  Skeleton,
+  Stack,
+} from "@chakra-ui/core";
 import React, { ReactElement } from "react";
+import { BsArrowRight } from "react-icons/bs";
+import { GoMegaphone } from "react-icons/go";
+import { Link as RouterLink } from "react-router-dom";
 import DetailedAuditionCard from "../components/DetailedAuditionCard";
 import { useAuditionsQuery } from "../generated/graphql";
 import { getUID } from "../utils/getUID";
@@ -20,9 +32,26 @@ function AllAuditions(): ReactElement {
 
   return (
     <Box p={4} m={{ md: "auto" }} w={{ md: "1080px" }}>
-      <Heading fontSize="2xl" mb={4}>
-        Auditions
-      </Heading>
+      <Heading fontSize="2xl">Auditions</Heading>
+      <Flex
+        direction={["column", "row"]}
+        p={2}
+        bg="green.50"
+        my={2}
+        rounded="md"
+        justify="center"
+        align="center"
+      >
+        <Flex align="center" mr={4}>
+          <Icon mr={2} as={GoMegaphone} />
+          Looking for a talent or performer?
+        </Flex>
+        <Link as={RouterLink} to="/create-audition" mt={[2, 0]}>
+          <Button colorScheme="green" size="sm" rightIcon={<BsArrowRight />}>
+            Post audition
+          </Button>
+        </Link>
+      </Flex>
       <Stack spacing={2}>
         {loading && <Skeleton h="100px" />}
         {loading && <Skeleton h="100px" />}

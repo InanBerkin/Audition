@@ -14,6 +14,7 @@ import React, { ReactElement } from "react";
 import { Link as RouterLink } from "react-router-dom";
 import { MdDescription, MdPinDrop } from "react-icons/md";
 import { AuditionsQuery } from "../generated/graphql";
+import AuditionTag from "./AuditionTag";
 
 type Props = {
   audition: AuditionsQuery["audition"][0];
@@ -54,6 +55,9 @@ export default function DetailedAuditionCard({
               Posted on {getDayAndMonth(audition.created_at)}
             </Text>
           </Flex>
+          <Box>
+            <AuditionTag content={audition.audition_type.name || ""} />
+          </Box>
           <Flex alignItems="center" mt={3}>
             <Icon as={MdDescription} mr={1} />
             <Text fontWeight="bold" fontSize="md">
