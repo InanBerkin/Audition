@@ -1,6 +1,6 @@
 import { Box, Heading, Skeleton, Stack } from "@chakra-ui/core";
 import React, { ReactElement } from "react";
-import AuditionCard from "../components/AuditionCard";
+import DetailedAuditionCard from "../components/DetailedAuditionCard";
 import { useAuditionsQuery } from "../generated/graphql";
 import { getUID } from "../utils/getUID";
 
@@ -19,7 +19,7 @@ function AllAuditions(): ReactElement {
   }
 
   return (
-    <Box p={4} m={{ md: "auto" }} w={{ md: "850px" }}>
+    <Box p={4} m={{ md: "auto" }} w={{ md: "1080px" }}>
       <Heading fontSize="2xl" mb={4}>
         Auditions
       </Heading>
@@ -28,7 +28,7 @@ function AllAuditions(): ReactElement {
         {loading && <Skeleton h="100px" />}
         {loading && <Skeleton h="100px" />}
         {data?.audition.map((audition, i) => (
-          <AuditionCard key={i} audition={audition} />
+          <DetailedAuditionCard key={i} audition={audition} />
         ))}
       </Stack>
     </Box>

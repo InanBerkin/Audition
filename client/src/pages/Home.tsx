@@ -1,6 +1,14 @@
 import React from "react";
-import { Box, Flex, Heading, Stack, Link, Skeleton } from "@chakra-ui/core";
-import { AuditionCard } from "../components/AuditionCard";
+import {
+  Box,
+  Flex,
+  Heading,
+  Stack,
+  Link,
+  Skeleton,
+  Icon,
+  Text,
+} from "@chakra-ui/core";
 import {
   useAuditionsQuery,
   useGetAuditionTypeCountQuery,
@@ -8,6 +16,8 @@ import {
 } from "../generated/graphql";
 import AuditionTypeCard from "../components/AuditionTypeCard";
 import { getUID } from "../utils/getUID";
+import DetailedAuditionCard from "../components/DetailedAuditionCard";
+import { FaStar } from "react-icons/fa";
 
 function Home() {
   const { data, error, loading } = useAuditionsQuery({
@@ -60,7 +70,11 @@ function Home() {
       </Stack>
       <Heading fontSize="2xl" mb={4} mt={6}>
         <Flex justify="space-between" align="center">
-          Auditions For You
+          <Flex align="center">
+            <Icon as={FaStar} mr={2} color="orange.500" />
+            <Text>Auditions For You</Text>
+          </Flex>
+
           <Link color="cyan.600" fontSize="sm">
             See all
           </Link>
@@ -70,14 +84,14 @@ function Home() {
         spacing={4}
         shouldWrapChildren
         m={{ md: "auto" }}
-        w={{ md: "850px" }}
+        w={{ md: "1080px" }}
       >
         {loading && <Skeleton height="100px" />}
         {loading && <Skeleton height="100px" />}
         {loading && <Skeleton height="100px" />}
         {data &&
           data.audition.map((audition) => (
-            <AuditionCard key={audition.id} audition={audition} />
+            <DetailedAuditionCard key={audition.id} audition={audition} />
           ))}
       </Stack>
     </Box>

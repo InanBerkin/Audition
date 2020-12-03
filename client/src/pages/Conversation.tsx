@@ -91,7 +91,7 @@ export default function Conversation({ otherUserId }: Props): ReactElement {
       p={4}
       h="full"
       m={{ md: "auto" }}
-      w={{ md: "850px" }}
+      w={{ md: "1080px" }}
     >
       <Header />
       <Divider my={2} />
@@ -113,7 +113,7 @@ export default function Conversation({ otherUserId }: Props): ReactElement {
         left={{ base: 0, md: "50%" }}
         transform={{ md: "translateX(-50%)" }}
         bg="white"
-        w={{ base: "full", md: "850px" }}
+        w={{ base: "full", md: "1080px" }}
         p={4}
       >
         <Input

@@ -37,6 +37,7 @@ exports.seed = async function (knex) {
       user_id: user.id,
       city_id: city.id,
       audition_type_id: voiceover.id,
+      address: faker.address.streetAddress(true),
     },
     ["id"]
   );

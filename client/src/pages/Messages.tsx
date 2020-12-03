@@ -53,7 +53,7 @@ function Messages(): ReactElement {
   }
 
   return (
-    <Box p={4} m={{ md: "auto" }} w={{ md: "850px" }}>
+    <Box p={4} m={{ md: "auto" }} w={{ md: "1080px" }}>
       <Heading fontSize="2xl" mb={4}>
         Messages
       </Heading>
@@ -63,7 +63,7 @@ function Messages(): ReactElement {
           <Text>You don't have any messages</Text>
         </Stack>
       ) : (
-        <Stack spacing={2} m={{ md: "auto" }} w={{ md: "850px" }}>
+        <Stack spacing={2} m={{ md: "auto" }} w={{ md: "1080px" }}>
           {loading && <Skeleton h="100px" />}
           {loading && <Skeleton h="100px" />}
           {loading && <Skeleton h="100px" />}

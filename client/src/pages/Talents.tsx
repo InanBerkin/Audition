@@ -16,11 +16,11 @@ function Talents(): ReactElement {
   }
 
   return (
-    <Box p={4} m={{ md: "auto" }} w={{ md: "850px" }}>
+    <Box p={4} m={{ md: "auto" }} w={{ md: "1080px" }}>
       <Heading fontSize="2xl" mb={4}>
         Talents
       </Heading>
-      <Stack spacing={2} m={{ md: "auto" }} w={{ md: "850px" }}>
+      <Stack spacing={2} m={{ md: "auto" }} w={{ md: "1080px" }}>
         {loading && <Skeleton h="65px" />}
         {loading && <Skeleton h="65px" />}
         {loading && <Skeleton h="65px" />}

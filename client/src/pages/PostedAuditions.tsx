@@ -1,9 +1,9 @@
 import { Box, Heading, Icon, Skeleton, Stack, Text } from "@chakra-ui/core";
 import React, { ReactElement } from "react";
-import AuditionCard from "../components/AuditionCard";
 import { usePostedAuditionsQuery } from "../generated/graphql";
 import { getUID } from "../utils/getUID";
 import { RiEmotionSadLine } from "react-icons/ri";
+import DetailedAuditionCard from "../components/DetailedAuditionCard";
 
 function PostedAuditions(): ReactElement {
   const { data, error, loading } = usePostedAuditionsQuery({
@@ -30,12 +30,12 @@ function PostedAuditions(): ReactElement {
           <Text>You haven't posted any auditions</Text>
         </Stack>
       ) : (
-        <Stack spacing={2} m={{ md: "auto" }} w={{ md: "850px" }}>
+        <Stack spacing={2} m={{ md: "auto" }} w={{ md: "1080px" }}>
           {loading && <Skeleton h="100px" />}
           {loading && <Skeleton h="100px" />}
           {loading && <Skeleton h="100px" />}
           {data?.audition.map((audition, i) => (
-            <AuditionCard key={i} audition={audition} />
+            <DetailedAuditionCard key={i} audition={audition} />
           ))}
         </Stack>
       )}

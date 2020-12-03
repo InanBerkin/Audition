@@ -374,6 +374,7 @@ export type Applicant_Variance_Order_By = {
 /** columns and relationships of "audition" */
 export type Audition = {
   __typename?: 'audition';
+  address: Scalars['String'];
   /** An array relationship */
   audition_tags: Array<Audition_Tag>;
   /** An aggregated array relationship */
@@ -512,6 +513,7 @@ export type Audition_Bool_Exp = {
   _and?: Maybe<Array<Maybe<Audition_Bool_Exp>>>;
   _not?: Maybe<Audition_Bool_Exp>;
   _or?: Maybe<Array<Maybe<Audition_Bool_Exp>>>;
+  address?: Maybe<String_Comparison_Exp>;
   audition_tags?: Maybe<Audition_Tag_Bool_Exp>;
   audition_type?: Maybe<Audition_Type_Bool_Exp>;
   audition_type_id?: Maybe<Int_Comparison_Exp>;
@@ -544,6 +546,7 @@ export type Audition_Inc_Input = {
 
 /** input type for inserting data into table "audition" */
 export type Audition_Insert_Input = {
+  address?: Maybe<Scalars['String']>;
   audition_tags?: Maybe<Audition_Tag_Arr_Rel_Insert_Input>;
   audition_type?: Maybe<Audition_Type_Obj_Rel_Insert_Input>;
   audition_type_id?: Maybe<Scalars['Int']>;
@@ -563,6 +566,7 @@ export type Audition_Insert_Input = {
 /** aggregate max on columns */
 export type Audition_Max_Fields = {
   __typename?: 'audition_max_fields';
+  address?: Maybe<Scalars['String']>;
   audition_type_id?: Maybe<Scalars['Int']>;
   city_id?: Maybe<Scalars['Int']>;
   company_name?: Maybe<Scalars['String']>;
@@ -576,6 +580,7 @@ export type Audition_Max_Fields = {
 
 /** order by max() on columns of table "audition" */
 export type Audition_Max_Order_By = {
+  address?: Maybe<Order_By>;
   audition_type_id?: Maybe<Order_By>;
   city_id?: Maybe<Order_By>;
   company_name?: Maybe<Order_By>;
@@ -590,6 +595,7 @@ export type Audition_Max_Order_By = {
 /** aggregate min on columns */
 export type Audition_Min_Fields = {
   __typename?: 'audition_min_fields';
+  address?: Maybe<Scalars['String']>;
   audition_type_id?: Maybe<Scalars['Int']>;
   city_id?: Maybe<Scalars['Int']>;
   company_name?: Maybe<Scalars['String']>;
@@ -603,6 +609,7 @@ export type Audition_Min_Fields = {
 
 /** order by min() on columns of table "audition" */
 export type Audition_Min_Order_By = {
+  address?: Maybe<Order_By>;
   audition_type_id?: Maybe<Order_By>;
   city_id?: Maybe<Order_By>;
   company_name?: Maybe<Order_By>;
@@ -638,6 +645,7 @@ export type Audition_On_Conflict = {
 
 /** ordering options when selecting data from "audition" */
 export type Audition_Order_By = {
+  address?: Maybe<Order_By>;
   audition_tags_aggregate?: Maybe<Audition_Tag_Aggregate_Order_By>;
   audition_type?: Maybe<Audition_Type_Order_By>;
   audition_type_id?: Maybe<Order_By>;
@@ -662,6 +670,8 @@ export type Audition_Pk_Columns_Input = {
 /** select columns of table "audition" */
 export enum Audition_Select_Column {
   /** column name */
+  Address = 'address',
+  /** column name */
   AuditionTypeId = 'audition_type_id',
   /** column name */
   CityId = 'city_id',
@@ -683,6 +693,7 @@ export enum Audition_Select_Column {
 
 /** input type for updating data in table "audition" */
 export type Audition_Set_Input = {
+  address?: Maybe<Scalars['String']>;
   audition_type_id?: Maybe<Scalars['Int']>;
   city_id?: Maybe<Scalars['Int']>;
   company_name?: Maybe<Scalars['String']>;
@@ -1356,6 +1367,8 @@ export type Audition_Type_Variance_Order_By = {
 
 /** update columns of table "audition" */
 export enum Audition_Update_Column {
+  /** column name */
+  Address = 'address',
   /** column name */
   AuditionTypeId = 'audition_type_id',
   /** column name */
@@ -10097,14 +10110,21 @@ export type Voice_Type_Variance_Order_By = {
 
 export type AuditionCardFragment = (
   { __typename?: 'audition' }
-  & Pick<Audition, 'id' | 'name' | 'created_at'>
+  & Pick<Audition, 'id' | 'name' | 'description' | 'address' | 'created_at'>
   & { city: (
     { __typename?: 'city' }
     & Pick<City, 'name'>
   ), audition_type: (
     { __typename?: 'audition_type' }
     & Pick<Audition_Type, 'name'>
-  ), audition_tags: Array<(
+  ), roles: Array<(
+    { __typename?: 'role' }
+    & Pick<Role, 'name'>
+    & { role_type: (
+      { __typename?: 'role_type' }
+      & Pick<Role_Type, 'name'>
+    ) }
+  )>, audition_tags: Array<(
     { __typename?: 'audition_tag' }
     & { tag: (
       { __typename?: 'tag' }
@@ -10450,11 +10470,19 @@ export const AuditionCardFragmentDoc = gql`
     fragment AuditionCard on audition {
   id
   name
+  description
+  address
   city {
     name
   }
   audition_type {
     name
+  }
+  roles {
+    name
+    role_type {
+      name
+    }
   }
   created_at
   audition_tags {
@@ -10899,7 +10927,7 @@ export type MessagesLazyQueryHookResult = ReturnType<typeof useMessagesLazyQuery
 export type MessagesQueryResult = Apollo.QueryResult<MessagesQuery, MessagesQueryVariables>;
 export const PostedAuditionsDocument = gql`
     query PostedAuditions($uid: Int!) {
-  audition(where: {user_id: {_eq: $uid}}) {
+  audition(where: {user_id: {_eq: $uid}}, order_by: {created_at: desc}) {
     ...AuditionCard
   }
 }

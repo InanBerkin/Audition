@@ -7,7 +7,6 @@ import {
   Skeleton,
   Text,
   Avatar,
-  IconButton,
   Button,
 } from "@chakra-ui/core";
 import { AiOutlineMessage } from "react-icons/ai";
@@ -15,7 +14,7 @@ import React, { ReactElement } from "react";
 import { useUserByIdQuery } from "../generated/graphql";
 import { getUID } from "../utils/getUID";
 import HighlightVideoBox from "../components/HighlightVideoBox";
-import { useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import useUploadHighlightModal from "../components/useUploadHighlightModal";
 import RequirementsGrid from "../components/RequirementsGrid";
 
@@ -27,6 +26,7 @@ type RouteParams = {
 
 export default function Profile(): ReactElement {
   const { id } = useParams<RouteParams>();
+  const history = useHistory();
   const { modal, onOpen } = useUploadHighlightModal();
   const { data, loading, error } = useUserByIdQuery({
     variables: { uid: parseInt(id) || getUID() },
@@ -61,14 +61,19 @@ export default function Profile(): ReactElement {
             <Text mt={1} color="#666" lineHeight={1}>
               <Skeleton isLoaded={!loading}>
                 {user?.user_type.name}
-                <Button
-                  colorScheme="blue"
-                  leftIcon={<AiOutlineMessage />}
-                  mx={2}
-                  size="xs"
-                >
-                  Message
-                </Button>
+                {id != null && (
+                  <Button
+                    colorScheme="blue"
+                    leftIcon={<AiOutlineMessage />}
+                    mx={2}
+                    size="xs"
+                    onClick={() => {
+                      history.push(`/messages/${id}`);
+                    }}
+                  >
+                    Message
+                  </Button>
+                )}
               </Skeleton>
             </Text>
           </Box>
@@ -80,7 +85,7 @@ export default function Profile(): ReactElement {
           Highlights
         </Heading>
         <Stack isInline spacing={4} px={2} overflowX="scroll">
-          <HighlightVideoBox onClick={onOpen} />
+          {id == null && <HighlightVideoBox onClick={onOpen} />}
           <HighlightVideoBox url="/assets/highlight.webm" />
           <HighlightVideoBox url="/assets/highlight.webm" />
         </Stack>

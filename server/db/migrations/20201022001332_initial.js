@@ -96,6 +96,7 @@ exports.up = async function (knex) {
     table.string("company_name").notNullable();
     table.string("name").notNullable();
     table.text("description").notNullable();
+    table.text("address").notNullable();
     table.timestamps(false, true);
     references(table, tableNames.user);
     references(table, tableNames.city);

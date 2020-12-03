@@ -49,6 +49,7 @@ async function generateFilmAudition(knex) {
       user_id: user.id,
       city_id: city.id,
       audition_type_id: film.id,
+      address: faker.address.streetAddress(true),
     },
     ["id"]
   );
