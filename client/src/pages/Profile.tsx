@@ -17,6 +17,7 @@ import HighlightVideoBox from "../components/HighlightVideoBox";
 import { useHistory, useParams } from "react-router-dom";
 import useUploadHighlightModal from "../components/useUploadHighlightModal";
 import RequirementsGrid from "../components/RequirementsGrid";
+import Highlights from "../components/Highlights";
 
 const imageSize = 100;
 
@@ -84,11 +85,7 @@ export default function Profile(): ReactElement {
         <Heading m={4} size="lg">
           Highlights
         </Heading>
-        <Stack isInline spacing={4} px={2} overflowX="scroll">
-          {id == null && <HighlightVideoBox onClick={onOpen} />}
-          <HighlightVideoBox url="/assets/highlight.webm" />
-          <HighlightVideoBox url="/assets/highlight.webm" />
-        </Stack>
+        <Highlights showUpload={id == null}/>
         <Heading m={4} size="lg">
           Attributes
         </Heading>

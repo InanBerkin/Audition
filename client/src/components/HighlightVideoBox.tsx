@@ -104,7 +104,14 @@ export default function HighlightVideoBox({
               }
             }}
           >
-            <Heading p={2} position="absolute" color="white">
+            <Heading
+              // w="full"
+              // bg="black"
+              // opacity="0.5"
+              p={2}
+              position="absolute"
+              color="white"
+            >
               John Doe
             </Heading>
             <video onEnded={onClose} ref={videoRef} autoPlay={true}>

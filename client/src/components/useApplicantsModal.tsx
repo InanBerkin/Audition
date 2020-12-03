@@ -9,10 +9,13 @@ import {
   ModalHeader,
   ModalOverlay,
   useDisclosure,
+  Icon,
+  Text,
 } from "@chakra-ui/core";
 import { useApplicantsByRoleIdLazyQuery } from "../generated/graphql";
 import React from "react";
 import TalentCard from "./TalentCard";
+import { RiEmotionSadLine } from "react-icons/ri";
 
 export default function useApplicantsModal() {
   const [loadApplicants, { loading, data }] = useApplicantsByRoleIdLazyQuery();
@@ -35,6 +38,12 @@ export default function useApplicantsModal() {
               {loading && <Skeleton h="65px" />}
               {loading && <Skeleton h="65px" />}
               {loading && <Skeleton h="65px" />}
+              {data?.role[0].applicants.length === 0 && (
+                <Stack align="center">
+                  <Icon as={RiEmotionSadLine} boxSize="2rem" />
+                  <Text>No one applied for this role yet</Text>
+                </Stack>
+              )}
               {data?.role[0].applicants.map((applicant, i) => (
                 <TalentCard border="none" key={i} talent={applicant.user} />
               ))}
