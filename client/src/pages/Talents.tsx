@@ -9,6 +9,7 @@ import {
   Text,
 } from "@chakra-ui/core";
 import React, { ReactElement } from "react";
+import { FaTheaterMasks } from "react-icons/fa";
 import { RiEmotionSadLine } from "react-icons/ri";
 import TalentGridCard from "../components/TalentGridCard";
 import TalentSearch from "../components/TalentSearch";
@@ -38,9 +39,10 @@ function Talents(): ReactElement {
         refetch={refetch}
       />
       <Box w="full">
-        <Heading fontSize="2xl" mb={4}>
-          Talents
-        </Heading>
+        <Flex align="center" mb={4}>
+          <Icon as={FaTheaterMasks} boxSize={8} mr={2} />
+          <Heading fontSize="2xl">Talents</Heading>
+        </Flex>
         <Box>
           {data?.user.length === 0 && (
             <Stack align="center">

@@ -15,6 +15,7 @@ import { Link as RouterLink } from "react-router-dom";
 import { MdDescription, MdPinDrop } from "react-icons/md";
 import { AuditionsQuery } from "../generated/graphql";
 import AuditionTag from "./AuditionTag";
+import { useTranslation } from "react-i18next";
 
 type Props = {
   audition: AuditionsQuery["audition"][0];
@@ -30,6 +31,7 @@ function getDayAndMonth(time: string): string {
 export default function DetailedAuditionCard({
   audition,
 }: Props): ReactElement {
+  const { t } = useTranslation();
   return (
     <Link
       as={RouterLink}
@@ -61,7 +63,7 @@ export default function DetailedAuditionCard({
           <Flex alignItems="center" mt={3}>
             <Icon as={MdDescription} mr={1} />
             <Text fontWeight="bold" fontSize="md">
-              Description
+              {t("Description")}
             </Text>
           </Flex>
           <Text fontSize="sm" mt={1} noOfLines={2}>
@@ -70,7 +72,7 @@ export default function DetailedAuditionCard({
           <Flex alignItems="center" mt={3}>
             <Icon as={MdPinDrop} mr={1} />
             <Text fontWeight="bold" fontSize="md">
-              Location
+              {t("Location")}
             </Text>
           </Flex>
           <Text fontSize="sm" mt={1} noOfLines={2}>
@@ -88,11 +90,11 @@ export default function DetailedAuditionCard({
           p={4}
         >
           <Text fontWeight="bold" fontSize="lg">
-            Roles
+            {t("Roles")}
           </Text>
           <Stack overflowY="scroll" spacing={2} divider={<Divider />}>
-            {audition.roles.map((role) => (
-              <Box>
+            {audition.roles.map((role, i) => (
+              <Box key={i}>
                 <Badge colorScheme="purple">{role.role_type.name}</Badge>
                 <Text textTransform="capitalize" mt={1} ml={1}>
                   {role.name}

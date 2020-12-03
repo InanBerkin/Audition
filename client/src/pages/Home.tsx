@@ -18,8 +18,10 @@ import AuditionTypeCard from "../components/AuditionTypeCard";
 import { getUID } from "../utils/getUID";
 import DetailedAuditionCard from "../components/DetailedAuditionCard";
 import { FaStar } from "react-icons/fa";
+import { useTranslation } from "react-i18next";
 
 function Home() {
+  const { t } = useTranslation();
   const { data, error, loading } = useAuditionsQuery({
     variables: {
       uid: getUID(),
@@ -48,7 +50,7 @@ function Home() {
   return (
     <Box p={4} m={{ md: "auto" }} w={{ md: "1250px" }}>
       <Heading fontSize="2xl" mb={4}>
-        Welcome, {nameData?.user[0].name}
+        {t("Welcome")}, {nameData?.user[0].name}
       </Heading>
       <Stack
         isInline
@@ -72,11 +74,11 @@ function Home() {
         <Flex justify="space-between" align="center">
           <Flex align="center">
             <Icon as={FaStar} mr={2} color="orange.500" />
-            <Text>Auditions For You</Text>
+            <Text>{t("Auditions For You")}</Text>
           </Flex>
 
           <Link color="cyan.600" fontSize="sm">
-            See all
+            {t("See all")}
           </Link>
         </Flex>
       </Heading>

@@ -11,6 +11,7 @@ import {
 import React, { ReactElement } from "react";
 import { BsArrowRight } from "react-icons/bs";
 import { GoMegaphone } from "react-icons/go";
+import { MdMovie } from "react-icons/md";
 import { Link as RouterLink } from "react-router-dom";
 import DetailedAuditionCard from "../components/DetailedAuditionCard";
 import { useAuditionsQuery } from "../generated/graphql";
@@ -32,7 +33,10 @@ function AllAuditions(): ReactElement {
 
   return (
     <Box p={4} m={{ md: "auto" }} w={{ md: "1080px" }}>
-      <Heading fontSize="2xl">Auditions</Heading>
+      <Flex align="center" mb={4}>
+        <Icon as={MdMovie} boxSize={8} mr={2} />
+        <Heading fontSize="2xl">Auditions</Heading>
+      </Flex>
       <Flex
         direction={["column", "row"]}
         p={2}
