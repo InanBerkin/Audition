@@ -86,7 +86,13 @@ export default function Conversation({ otherUserId }: Props): ReactElement {
   }
 
   return (
-    <Flex direction="column" p={4} h="full">
+    <Flex
+      direction="column"
+      p={4}
+      h="full"
+      m={{ md: "auto" }}
+      w={{ md: "850px" }}
+    >
       <Header />
       <Divider my={2} />
       <Stack mt={2} spacing={4} overflowY="scroll" pb="80px" px={4}>
@@ -104,9 +110,10 @@ export default function Conversation({ otherUserId }: Props): ReactElement {
         borderTop="1px solid #eee"
         position="fixed"
         bottom={0}
-        left={0}
+        left={{ base: 0, md: "50%" }}
+        transform={{ md: "translateX(-50%)" }}
         bg="white"
-        w="full"
+        w={{ base: "full", md: "850px" }}
         p={4}
       >
         <Input

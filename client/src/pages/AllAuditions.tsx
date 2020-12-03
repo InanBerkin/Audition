@@ -2,9 +2,12 @@ import { Box, Heading, Skeleton, Stack } from "@chakra-ui/core";
 import React, { ReactElement } from "react";
 import AuditionCard from "../components/AuditionCard";
 import { useAuditionsQuery } from "../generated/graphql";
+import { getUID } from "../utils/getUID";
 
 function AllAuditions(): ReactElement {
-  const { data, error, loading } = useAuditionsQuery();
+  const { data, error, loading } = useAuditionsQuery({
+    variables: { uid: getUID() },
+  });
 
   if (error) {
     return (
@@ -16,11 +19,11 @@ function AllAuditions(): ReactElement {
   }
 
   return (
-    <Box p={4}>
+    <Box p={4} m={{ md: "auto" }} w={{ md: "850px" }}>
       <Heading fontSize="2xl" mb={4}>
         Auditions
       </Heading>
-      <Stack spacing={2} m={{ md: "auto" }} w={{ md: "850px" }}>
+      <Stack spacing={2}>
         {loading && <Skeleton h="100px" />}
         {loading && <Skeleton h="100px" />}
         {loading && <Skeleton h="100px" />}

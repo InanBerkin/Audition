@@ -16,7 +16,7 @@ function Talents(): ReactElement {
   }
 
   return (
-    <Box p={4}>
+    <Box p={4} m={{ md: "auto" }} w={{ md: "850px" }}>
       <Heading fontSize="2xl" mb={4}>
         Talents
       </Heading>

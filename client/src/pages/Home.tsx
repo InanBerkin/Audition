@@ -36,7 +36,7 @@ function Home() {
   }
 
   return (
-    <Box p={4}>
+    <Box p={4} m={{ md: "auto" }} w={{ md: "1250px" }}>
       <Heading fontSize="2xl" mb={4}>
         Welcome, {nameData?.user[0].name}
       </Heading>

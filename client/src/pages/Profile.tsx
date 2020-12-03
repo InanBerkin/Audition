@@ -75,28 +75,30 @@ export default function Profile(): ReactElement {
         </Flex>
       </Box>
       <Divider mt={4} />
-      <Heading m={4} size="lg">
-        Highlights
-      </Heading>
-      <Stack isInline spacing={4} px={2} overflowX="scroll">
-        <HighlightVideoBox onClick={onOpen} />
-        <HighlightVideoBox url="/assets/highlight.webm" />
-        <HighlightVideoBox url="/assets/highlight.webm" />
-      </Stack>
-      <Heading m={4} size="lg">
-        Attributes
-      </Heading>
-      <Skeleton isLoaded={!loading}>
-        <RequirementsGrid
-          px={4}
-          gender={user?.physical_attribute?.gender?.name}
-          ethnicity={user?.physical_attribute?.ethnicity?.name}
-          eye_color={user?.physical_attribute?.eye_color?.name}
-          hair_color={user?.physical_attribute?.hair_color?.name}
-          body_height={user?.physical_attribute?.height}
-          body_type={user?.physical_attribute?.body_type?.name}
-        />
-      </Skeleton>
+      <Box m={{ md: "auto" }} w={{ md: "1250px" }}>
+        <Heading m={4} size="lg">
+          Highlights
+        </Heading>
+        <Stack isInline spacing={4} px={2} overflowX="scroll">
+          <HighlightVideoBox onClick={onOpen} />
+          <HighlightVideoBox url="/assets/highlight.webm" />
+          <HighlightVideoBox url="/assets/highlight.webm" />
+        </Stack>
+        <Heading m={4} size="lg">
+          Attributes
+        </Heading>
+        <Skeleton isLoaded={!loading}>
+          <RequirementsGrid
+            px={4}
+            gender={user?.physical_attribute?.gender?.name}
+            ethnicity={user?.physical_attribute?.ethnicity?.name}
+            eye_color={user?.physical_attribute?.eye_color?.name}
+            hair_color={user?.physical_attribute?.hair_color?.name}
+            body_height={user?.physical_attribute?.height}
+            body_type={user?.physical_attribute?.body_type?.name}
+          />
+        </Skeleton>
+      </Box>
       {modal()}
     </Box>
   );
