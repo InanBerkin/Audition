@@ -54,7 +54,7 @@ export default function DetailedAuditionCard({
               {audition.name}
             </Text>
             <Text color="gray.500" fontSize="sm" align="end">
-              Posted on {getDayAndMonth(audition.created_at)}
+              {t("Posted On")} {getDayAndMonth(audition.created_at)}
             </Text>
           </Flex>
           <Box>
@@ -95,7 +95,7 @@ export default function DetailedAuditionCard({
           <Stack overflowY="scroll" spacing={2} divider={<Divider />}>
             {audition.roles.map((role, i) => (
               <Box key={i}>
-                <Badge colorScheme="purple">{role.role_type.name}</Badge>
+                <Badge colorScheme="purple">{t(role.role_type.name)}</Badge>
                 <Text textTransform="capitalize" mt={1} ml={1}>
                   {role.name}
                 </Text>

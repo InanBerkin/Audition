@@ -14,6 +14,7 @@ import {
   Text,
 } from "@chakra-ui/core";
 import React, { ReactElement } from "react";
+import { useTranslation } from "react-i18next";
 import { GoChecklist } from "react-icons/go";
 import {
   AppliedAuditionsDocument,
@@ -50,6 +51,7 @@ export default function AuditionRoles({
   isPostedByUser,
   ...props
 }: Props): ReactElement | null {
+  const { t } = useTranslation();
   const { modal, onOpen } = useApplicantsModal();
   const [applyAudition, { loading }] = useApplyAuditionMutation({
     onError: (e) => {
@@ -85,7 +87,7 @@ export default function AuditionRoles({
             <AccordionButton>
               <Box flex="1" textAlign="left">
                 <Badge mr={2} colorScheme="purple">
-                  {role_type.name}
+                  {t(role_type.name)}
                 </Badge>
                 {name}
               </Box>
@@ -95,7 +97,7 @@ export default function AuditionRoles({
               {description}
               <Divider my={2} />
               <Box>
-                <Text fontWeight="bold">Requirements</Text>
+                <Text fontWeight="bold">{t("Requirements")}</Text>
                 <RequirementsGrid
                   mt={2}
                   gender={requirement?.physical_attribute?.gender?.name}
@@ -113,7 +115,7 @@ export default function AuditionRoles({
                     colorScheme="blue"
                     leftIcon={<GoChecklist />}
                   >
-                    List Applicants
+                    {t("List Applicants")}
                   </Button>
                 ) : (
                   <Button
@@ -132,7 +134,7 @@ export default function AuditionRoles({
                       });
                     }}
                   >
-                    {did_user_applied.length !== 0 ? "Applied" : "Apply"}
+                    {did_user_applied.length !== 0 ? t("Applied") : t("Apply")}
                   </Button>
                 )}
               </Flex>

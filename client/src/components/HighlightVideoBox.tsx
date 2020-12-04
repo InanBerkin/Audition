@@ -11,6 +11,7 @@ import {
 } from "@chakra-ui/core";
 import { motion } from "framer-motion";
 import React, { useRef } from "react";
+import { useTranslation } from "react-i18next";
 import { MdAdd } from "react-icons/md";
 
 export const MotionBox = motion.custom(Box);
@@ -24,6 +25,7 @@ export default function HighlightVideoBox({
   url,
   onClick,
 }: HighlightVideoBoxProps) {
+  const { t } = useTranslation();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const videoRef = useRef<HTMLVideoElement>(null);
 
@@ -75,7 +77,7 @@ export default function HighlightVideoBox({
               as={MdAdd}
               mb={2}
             />
-            <Text fontWeight="bold">Add Highlight</Text>
+            <Text fontWeight="bold">{t("Add Highlight")}</Text>
           </Flex>
         )}
       </MotionBox>

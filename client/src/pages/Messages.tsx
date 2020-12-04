@@ -10,6 +10,7 @@ import {
   useMediaQuery,
 } from "@chakra-ui/core";
 import React, { ReactElement, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { RiEmotionSadLine } from "react-icons/ri";
 import { useParams } from "react-router-dom";
 import MessageUserCard from "../components/MessageUserCard";
@@ -26,6 +27,7 @@ type MessagedUsers = {
 };
 
 function Messages(): ReactElement {
+  const { t } = useTranslation();
   const { id } = useParams<RouteParams>();
   const { data, error, loading } = useMessagesQuery({
     variables: { uid: getUID() },
@@ -69,12 +71,12 @@ function Messages(): ReactElement {
     <Flex p={4}>
       <Box p={4} minW="300px">
         <Heading fontSize="2xl" mb={4}>
-          Messages
+          {t("Messages")}
         </Heading>
         {data?.user_by_pk == null && !loading ? (
           <Stack align="center">
             <Icon as={RiEmotionSadLine} boxSize="2rem" />
-            <Text>You don't have any messages</Text>
+            <Text>{t("You don't have any messages")}</Text>
           </Stack>
         ) : (
           <Stack divider={<Divider my={2} />}>

@@ -16,8 +16,10 @@ import { useApplicantsByRoleIdLazyQuery } from "../generated/graphql";
 import React from "react";
 import TalentCard from "./TalentCard";
 import { RiEmotionSadLine } from "react-icons/ri";
+import { useTranslation } from "react-i18next";
 
 export default function useApplicantsModal() {
+  const { t } = useTranslation();
   const [loadApplicants, { loading, data }] = useApplicantsByRoleIdLazyQuery();
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -31,7 +33,7 @@ export default function useApplicantsModal() {
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Applicants</ModalHeader>
+          <ModalHeader>{t("Applicants")}</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             <Stack spacing={2}>
@@ -41,7 +43,7 @@ export default function useApplicantsModal() {
               {data?.role[0].applicants.length === 0 && (
                 <Stack align="center">
                   <Icon as={RiEmotionSadLine} boxSize="2rem" />
-                  <Text>No one applied for this role yet</Text>
+                  <Text>{t("No one applied for this role yet")}</Text>
                 </Stack>
               )}
               {data?.role[0].applicants.map((applicant, i) => (

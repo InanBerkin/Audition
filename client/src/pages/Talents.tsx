@@ -9,6 +9,7 @@ import {
   Text,
 } from "@chakra-ui/core";
 import React, { ReactElement } from "react";
+import { useTranslation } from "react-i18next";
 import { FaTheaterMasks } from "react-icons/fa";
 import { RiEmotionSadLine } from "react-icons/ri";
 import TalentGridCard from "../components/TalentGridCard";
@@ -16,6 +17,7 @@ import TalentSearch from "../components/TalentSearch";
 import { useTalentsQuery } from "../generated/graphql";
 
 function Talents(): ReactElement {
+  const { t } = useTranslation();
   const { data, error, loading, refetch } = useTalentsQuery();
 
   if (error) {
@@ -41,13 +43,13 @@ function Talents(): ReactElement {
       <Box w="full">
         <Flex align="center" mb={4}>
           <Icon as={FaTheaterMasks} boxSize={8} mr={2} />
-          <Heading fontSize="2xl">Talents</Heading>
+          <Heading fontSize="2xl">{t("Talents")}</Heading>
         </Flex>
         <Box>
           {data?.user.length === 0 && (
             <Stack align="center">
               <Icon as={RiEmotionSadLine} boxSize="2rem" />
-              <Text>No performers exist</Text>
+              <Text>{t("No performers exist")}</Text>
             </Stack>
           )}
           <SimpleGrid

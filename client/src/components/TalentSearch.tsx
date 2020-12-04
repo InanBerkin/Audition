@@ -3,13 +3,17 @@ import {
   Box,
   BoxProps,
   Button,
+  Flex,
   FormControl,
   FormLabel,
+  Icon,
   Select,
   Text,
 } from "@chakra-ui/core";
 import React, { ReactElement } from "react";
 import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
+import { BsFunnelFill } from "react-icons/bs";
 import { Exact, TalentsQuery, User_Bool_Exp } from "../generated/graphql";
 import { TALENT_TYPE } from "../utils/constants";
 
@@ -33,6 +37,7 @@ export default function TalentSearch({
   refetch,
   ...props
 }: Props): ReactElement {
+  const { t } = useTranslation();
   const { handleSubmit, register } = useForm<FormDataType>();
 
   function onSubmit(values: FormDataType) {
@@ -44,22 +49,29 @@ export default function TalentSearch({
 
   return (
     <Box {...props}>
-      <Text fontWeight="bold" lineHeight={2.5}>
-        Filter Results
-      </Text>
+      <Flex align="center">
+        <Icon as={BsFunnelFill} mr={1} />
+        <Text fontWeight="bold" lineHeight={2.5}>
+          {t("Filter Results")}
+        </Text>
+      </Flex>
       <form onSubmit={handleSubmit(onSubmit)}>
         <FormControl>
-          <FormLabel htmlFor="user_type_id">Talent Type</FormLabel>
-          <Select name="user_type_id" placeholder="Select type" ref={register}>
+          <FormLabel htmlFor="user_type_id">{t("Talent Type")}</FormLabel>
+          <Select
+            name="user_type_id"
+            placeholder={t("Select type")}
+            ref={register}
+          >
             {Object.values(TALENT_TYPE).map(({ id, name }) => (
               <option key={id} value={id}>
-                {name}
+                {t(name)}
               </option>
             ))}
           </Select>
         </FormControl>
         <Button mt={4} colorScheme="teal" type="submit">
-          Apply
+          {t("Apply Filter")}
         </Button>
       </form>
     </Box>

@@ -19,12 +19,14 @@ import { GoChecklist } from "react-icons/go";
 import { BsFilePost } from "react-icons/bs";
 import { AiOutlineMessage } from "react-icons/ai";
 import { useHistory, Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 export default function DrawerMenu({
   isOpen,
   onClose,
   finalFocusRef,
 }: DrawerProps): ReactElement {
+  const { t } = useTranslation();
   const history = useHistory();
   return (
     <Drawer
@@ -43,25 +45,25 @@ export default function DrawerMenu({
               <HStack>
                 <Icon as={AiOutlineMessage} />
                 <Link onClick={onClose} to="/messages">
-                  Messages
+                  {t("Messages")}
                 </Link>
               </HStack>
               <HStack>
                 <Icon as={CgAdd} />
                 <Link onClick={onClose} to="/create-audition">
-                  Create Audition
+                  {t("Create Audition")}
                 </Link>
               </HStack>
               <HStack>
                 <Icon as={GoChecklist} />
                 <Link onClick={onClose} to="/applied-auditions">
-                  Applied Auditions
+                  {t("Applied Auditions")}
                 </Link>
               </HStack>
               <HStack>
                 <Icon as={BsFilePost} />
                 <Link onClick={onClose} to="/posted-auditions">
-                  Posted Auditions
+                  {t("Posted Auditions")}
                 </Link>
               </HStack>
             </Stack>
@@ -75,7 +77,7 @@ export default function DrawerMenu({
                 history.push("/signin");
               }}
             >
-              Logout
+              {t("Logout")}
             </Button>
           </DrawerFooter>
         </DrawerContent>

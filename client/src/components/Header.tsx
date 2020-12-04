@@ -1,4 +1,4 @@
-import { Heading, Flex, IconButton, useDisclosure } from "@chakra-ui/core";
+import { Heading, Flex, IconButton, useDisclosure, Box } from "@chakra-ui/core";
 import React, { ReactElement, useRef } from "react";
 import { MdMenu, MdSearch } from "react-icons/md";
 import DrawerMenu from "./DrawerMenu";
@@ -18,7 +18,8 @@ export default function Header(): ReactElement {
           onClick={onOpen}
         />
         <NavBar />
-        <IconButton variant="ghost" aria-label="search" icon={<MdSearch />} />
+        {/* <IconButton variant="ghost" aria-label="search" icon={<MdSearch />} /> */}
+        <Box />
       </Flex>
       <DrawerMenu finalFocusRef={btnRef} isOpen={isOpen} onClose={onClose}>
         <div />

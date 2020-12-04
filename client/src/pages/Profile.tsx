@@ -15,6 +15,7 @@ import { getUID } from "../utils/getUID";
 import { useHistory, useParams } from "react-router-dom";
 import RequirementsGrid from "../components/RequirementsGrid";
 import Highlights from "../components/Highlights";
+import { useTranslation } from "react-i18next";
 
 const imageSize = 100;
 
@@ -24,6 +25,7 @@ type RouteParams = {
 
 export default function Profile(): ReactElement {
   const { id } = useParams<RouteParams>();
+  const { t } = useTranslation();
   const history = useHistory();
   const { data, loading, error } = useUserByIdQuery({
     variables: { uid: parseInt(id) || getUID() },
@@ -57,7 +59,7 @@ export default function Profile(): ReactElement {
             </Heading>
             <Text mt={1} color="#666" lineHeight={1}>
               <Skeleton isLoaded={!loading}>
-                {user?.user_type.name}
+                {t(user?.user_type.name || "")}
                 {id != null && (
                   <Button
                     colorScheme="blue"
@@ -68,7 +70,7 @@ export default function Profile(): ReactElement {
                       history.push(`/messages/${id}`);
                     }}
                   >
-                    Message
+                    {t("Message")}
                   </Button>
                 )}
               </Skeleton>
@@ -79,11 +81,11 @@ export default function Profile(): ReactElement {
       <Divider mt={4} />
       <Box m={{ md: "auto" }} w={{ md: "1250px" }} pb={4}>
         <Heading m={4} size="lg">
-          Highlights
+          {t("Highlights")}
         </Heading>
         <Highlights showUpload={id == null} />
         <Heading m={4} size="lg">
-          Attributes
+          {t("Attributes")}
         </Heading>
         <Skeleton isLoaded={!loading}>
           <RequirementsGrid

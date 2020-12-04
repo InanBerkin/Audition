@@ -14,8 +14,10 @@ import {
 } from "@chakra-ui/core";
 import React, { useState, useCallback } from "react";
 import { useDropzone } from "react-dropzone";
+import { useTranslation } from "react-i18next";
 
 export default function useUploadHighlightModal() {
+  const { t } = useTranslation();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [file, setFile] = useState<File | null>(null);
 
@@ -38,7 +40,7 @@ export default function useUploadHighlightModal() {
       <Modal isOpen={isOpen} onClose={handleClose}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Upload Highlight</ModalHeader>
+          <ModalHeader>{t("Upload Highlight")}</ModalHeader>
           <ModalCloseButton />
           <ModalBody display="flex" justifyContent="center">
             {file == null && (
@@ -50,7 +52,7 @@ export default function useUploadHighlightModal() {
                   border="1px #ccc dashed"
                   h="300px"
                 >
-                  Upload
+                  {t("Upload")}
                 </Flex>
               </Box>
             )}
@@ -74,9 +76,9 @@ export default function useUploadHighlightModal() {
               colorScheme="red"
               onClick={() => setFile(null)}
             >
-              Remove
+              {t("Remove")}
             </Button>
-            <Button colorScheme="green">Save</Button>
+            <Button colorScheme="green">{t("Save")}</Button>
             {/* </Flex> */}
           </ModalFooter>
         </ModalContent>

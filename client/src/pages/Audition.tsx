@@ -8,6 +8,7 @@ import {
   Text,
 } from "@chakra-ui/core";
 import React, { ReactElement } from "react";
+import { useTranslation } from "react-i18next";
 import { MdChevronLeft } from "react-icons/md";
 import { useHistory, useParams } from "react-router-dom";
 import AuditionRoles from "../components/AuditionRoles";
@@ -22,6 +23,7 @@ type RouteParams = {
 
 export default function Audition(): ReactElement {
   const { id } = useParams<RouteParams>();
+  const { t } = useTranslation();
   const history = useHistory();
   const { data, loading, error, refetch } = useAuditionByIdQuery({
     variables: { id: parseInt(id), user_id: getUID() },
@@ -53,10 +55,10 @@ export default function Audition(): ReactElement {
         </Skeleton>
       </Flex>
       <Skeleton isLoaded={!loading}>
-        <AuditionTag content={audition?.audition_type.name || ""} />
+        <AuditionTag content={t(audition?.audition_type.name || "")} />
       </Skeleton>
       <Text mt={4} fontWeight="bold">
-        Created By
+        {t("Created By")}
       </Text>
       <Skeleton isLoaded={!loading}>
         {audition?.user && (
@@ -64,19 +66,19 @@ export default function Audition(): ReactElement {
         )}
       </Skeleton>
       <Text mt={2} fontWeight="bold">
-        Company
+        {t("Company")}
       </Text>
       <Skeleton isLoaded={!loading}>
         <Text>{audition?.company_name}</Text>
       </Skeleton>
       <Text mt={4} fontWeight="bold">
-        Description
+        {t("Description")}
       </Text>
       <SkeletonText noOfLines={4} spacing="4" isLoaded={!loading}>
         {audition?.description}
       </SkeletonText>
       <Text mt={4} fontWeight="bold">
-        Roles
+        {t("Roles")}
       </Text>
       {loading && <Skeleton height="100px" />}
       {audition?.roles && (

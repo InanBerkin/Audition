@@ -15,6 +15,7 @@ import React, {
   useRef,
   useState,
 } from "react";
+import { useTranslation } from "react-i18next";
 import { MdChevronLeft } from "react-icons/md";
 import { RiSendPlane2Line } from "react-icons/ri";
 import { useHistory } from "react-router-dom";
@@ -32,6 +33,7 @@ type Props = {
 
 export default function Conversation({ otherUserId }: Props): ReactElement {
   const history = useHistory();
+  const { t } = useTranslation();
   const dummy = useRef<HTMLSpanElement | null>(null);
   const sendButton = useRef<HTMLButtonElement | null>(null);
   const [message, setMessage] = useState<string>("");
@@ -136,7 +138,7 @@ export default function Conversation({ otherUserId }: Props): ReactElement {
         <Input
           value={message}
           onChange={(event) => setMessage(event.target.value)}
-          placeholder="Type your message"
+          placeholder={t("Type your message")}
         />
         <IconButton
           ref={sendButton}

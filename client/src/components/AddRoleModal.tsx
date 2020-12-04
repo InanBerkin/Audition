@@ -27,6 +27,7 @@ import {
 } from "@chakra-ui/core";
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import { BiBody } from "react-icons/bi";
 import { CgEye, CgRuler } from "react-icons/cg";
 import { FaTransgenderAlt } from "react-icons/fa";
@@ -54,6 +55,7 @@ export default function AddRoleModal({
   onClose,
   children,
 }: RoleModalProps) {
+  const { t } = useTranslation();
   const {
     register,
     errors,
@@ -100,23 +102,23 @@ export default function AddRoleModal({
       {children}
       <ModalContent width={["100%", "800px"]} maxW="100%">
         <form key={2} id="role_form" onSubmit={handleSubmit(onSubmit)}>
-          <ModalHeader>Add Role</ModalHeader>
+          <ModalHeader>{t("Add Role")}</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             <FormControl isInvalid={!!errors.name}>
-              <FormLabel htmlFor="name">Name</FormLabel>
+              <FormLabel htmlFor="name">{t("Name")}</FormLabel>
               <Input
                 name="name"
-                placeholder="What is the name of the role?"
+                placeholder={t("What is the name of the role?")}
                 ref={register({
-                  required: "Please enter a name for the role",
+                  required: t("Please enter a name for the role") as string,
                 })}
               />
               <FormErrorMessage>{errors.name?.message}</FormErrorMessage>
             </FormControl>
             <FormControl>
               <FormLabel mt={4} htmlFor="role_type_id">
-                Role Type
+                {t("Role Type")}
               </FormLabel>
               <RadioGroup defaultValue="1">
                 <Stack spacing={4} direction="row">
@@ -124,11 +126,13 @@ export default function AddRoleModal({
                     <Radio
                       name="role_type_id"
                       ref={register({
-                        required: "Please select a type for the role",
+                        required: t(
+                          "Please select a type for the role"
+                        ) as string,
                       })}
                       value={id}
                     >
-                      {name}
+                      {t(name)}
                     </Radio>
                   ))}
                 </Stack>
@@ -136,16 +140,20 @@ export default function AddRoleModal({
             </FormControl>
             <FormControl isInvalid={!!errors.description}>
               <FormLabel mt={4} htmlFor="description">
-                Description
+                {t("Description")}
               </FormLabel>
               <Textarea
                 name="description"
-                placeholder="Describe the role in more detail..."
+                placeholder={t("Describe the role in more detail...")}
                 resize="vertical"
                 ref={register({
-                  required: "Please enter a description for the role",
+                  required: t(
+                    "Please enter a description for the role"
+                  ) as string,
                   minLength: {
-                    message: "Enter at least 10 characters for description",
+                    message: t(
+                      "Enter at least 10 characters for description"
+                    ) as string,
                     value: 10,
                   },
                 })}
@@ -154,7 +162,7 @@ export default function AddRoleModal({
             </FormControl>
 
             <FormLabel mt={4} htmlFor="requirement">
-              Requirements
+              {t("Requirements")}
             </FormLabel>
             <SimpleGrid
               alignItems="center"
@@ -164,7 +172,7 @@ export default function AddRoleModal({
             >
               <HStack>
                 <Icon as={FaTransgenderAlt} />
-                <FormLabel mb={0}>Gender</FormLabel>
+                <FormLabel mb={0}>{t("Gender")}</FormLabel>
               </HStack>
               <Select
                 id="gender"
@@ -172,17 +180,17 @@ export default function AddRoleModal({
                 ref={register}
                 defaultValue={0}
               >
-                <option value={0}>No Preference</option>
+                <option value={0}>{t("No Preference")}</option>
                 {Object.values(GENDER).map((value, i) => (
                   <option key={i} value={i + 1}>
-                    {value}
+                    {t(value)}
                   </option>
                 ))}
               </Select>
 
               <HStack>
                 <Icon as={MdPeople} />
-                <FormLabel mb={0}>Ethnicity</FormLabel>
+                <FormLabel mb={0}>{t("Ethnicity")}</FormLabel>
               </HStack>
               <Select
                 id="ethnicity"
@@ -190,17 +198,17 @@ export default function AddRoleModal({
                 ref={register}
                 defaultValue={0}
               >
-                <option value={0}>No Preference</option>
+                <option value={0}>{t("No Preference")}</option>
                 {Object.values(ETHNICITY).map((value, i) => (
                   <option key={i} value={i + 1}>
-                    {value}
+                    {t(value)}
                   </option>
                 ))}
               </Select>
 
               <HStack>
                 <Icon as={CgEye} />
-                <FormLabel mb={0}>Eye Color</FormLabel>
+                <FormLabel mb={0}>{t("Eye Color")}</FormLabel>
               </HStack>
               <Select
                 id="eye_color"
@@ -208,17 +216,17 @@ export default function AddRoleModal({
                 ref={register}
                 defaultValue={0}
               >
-                <option value={0}>No Preference</option>
+                <option value={0}>{t("No Preference")}</option>
                 {Object.values(EYE_COLOR).map((value, i) => (
                   <option key={i} value={i + 1}>
-                    {value}
+                    {t(value)}
                   </option>
                 ))}
               </Select>
 
               <HStack>
                 <Icon as={GiHairStrands} />
-                <FormLabel mb={0}>Hair Color</FormLabel>
+                <FormLabel mb={0}>{t("Hair Color")}</FormLabel>
               </HStack>
               <Select
                 id="hair_color"
@@ -226,17 +234,17 @@ export default function AddRoleModal({
                 ref={register}
                 defaultValue={0}
               >
-                <option value={0}>No Preference</option>
+                <option value={0}>{t("No Preference")}</option>
                 {Object.values(HAIR_COLOR).map((value, i) => (
                   <option key={i} value={i + 1}>
-                    {value}
+                    {t(value)}
                   </option>
                 ))}
               </Select>
 
               <HStack>
                 <Icon as={BiBody} />
-                <FormLabel mb={0}>Body Type</FormLabel>
+                <FormLabel mb={0}>{t("Body Type")}</FormLabel>
               </HStack>
               <Select
                 id="body_type"
@@ -244,17 +252,17 @@ export default function AddRoleModal({
                 ref={register}
                 defaultValue={0}
               >
-                <option value={0}>No Preference</option>
+                <option value={0}>{t("No Preference")}</option>
                 {Object.values(BODY_TYPE).map((value, i) => (
                   <option key={i} value={i + 1}>
-                    {value}
+                    {t(value)}
                   </option>
                 ))}
               </Select>
 
               <HStack>
                 <Icon as={CgRuler} />
-                <FormLabel mb={0}>Height</FormLabel>
+                <FormLabel mb={0}>{t("Height")}</FormLabel>
               </HStack>
               <NumberInput>
                 <InputGroup>
@@ -270,7 +278,7 @@ export default function AddRoleModal({
           </ModalBody>
           <ModalFooter>
             <Button type="submit" colorScheme="green" form="role_form">
-              Save
+              {t("Save")}
             </Button>
           </ModalFooter>
         </form>
