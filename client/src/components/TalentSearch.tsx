@@ -52,7 +52,9 @@ export default function TalentSearch({
           <FormLabel htmlFor="user_type_id">Talent Type</FormLabel>
           <Select name="user_type_id" placeholder="Select type" ref={register}>
             {Object.values(TALENT_TYPE).map(({ id, name }) => (
-              <option value={id}>{name}</option>
+              <option key={id} value={id}>
+                {name}
+              </option>
             ))}
           </Select>
         </FormControl>

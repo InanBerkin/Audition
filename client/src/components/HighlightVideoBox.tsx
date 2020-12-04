@@ -111,9 +111,7 @@ export default function HighlightVideoBox({
               p={2}
               position="absolute"
               color="white"
-            >
-              John Doe
-            </Heading>
+            ></Heading>
             <video onEnded={onClose} ref={videoRef} autoPlay={true}>
               <source src={url} type="video/mp4" />
             </video>
