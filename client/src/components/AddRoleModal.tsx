@@ -54,12 +54,14 @@ export default function AddRoleModal({
   onClose,
   children,
 }: RoleModalProps) {
-  const { register, errors, handleSubmit, setValue, reset } = useForm<
-    Role_Insert_Input
-  >();
+  const {
+    register,
+    errors,
+    handleSubmit,
+    setValue,
+    reset,
+  } = useForm<Role_Insert_Input>();
   const onSubmit = (role_form_data: Role_Insert_Input) => {
-    console.log(role_form_data);
-
     onClose({
       ...role_form_data,
       role_type_id: parseInt((role_form_data.role_type_id as any) as string),

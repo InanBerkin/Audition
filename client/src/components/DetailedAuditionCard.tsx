@@ -39,7 +39,7 @@ export default function DetailedAuditionCard({
       style={{ textDecoration: "none" }}
     >
       <Grid
-        h={["auto", "225px"]}
+        h={["auto", "235px"]}
         templateColumns={["1fr", "3fr 1fr"]}
         templateRows={["1fr auto", "1fr"]}
         borderTop="4px"

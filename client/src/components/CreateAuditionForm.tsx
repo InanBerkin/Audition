@@ -49,9 +49,13 @@ type AuditionForm = {
 export default function CreateAuditionForm(): ReactElement {
   const history = useHistory();
   const toast = useToast();
-  const { register, errors, handleSubmit, setError, clearErrors } = useForm<
-    AuditionForm
-  >();
+  const {
+    register,
+    errors,
+    handleSubmit,
+    setError,
+    clearErrors,
+  } = useForm<AuditionForm>();
   const [createAudition, { loading }] = useCreateAuditionMutation({
     onError: (err) => {
       console.log(err);
@@ -93,8 +97,6 @@ export default function CreateAuditionForm(): ReactElement {
   }
 
   function onSubmit(form_data: AuditionForm) {
-    console.log(roles);
-
     const created_audition: CreateAuditionMutationVariables = {
       audition_input: {
         name: form_data.title,

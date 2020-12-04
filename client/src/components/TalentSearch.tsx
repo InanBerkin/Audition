@@ -37,7 +37,6 @@ export default function TalentSearch({
 
   function onSubmit(values: FormDataType) {
     const filter = { user_type_id: { _eq: parseInt(values.user_type_id) } };
-    console.log(filter);
     refetch({
       filter,
     });
