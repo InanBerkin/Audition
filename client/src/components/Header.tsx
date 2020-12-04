@@ -1,6 +1,6 @@
 import { Heading, Flex, IconButton, useDisclosure, Box } from "@chakra-ui/core";
 import React, { ReactElement, useRef } from "react";
-import { MdMenu, MdSearch } from "react-icons/md";
+import { MdMenu } from "react-icons/md";
 import DrawerMenu from "./DrawerMenu";
 import NavBar from "./NavBar";
 
