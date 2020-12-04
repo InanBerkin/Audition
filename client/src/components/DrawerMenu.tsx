@@ -12,6 +12,7 @@ import {
   HStack,
   Icon,
   Stack,
+  Image,
 } from "@chakra-ui/core";
 import React, { ReactElement } from "react";
 import { CgAdd } from "react-icons/cg";
@@ -38,7 +39,9 @@ export default function DrawerMenu({
       <DrawerOverlay>
         <DrawerContent>
           <DrawerCloseButton />
-          <DrawerHeader>Audition</DrawerHeader>
+          <DrawerHeader>
+            <Image src="/audition_logo.jpg" h="50px" />
+          </DrawerHeader>
           <Divider />
           <DrawerBody>
             <Stack mt={2} spacing={4}>

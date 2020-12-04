@@ -3,6 +3,7 @@ const fetch = require("node-fetch");
 const bcrypt = require("bcrypt");
 const faker = require("faker");
 const tableNames = require("../../src/constants/tableNames");
+require("dotenv").config();
 
 /** @param {Knex} knex*/
 function getRandomRow(knex, table_name) {
@@ -13,7 +14,7 @@ async function getRandomProfilePicture() {
   const res = await fetch("https://uifaces.co/api?limit=1", {
     method: "GET",
     headers: {
-      "X-API-KEY": "***REMOVED***",
+      "X-API-KEY": process.env.UI_FACES,
       Accept: "application/json",
       "Cache-Control": "no-cache",
     },
