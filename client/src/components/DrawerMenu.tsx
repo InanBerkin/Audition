@@ -13,6 +13,8 @@ import {
   Icon,
   Stack,
   Image,
+  Box,
+  Text,
 } from "@chakra-ui/core";
 import React, { ReactElement } from "react";
 import { CgAdd } from "react-icons/cg";
@@ -27,7 +29,7 @@ export default function DrawerMenu({
   onClose,
   finalFocusRef,
 }: DrawerProps): ReactElement {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const history = useHistory();
   return (
     <Drawer
@@ -70,6 +72,29 @@ export default function DrawerMenu({
                 </Link>
               </HStack>
             </Stack>
+            <Box mt={8}>
+              <Text fontWeight="bold">{t("Languages")}</Text>
+              <HStack spacing={2} mt={2}>
+                <Button
+                  w="full"
+                  colorScheme={i18n.language === "en" ? "green" : "gray"}
+                  onClick={async () => {
+                    await i18n.changeLanguage("en");
+                  }}
+                >
+                  EN
+                </Button>
+                <Button
+                  w="full"
+                  colorScheme={i18n.language === "tr" ? "green" : "gray"}
+                  onClick={async () => {
+                    await i18n.changeLanguage("tr");
+                  }}
+                >
+                  TR
+                </Button>
+              </HStack>
+            </Box>
           </DrawerBody>
           <DrawerFooter>
             <Button
