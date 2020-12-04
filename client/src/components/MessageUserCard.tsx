@@ -5,19 +5,30 @@ import { TalentCardFragment } from "../generated/graphql";
 
 type Props = {
   talent: TalentCardFragment;
+  onCardClick: (() => void) | null;
+  isSelected: boolean;
 } & FlexProps;
 
 export default function MessageUserCard({
   talent,
+  onCardClick,
+  isSelected,
   ...props
 }: Props): ReactElement {
   const history = useHistory();
   return (
     <Flex
+      bg={isSelected ? "gray.300" : "white"}
       alignItems="center"
       p={2}
       rounded="lg"
-      onClick={() => history.push(`/messages/${talent.id}`)}
+      onClick={() => {
+        if (onCardClick) {
+          onCardClick();
+        } else {
+          history.push(`/messages/${talent.id}`);
+        }
+      }}
       {...props}
     >
       <Avatar name={talent.name} src={talent.profile_picture || ""} />

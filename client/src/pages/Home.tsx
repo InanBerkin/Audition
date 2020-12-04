@@ -9,12 +9,7 @@ import {
   Icon,
   Text,
 } from "@chakra-ui/core";
-import {
-  useAuditionsQuery,
-  useGetAuditionTypeCountQuery,
-  useUserNameByIdQuery,
-} from "../generated/graphql";
-import AuditionTypeCard from "../components/AuditionTypeCard";
+import { useAuditionsQuery, useUserNameByIdQuery } from "../generated/graphql";
 import { getUID } from "../utils/getUID";
 import DetailedAuditionCard from "../components/DetailedAuditionCard";
 import { FaStar } from "react-icons/fa";
@@ -27,18 +22,13 @@ function Home() {
       uid: getUID(),
     },
   });
-  const {
-    data: typeData,
-    error: typeError,
-    loading: typeLoading,
-  } = useGetAuditionTypeCountQuery();
   const { data: nameData } = useUserNameByIdQuery({
     variables: {
       uid: getUID(),
     },
   });
 
-  if (error || typeError) {
+  if (error) {
     return (
       <div>
         <div>You got query failed for some reason</div>
@@ -52,7 +42,7 @@ function Home() {
       <Heading fontSize="2xl" mb={4}>
         {t("Welcome")}, {nameData?.user[0].name}
       </Heading>
-      <Stack
+      {/* <Stack
         isInline
         spacing={4}
         pr={2}
@@ -69,7 +59,7 @@ function Home() {
             audition_number={auditions_aggregate.aggregate?.count || 0}
           />
         ))}
-      </Stack>
+      </Stack> */}
       <Heading fontSize="2xl" mb={4} mt={6}>
         <Flex justify="space-between" align="center">
           <Flex align="center">

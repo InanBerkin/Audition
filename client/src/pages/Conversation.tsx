@@ -8,7 +8,13 @@ import {
   Skeleton,
   Input,
 } from "@chakra-ui/core";
-import React, { ReactElement, useEffect, useRef, useState } from "react";
+import React, {
+  ReactElement,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { MdChevronLeft } from "react-icons/md";
 import { RiSendPlane2Line } from "react-icons/ri";
 import { useHistory } from "react-router-dom";
@@ -27,6 +33,7 @@ type Props = {
 export default function Conversation({ otherUserId }: Props): ReactElement {
   const history = useHistory();
   const dummy = useRef<HTMLSpanElement | null>(null);
+  const sendButton = useRef<HTMLButtonElement | null>(null);
   const [message, setMessage] = useState<string>("");
   const { data: otherUserData, error: otherUserError } = useUserNameByIdQuery({
     variables: {
@@ -45,11 +52,25 @@ export default function Conversation({ otherUserId }: Props): ReactElement {
     onCompleted: async () => {},
   });
 
+  const handleUserKeyPress = useCallback((event: KeyboardEvent) => {
+    const { key } = event;
+    if (key === "Enter") {
+      sendButton?.current?.click();
+    }
+  }, []);
+
   useEffect(() => {
     if (data && data?.messages.length > 0) {
       dummy?.current?.scrollIntoView({ behavior: "smooth" });
     }
   }, [data]);
+
+  useEffect(() => {
+    window.addEventListener("keypress", handleUserKeyPress);
+    return () => {
+      window.removeEventListener("keypress", handleUserKeyPress);
+    };
+  }, [handleUserKeyPress]);
 
   if (error || otherUserError) {
     return (
@@ -64,6 +85,7 @@ export default function Conversation({ otherUserId }: Props): ReactElement {
     return (
       <Flex align="center">
         <IconButton
+          display={{ base: "inline-block", md: "none" }}
           justifyContent="start"
           size="xs"
           variant="ghost"
@@ -86,16 +108,10 @@ export default function Conversation({ otherUserId }: Props): ReactElement {
   }
 
   return (
-    <Flex
-      direction="column"
-      p={4}
-      h="full"
-      m={{ md: "auto" }}
-      w={{ md: "1080px" }}
-    >
+    <Flex direction="column" p={4} h="full" mr={{ base: 0, md: "300px" }}>
       <Header />
       <Divider my={2} />
-      <Stack mt={2} spacing={4} overflowY="scroll" pb="80px" px={4}>
+      <Stack mt={2} maxH="80vh" spacing={4} overflowY="scroll" pb="80px" px={4}>
         {loadingMessages && <MessageSkeletons />}
         {data?.messages.map(({ content, sender_id }, i) => (
           <MessageBox
@@ -107,7 +123,8 @@ export default function Conversation({ otherUserId }: Props): ReactElement {
         <span ref={dummy}></span>
       </Stack>
       <Flex
-        borderTop="1px solid #eee"
+        roundedTop="sm"
+        border="1px solid #eee"
         position="fixed"
         bottom={0}
         left={{ base: 0, md: "50%" }}
@@ -122,6 +139,7 @@ export default function Conversation({ otherUserId }: Props): ReactElement {
           placeholder="Type your message"
         />
         <IconButton
+          ref={sendButton}
           isDisabled={message.trim().length === 0}
           onClick={async () => {
             await sendMessage({
