@@ -78,7 +78,6 @@ function Messages(): ReactElement {
       </div>
     );
   }
-
   return (
     <Flex p={4}>
       <Box p={4} minW="300px">
