@@ -1,3 +1,4 @@
+import { ApolloQueryResult } from "@apollo/client";
 import {
   Avatar,
   Divider,
@@ -21,6 +22,9 @@ import { RiSendPlane2Line } from "react-icons/ri";
 import { useHistory } from "react-router-dom";
 import MessageBox from "../components/MessageBox";
 import {
+  Exact,
+  MessagesDocument,
+  MessagesQuery,
   useConversationSubscription,
   useSendMessageMutation,
   useUserNameByIdQuery,
@@ -29,9 +33,21 @@ import { getUID } from "../utils/getUID";
 
 type Props = {
   otherUserId: number;
+  refetch: (
+    variables?:
+      | Partial<
+          Exact<{
+            uid: number;
+          }>
+        >
+      | undefined
+  ) => Promise<ApolloQueryResult<MessagesQuery>>;
 };
 
-export default function Conversation({ otherUserId }: Props): ReactElement {
+export default function Conversation({
+  otherUserId,
+  refetch,
+}: Props): ReactElement {
   const history = useHistory();
   const { t } = useTranslation();
   const dummy = useRef<HTMLSpanElement | null>(null);
@@ -51,7 +67,11 @@ export default function Conversation({ otherUserId }: Props): ReactElement {
     }
   );
   const [sendMessage] = useSendMessageMutation({
-    onCompleted: async () => {},
+    // onCompleted: async () => {
+    //   console.log("refetching");
+    //   refetch();
+    // },
+    refetchQueries: [{ query: MessagesDocument, variables: { uid: getUID() } }],
   });
 
   const handleUserKeyPress = useCallback((event: KeyboardEvent) => {
@@ -83,35 +103,9 @@ export default function Conversation({ otherUserId }: Props): ReactElement {
     );
   }
 
-  function Header() {
-    return (
-      <Flex align="center">
-        <IconButton
-          display={{ base: "inline-block", md: "none" }}
-          justifyContent="start"
-          size="xs"
-          variant="ghost"
-          aria-label="Go back"
-          icon={<MdChevronLeft fontSize="1rem" />}
-          onClick={() => {
-            history.goBack();
-          }}
-        />
-        <Avatar
-          size="sm"
-          name={otherUserData?.user[0].name}
-          src={otherUserData?.user[0].profile_picture || ""}
-        />
-        <Text ml={2} fontSize="md" fontWeight="bold">
-          {otherUserData?.user[0].name}
-        </Text>
-      </Flex>
-    );
-  }
-
   return (
     <Flex direction="column" p={4} h="full" mr={{ base: 0, md: "300px" }}>
-      <Header />
+      <Header history={history} otherUserData={otherUserData} />
       <Divider my={2} />
       <Stack mt={2} maxH="80vh" spacing={4} overflowY="scroll" pb="80px" px={4}>
         {loadingMessages && <MessageSkeletons />}
@@ -132,7 +126,7 @@ export default function Conversation({ otherUserId }: Props): ReactElement {
         left={{ base: 0, md: "50%" }}
         transform={{ md: "translateX(-50%)" }}
         bg="white"
-        w={{ base: "full", md: "1080px" }}
+        w={{ base: "full", md: "700px" }}
         p={4}
       >
         <Input
@@ -173,5 +167,37 @@ function MessageSkeletons() {
       <Skeleton rounded="lg" alignSelf="flex-end" h="50px" w="120px" />
       <Skeleton rounded="lg" alignSelf="flex-end" h="50px" w="200px" />
     </>
+  );
+}
+
+function Header({
+  history,
+  otherUserData,
+}: {
+  history: any;
+  otherUserData: any;
+}) {
+  return (
+    <Flex align="center">
+      <IconButton
+        display={{ base: "inline-block", md: "none" }}
+        justifyContent="start"
+        size="xs"
+        variant="ghost"
+        aria-label="Go back"
+        icon={<MdChevronLeft fontSize="1rem" />}
+        onClick={() => {
+          history.goBack();
+        }}
+      />
+      <Avatar
+        size="sm"
+        name={otherUserData?.user[0].name}
+        src={otherUserData?.user[0].profile_picture || ""}
+      />
+      <Text ml={2} fontSize="md" fontWeight="bold">
+        {otherUserData?.user[0].name}
+      </Text>
+    </Flex>
   );
 }
