@@ -9,7 +9,7 @@ import {
   Text,
   useMediaQuery,
 } from "@chakra-ui/core";
-import React, { ReactElement, useState } from "react";
+import React, { ReactElement, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { RiEmotionSadLine } from "react-icons/ri";
 import { useParams } from "react-router-dom";
@@ -29,16 +29,45 @@ type MessagedUsers = {
 function Messages(): ReactElement {
   const { t } = useTranslation();
   const { id } = useParams<RouteParams>();
-  const { data, error, loading } = useMessagesQuery({
+  const { data, error, loading, refetch } = useMessagesQuery({
     variables: { uid: getUID() },
   });
   const [isLargerThan1080] = useMediaQuery("(min-width: 1080px)");
-
   const [messagedUsers, setMessagedUsers] = useState<MessagedUsers>({});
   const [selectedUser, setSelectedUser] = useState<number>();
 
-  if (id) {
-    return <Conversation otherUserId={parseInt(id)} />;
+  useEffect(() => {
+    if (
+      data != null &&
+      Object.values(messagedUsers).length === 0 &&
+      data?.user_by_pk?.messagesByReceiverId != null &&
+      data?.user_by_pk?.messagesBySenderId != null &&
+      (data?.user_by_pk?.messagesByReceiverId.length !== 0 ||
+        data?.user_by_pk?.messagesBySenderId.length !== 0)
+    ) {
+      let messaged: MessagedUsers = {};
+      for (const message of data?.user_by_pk?.messagesByReceiverId) {
+        messaged[message.sender_id] = message.userBySenderId;
+      }
+      for (const message of data?.user_by_pk?.messagesBySenderId) {
+        messaged[message.receiver_id] = message.userByReceiverId;
+      }
+      setMessagedUsers(messaged);
+      if (id == null) {
+        setSelectedUser(Object.values(messaged)[0].id);
+      }
+    }
+  }, [data, id, messagedUsers]);
+
+  useEffect(() => {
+    //Click message from profile
+    if (isLargerThan1080 && selectedUser == null && id != null) {
+      setSelectedUser(parseInt(id));
+    }
+  }, [id, isLargerThan1080, selectedUser]);
+
+  if (id && !isLargerThan1080) {
+    return <Conversation otherUserId={parseInt(id)} refetch={refetch} />;
   }
 
   if (error) {
@@ -48,23 +77,6 @@ function Messages(): ReactElement {
         <div>{error?.message}</div>
       </div>
     );
-  }
-
-  if (
-    data != null &&
-    Object.values(messagedUsers).length === 0 &&
-    data?.user_by_pk?.messagesByReceiverId != null &&
-    data?.user_by_pk?.messagesBySenderId != null
-  ) {
-    let messaged: MessagedUsers = {};
-    for (const message of data?.user_by_pk?.messagesByReceiverId) {
-      messaged[message.sender_id] = message.userBySenderId;
-    }
-    for (const message of data?.user_by_pk?.messagesBySenderId) {
-      messaged[message.receiver_id] = message.userByReceiverId;
-    }
-    setMessagedUsers(messaged);
-    setSelectedUser(Object.values(messaged)[0].id);
   }
 
   return (
@@ -106,7 +118,9 @@ function Messages(): ReactElement {
         display={{ base: "none", md: "block" }}
         w="full"
       >
-        {selectedUser && <Conversation otherUserId={selectedUser} />}
+        {selectedUser && (
+          <Conversation otherUserId={selectedUser} refetch={refetch} />
+        )}
       </Box>
     </Flex>
   );

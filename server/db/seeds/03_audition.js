@@ -74,7 +74,7 @@ async function generateAudition(knex) {
   );
 
   await knex(tableNames.role).insert({
-    name: faker.company.catchPhraseNoun(),
+    name: faker.name.jobTitle(),
     description: faker.lorem.paragraph(1),
     audition_id: audition.id,
     requirement_id: requirement.id,
