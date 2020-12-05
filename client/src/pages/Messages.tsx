@@ -79,6 +79,28 @@ function Messages(): ReactElement {
     );
   }
 
+<<<<<<< HEAD
+=======
+  // if (
+  //   data != null &&
+  //   Object.values(messagedUsers).length === 0 &&
+  //   data?.user_by_pk?.messagesByReceiverId != null &&
+  //   data?.user_by_pk?.messagesBySenderId != null
+  // ) {
+  //   let messaged: MessagedUsers = {};
+  //   for (const message of data?.user_by_pk?.messagesByReceiverId) {
+  //     messaged[message.sender_id] = message.userBySenderId;
+  //   }
+  //   for (const message of data?.user_by_pk?.messagesBySenderId) {
+  //     messaged[message.receiver_id] = message.userByReceiverId;
+  //   }
+  //   setMessagedUsers(messaged);
+  //   if (id == null) {
+  //     setSelectedUser(Object.values(messaged)[0].id);
+  //   }
+  // }
+
+>>>>>>> 5824e14188b047bda12fe7cb2db5441a93379a60
   return (
     <Flex p={4}>
       <Box p={4} minW="300px">
