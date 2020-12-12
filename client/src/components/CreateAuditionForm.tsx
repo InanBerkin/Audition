@@ -104,6 +104,7 @@ export default function CreateAuditionForm(): ReactElement {
         name: form_data.title,
         description: form_data.description,
         company_name: form_data.company_name,
+        address: "Ankara",
         user_id: getUID(),
         city_id: 1,
         audition_type_id: getAuditionTypeId(
