@@ -273,12 +273,6 @@ export default function CreateAuditionForm(): ReactElement {
             type="submit"
             colorScheme="green"
             onClick={() => {
-              toast({
-                title: t("Created Audition"),
-                status: "success",
-                duration: 1000,
-                isClosable: true,
-              });
               if (roles.length === 0) {
                 setError("roles", { message: t("Add at least one role") });
               }
