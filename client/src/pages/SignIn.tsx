@@ -1,4 +1,4 @@
-import { Flex } from "@chakra-ui/core";
+import { Flex } from "@chakra-ui/react";
 import React, { ReactElement } from "react";
 import SignInForm from "../components/SignInForm";
 

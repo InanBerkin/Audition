@@ -1,4 +1,4 @@
-import { Stack, StackProps } from "@chakra-ui/core";
+import { Stack, StackProps } from "@chakra-ui/react";
 import React, { ReactElement } from "react";
 import HighlightVideoBox from "./HighlightVideoBox";
 import useUploadHighlightModal from "./useUploadHighlightModal";

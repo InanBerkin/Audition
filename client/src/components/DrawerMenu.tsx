@@ -15,7 +15,7 @@ import {
   Image,
   Box,
   Text,
-} from "@chakra-ui/core";
+} from "@chakra-ui/react";
 import React, { ReactElement } from "react";
 import { CgAdd } from "react-icons/cg";
 import { GoChecklist } from "react-icons/go";

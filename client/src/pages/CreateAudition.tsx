@@ -1,4 +1,4 @@
-import { Stack, Heading } from "@chakra-ui/core";
+import { Stack, Heading } from "@chakra-ui/react";
 import React, { ReactElement } from "react";
 import { useTranslation } from "react-i18next";
 import CreateAuditionForm from "../components/CreateAuditionForm";

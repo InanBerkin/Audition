@@ -1,4 +1,4 @@
-import { Avatar, Flex, Box, FlexProps, Text } from "@chakra-ui/core";
+import { Avatar, Flex, Box, FlexProps, Text } from "@chakra-ui/react";
 import React, { ReactElement } from "react";
 import { useHistory } from "react-router-dom";
 import { TalentCardFragment } from "../generated/graphql";

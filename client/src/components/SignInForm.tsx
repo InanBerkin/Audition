@@ -7,7 +7,7 @@ import {
   Input,
   FormErrorMessage,
   useToast,
-} from "@chakra-ui/core";
+} from "@chakra-ui/react";
 import React from "react";
 import { useHistory, Link } from "react-router-dom";
 import { useForm } from "react-hook-form";

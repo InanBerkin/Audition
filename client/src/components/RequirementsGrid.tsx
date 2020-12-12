@@ -1,4 +1,4 @@
-import { SimpleGrid, Box, ListIcon, SimpleGridProps } from "@chakra-ui/core";
+import { SimpleGrid, Box, ListIcon, SimpleGridProps } from "@chakra-ui/react";
 import React, { ReactElement } from "react";
 import { useTranslation } from "react-i18next";
 import { BiBody } from "react-icons/bi";

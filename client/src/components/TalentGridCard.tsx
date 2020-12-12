@@ -1,4 +1,12 @@
-import { Avatar, Badge, Button, Flex, Icon, Link, Text } from "@chakra-ui/core";
+import {
+  Avatar,
+  Badge,
+  Button,
+  Flex,
+  Icon,
+  Link,
+  Text,
+} from "@chakra-ui/react";
 import React, { ReactElement } from "react";
 import { CgProfile } from "react-icons/cg";
 import { TalentsQuery } from "../generated/graphql";

@@ -1,4 +1,4 @@
-import { Flex, StackProps, HStack, Text } from "@chakra-ui/core";
+import { Flex, StackProps, HStack, Text } from "@chakra-ui/react";
 import React from "react";
 import AuditionIcon from "./AuditionIcon";
 

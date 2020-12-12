@@ -9,7 +9,7 @@ import {
   Icon,
   Select,
   Text,
-} from "@chakra-ui/core";
+} from "@chakra-ui/react";
 import React, { ReactElement } from "react";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";

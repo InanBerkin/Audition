@@ -7,7 +7,7 @@ import {
   Icon,
   Stack,
   Text,
-} from "@chakra-ui/core";
+} from "@chakra-ui/react";
 import React, { ReactElement } from "react";
 import { useTranslation } from "react-i18next";
 import { FaTheaterMasks } from "react-icons/fa";

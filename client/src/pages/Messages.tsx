@@ -8,7 +8,7 @@ import {
   Stack,
   Text,
   useMediaQuery,
-} from "@chakra-ui/core";
+} from "@chakra-ui/react";
 import React, { ReactElement, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { RiEmotionSadLine } from "react-icons/ri";

@@ -11,7 +11,7 @@ import {
   ModalFooter,
   useDisclosure,
   Button,
-} from "@chakra-ui/core";
+} from "@chakra-ui/react";
 import React, { useState, useCallback } from "react";
 import { useDropzone } from "react-dropzone";
 import { useTranslation } from "react-i18next";

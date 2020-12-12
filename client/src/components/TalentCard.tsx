@@ -1,4 +1,4 @@
-import { Avatar, Badge, Flex, Box, FlexProps, Text } from "@chakra-ui/core";
+import { Avatar, Badge, Flex, Box, FlexProps, Text } from "@chakra-ui/react";
 import React, { ReactElement } from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";

@@ -7,7 +7,7 @@ import {
   Link,
   Skeleton,
   Stack,
-} from "@chakra-ui/core";
+} from "@chakra-ui/react";
 import React, { ReactElement } from "react";
 import { useTranslation } from "react-i18next";
 import { BsArrowRight } from "react-icons/bs";

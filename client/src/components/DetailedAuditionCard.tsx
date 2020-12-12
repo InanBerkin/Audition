@@ -9,7 +9,7 @@ import {
   Stack,
   Text,
   Link,
-} from "@chakra-ui/core";
+} from "@chakra-ui/react";
 import React, { ReactElement } from "react";
 import { Link as RouterLink } from "react-router-dom";
 import { MdDescription, MdPinDrop } from "react-icons/md";

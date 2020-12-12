@@ -8,7 +8,7 @@ import {
   Skeleton,
   Icon,
   Text,
-} from "@chakra-ui/core";
+} from "@chakra-ui/react";
 import { useAuditionsQuery, useUserNameByIdQuery } from "../generated/graphql";
 import { getUID } from "../utils/getUID";
 import DetailedAuditionCard from "../components/DetailedAuditionCard";

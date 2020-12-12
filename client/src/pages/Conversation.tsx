@@ -8,7 +8,7 @@ import {
   IconButton,
   Skeleton,
   Input,
-} from "@chakra-ui/core";
+} from "@chakra-ui/react";
 import React, {
   ReactElement,
   useCallback,

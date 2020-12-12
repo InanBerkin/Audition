@@ -8,7 +8,7 @@ import {
   ModalOverlay,
   Text,
   useDisclosure,
-} from "@chakra-ui/core";
+} from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import React, { useRef } from "react";
 import { useTranslation } from "react-i18next";

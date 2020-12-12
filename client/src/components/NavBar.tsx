@@ -1,4 +1,4 @@
-import { Box, HStack } from "@chakra-ui/core";
+import { Box, HStack } from "@chakra-ui/react";
 import { MdHome, MdMovie, MdPerson } from "react-icons/md";
 import { FaTheaterMasks } from "react-icons/fa";
 import React from "react";

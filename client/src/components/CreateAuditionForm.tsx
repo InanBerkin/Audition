@@ -22,7 +22,7 @@ import {
   FormErrorMessage,
   Text,
   useToast,
-} from "@chakra-ui/core";
+} from "@chakra-ui/react";
 import React, { ReactElement, useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
@@ -273,8 +273,15 @@ export default function CreateAuditionForm(): ReactElement {
             type="submit"
             colorScheme="green"
             onClick={() => {
-              if (roles.length === 0)
+              toast({
+                title: t("Created Audition"),
+                status: "success",
+                duration: 1000,
+                isClosable: true,
+              });
+              if (roles.length === 0) {
                 setError("roles", { message: t("Add at least one role") });
+              }
             }}
           >
             {t("Publish Audition")}

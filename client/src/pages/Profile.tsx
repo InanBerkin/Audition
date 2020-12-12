@@ -7,7 +7,7 @@ import {
   Text,
   Avatar,
   Button,
-} from "@chakra-ui/core";
+} from "@chakra-ui/react";
 import { AiOutlineMessage } from "react-icons/ai";
 import React, { ReactElement } from "react";
 import { useUserByIdQuery } from "../generated/graphql";

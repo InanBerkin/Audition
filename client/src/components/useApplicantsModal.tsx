@@ -11,7 +11,7 @@ import {
   useDisclosure,
   Icon,
   Text,
-} from "@chakra-ui/core";
+} from "@chakra-ui/react";
 import { useApplicantsByRoleIdLazyQuery } from "../generated/graphql";
 import React from "react";
 import TalentCard from "./TalentCard";

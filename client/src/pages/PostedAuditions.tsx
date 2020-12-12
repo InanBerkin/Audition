@@ -1,4 +1,4 @@
-import { Box, Heading, Icon, Skeleton, Stack, Text } from "@chakra-ui/core";
+import { Box, Heading, Icon, Skeleton, Stack, Text } from "@chakra-ui/react";
 import React, { ReactElement } from "react";
 import { usePostedAuditionsQuery } from "../generated/graphql";
 import { getUID } from "../utils/getUID";

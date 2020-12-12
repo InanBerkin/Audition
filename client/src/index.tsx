@@ -5,7 +5,7 @@ import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
 import { WebSocketLink } from "@apollo/client/link/ws";
-import { theme, ChakraProvider } from "@chakra-ui/core";
+import { theme, ChakraProvider } from "@chakra-ui/react";
 import "./utils/i18n";
 
 const wsLink = new WebSocketLink({
