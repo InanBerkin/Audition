@@ -1,4 +1,4 @@
-import { SimpleGrid, Box, ListIcon, SimpleGridProps } from "@chakra-ui/react";
+import { SimpleGrid, Box, Icon, SimpleGridProps } from "@chakra-ui/react";
 import React, { ReactElement } from "react";
 import { useTranslation } from "react-i18next";
 import { BiBody } from "react-icons/bi";
@@ -42,36 +42,36 @@ export default function RequirementsGrid({
   return (
     <SimpleGrid columns={2} spacing={3} {...props}>
       <Box>
-        <ListIcon as={getGenderIcon(gender)} />
+        <Icon mr={1} as={getGenderIcon(gender)} />
         {t(gender || "")}
       </Box>
       {ethnicity && (
         <Box>
-          <ListIcon as={MdPeople} />
+          <Icon mr={1} as={MdPeople} />
           {t(ethnicity)}
         </Box>
       )}
       {eye_color && (
         <Box>
-          <ListIcon as={CgEye} />
+          <Icon mr={1} as={CgEye} />
           {t(eye_color)} {t("Eyed")}
         </Box>
       )}
       {hair_color && (
         <Box>
-          <ListIcon as={GiHairStrands} />
+          <Icon mr={1} as={GiHairStrands} />
           {t(hair_color)} {t("Haired")}
         </Box>
       )}
       {body_height && (
         <Box>
-          <ListIcon as={CgRuler} />
+          <Icon mr={1} as={CgRuler} />
           {t(body_height.toString())} cm
         </Box>
       )}
       {body_type && (
         <Box>
-          <ListIcon as={BiBody} />
+          <Icon mr={1} as={BiBody} />
           {t(body_type)}
         </Box>
       )}
