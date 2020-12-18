@@ -5,7 +5,7 @@ import { MdEvent } from "react-icons/md";
 import { CgMusicNote } from "react-icons/cg";
 import { AUDITION_TYPE } from "../utils/constants";
 import React from "react";
-import { Icon, IconProps } from "@chakra-ui/core";
+import { Icon, IconProps } from "@chakra-ui/react";
 
 type AuditionIconProps = {
   name: string;

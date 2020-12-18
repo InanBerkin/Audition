@@ -1,0 +1,25 @@
+subscription Conversation($uid: Int!, $other_uid: Int!) {
+  messages(
+    where: {
+      _or: [
+        {
+          _and: [
+            { sender_id: { _eq: $uid } }
+            { receiver_id: { _eq: $other_uid } }
+          ]
+        }
+        {
+          _and: [
+            { sender_id: { _eq: $other_uid } }
+            { receiver_id: { _eq: $uid } }
+          ]
+        }
+      ]
+    }
+    order_by: { created_at: asc }
+  ) {
+    sender_id
+    content
+    created_at
+  }
+}

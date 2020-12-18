@@ -1,4 +1,4 @@
-import { Box, Stack } from "@chakra-ui/core";
+import { Box, HStack } from "@chakra-ui/react";
 import { MdHome, MdMovie, MdPerson } from "react-icons/md";
 import { FaTheaterMasks } from "react-icons/fa";
 import React from "react";
@@ -11,56 +11,36 @@ const routes = {
   auditions: "/auditions",
 };
 
-function BottomNav() {
+function NavBar() {
   const { pathname } = useLocation();
   return (
-    <Stack
-      position="fixed"
-      transform=" translate(-50%, 0%);"
-      left="50%"
-      bottom={0}
+    <HStack
       width="100%"
       maxWidth="500px"
-      height="50px"
       bg="white"
-      isInline
-      spacing={16}
+      spacing={[10, 32]}
       justify="center"
-      align="center"
       rounded="lg"
-      boxShadow="0px -5px 5px 0px rgba(0,0,0,0.1)"
       shouldWrapChildren
+      fontSize={["24px", "32px"]}
     >
       <Link to={routes.home}>
-        <Box
-          as={MdHome}
-          size="32px"
-          opacity={pathname === routes.home ? 1 : 0.5}
-        />
+        <Box as={MdHome} opacity={pathname === routes.home ? 1 : 0.5} />
       </Link>
       <Link to={routes.talents}>
         <Box
           as={FaTheaterMasks}
-          size="32px"
           opacity={pathname === routes.talents ? 1 : 0.5}
         />
       </Link>
       <Link to={routes.auditions}>
-        <Box
-          as={MdMovie}
-          size="32px"
-          opacity={pathname === routes.auditions ? 1 : 0.5}
-        />
+        <Box as={MdMovie} opacity={pathname === routes.auditions ? 1 : 0.5} />
       </Link>
       <Link to={routes.profile}>
-        <Box
-          as={MdPerson}
-          size="32px"
-          opacity={pathname === routes.profile ? 1 : 0.5}
-        />
+        <Box as={MdPerson} opacity={pathname === routes.profile ? 1 : 0.5} />
       </Link>
-    </Stack>
+    </HStack>
   );
 }
 
-export default BottomNav;
+export default NavBar;

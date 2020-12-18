@@ -1,4 +1,9 @@
 fragment AuditionDetails on audition {
+  id
+  user_id
+  user {
+    ...TalentCard
+  }
   name
   description
   created_at

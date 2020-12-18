@@ -1,5 +1,6 @@
-import { Badge, BadgeProps } from "@chakra-ui/core";
+import { Badge, BadgeProps } from "@chakra-ui/react";
 import React, { ReactElement } from "react";
+import { useTranslation } from "react-i18next";
 import { AUDITION_TYPE } from "../utils/constants";
 
 type TagProps = {
@@ -26,6 +27,7 @@ export default function AuditionTag({
   content,
   ...props
 }: TagProps): ReactElement {
+  const { t } = useTranslation();
   const { variant, colorScheme } = getTagPropsByName(content);
 
   return (
@@ -35,7 +37,7 @@ export default function AuditionTag({
       colorScheme={colorScheme}
       {...props}
     >
-      {content}
+      {t(content)}
     </Badge>
   );
 }

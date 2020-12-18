@@ -1,11 +1,27 @@
 const Knex = require("knex");
+const fetch = require("node-fetch");
 const bcrypt = require("bcrypt");
 const faker = require("faker");
 const tableNames = require("../../src/constants/tableNames");
+require("dotenv").config();
 
 /** @param {Knex} knex*/
 function getRandomRow(knex, table_name) {
   return knex(table_name).orderByRaw("random()").first();
+}
+
+async function getRandomProfilePicture() {
+  const res = await fetch("https://uifaces.co/api?limit=1", {
+    method: "GET",
+    headers: {
+      "X-API-KEY": process.env.UI_FACES,
+      Accept: "application/json",
+      "Cache-Control": "no-cache",
+    },
+  });
+
+  const userData = await res.json();
+  return userData[0].photo;
 }
 
 async function generateUser(knex) {
@@ -43,12 +59,13 @@ async function generateUser(knex) {
   );
 
   const username = faker.name.findName();
+  const photo = await getRandomProfilePicture();
   await knex(tableNames.user).insert([
     {
       email: `${username}@talent.com`,
       name: username,
       password: await bcrypt.hash("12345678", 10),
-      profile_picture: faker.internet.avatar(),
+      profile_picture: photo,
       user_type_id: user_type.id,
       city_id: city.id,
       physical_attribute_id: physical_attribute.id,
@@ -58,7 +75,9 @@ async function generateUser(knex) {
 
 /** @param {Knex} knex*/
 exports.seed = async function (knex) {
-  await generateUser(knex);
-  await generateUser(knex);
-  await generateUser(knex);
+  await Promise.all(
+    Array(8)
+      .fill("")
+      .map(() => generateUser(knex))
+  );
 };

@@ -1,0 +1,5 @@
+query PostedAuditions($uid: Int!) {
+  audition(where: { user_id: { _eq: $uid } }, order_by: { created_at: desc }) {
+    ...AuditionCard
+  }
+}

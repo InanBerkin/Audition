@@ -12,18 +12,24 @@ import {
   HStack,
   Icon,
   Stack,
-} from "@chakra-ui/core";
+  Image,
+  Box,
+  Text,
+} from "@chakra-ui/react";
 import React, { ReactElement } from "react";
 import { CgAdd } from "react-icons/cg";
 import { GoChecklist } from "react-icons/go";
 import { BsFilePost } from "react-icons/bs";
+import { AiOutlineMessage } from "react-icons/ai";
 import { useHistory, Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 export default function DrawerMenu({
   isOpen,
   onClose,
   finalFocusRef,
 }: DrawerProps): ReactElement {
+  const { t, i18n } = useTranslation();
   const history = useHistory();
   return (
     <Drawer
@@ -35,33 +41,71 @@ export default function DrawerMenu({
       <DrawerOverlay>
         <DrawerContent>
           <DrawerCloseButton />
-          <DrawerHeader>Audition</DrawerHeader>
+          <DrawerHeader>
+            <Image src="/audition_logo.jpg" h="50px" />
+          </DrawerHeader>
           <Divider />
           <DrawerBody>
             <Stack mt={2} spacing={4}>
               <HStack>
+                <Icon as={AiOutlineMessage} />
+                <Link onClick={onClose} to="/messages">
+                  {t("Messages")}
+                </Link>
+              </HStack>
+              <HStack>
                 <Icon as={CgAdd} />
-                <Link to="/create-audition">Create Audition</Link>
+                <Link onClick={onClose} to="/create-audition">
+                  {t("Create Audition")}
+                </Link>
               </HStack>
               <HStack>
                 <Icon as={GoChecklist} />
-                <Link to="/applied-auditions">Applied Auditions</Link>
+                <Link onClick={onClose} to="/applied-auditions">
+                  {t("Applied Auditions")}
+                </Link>
               </HStack>
               <HStack>
                 <Icon as={BsFilePost} />
-                <Link to="/posted-auditions">Posted Auditions</Link>
+                <Link onClick={onClose} to="/posted-auditions">
+                  {t("Posted Auditions")}
+                </Link>
               </HStack>
             </Stack>
+            <Box mt={8}>
+              <Text fontWeight="bold">{t("Languages")}</Text>
+              <HStack spacing={2} mt={2}>
+                <Button
+                  w="full"
+                  colorScheme={i18n.language === "en" ? "green" : "gray"}
+                  onClick={async () => {
+                    await i18n.changeLanguage("en");
+                  }}
+                >
+                  EN
+                </Button>
+                <Button
+                  w="full"
+                  colorScheme={i18n.language === "tr" ? "green" : "gray"}
+                  onClick={async () => {
+                    await i18n.changeLanguage("tr");
+                  }}
+                >
+                  TR
+                </Button>
+              </HStack>
+            </Box>
           </DrawerBody>
           <DrawerFooter>
             <Button
               colorScheme="red"
               onClick={() => {
+                onClose();
                 localStorage.removeItem("uid");
                 history.push("/signin");
               }}
             >
-              Logout
+              {t("Logout")}
             </Button>
           </DrawerFooter>
         </DrawerContent>

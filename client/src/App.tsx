@@ -1,4 +1,4 @@
-import { Box } from "@chakra-ui/core";
+import { Box } from "@chakra-ui/react";
 import React from "react";
 import {
   BrowserRouter as Router,
@@ -6,12 +6,14 @@ import {
   Route,
   Redirect,
 } from "react-router-dom";
-import BottomNav from "./components/BottomNav";
 import Header from "./components/Header";
 import AllAuditions from "./pages/AllAuditions";
+import AppliedAuditions from "./pages/AppliedAuditions";
 import Audition from "./pages/Audition";
 import CreateAudition from "./pages/CreateAudition";
 import Home from "./pages/Home";
+import Messages from "./pages/Messages";
+import PostedAuditions from "./pages/PostedAuditions";
 import Profile from "./pages/Profile";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
@@ -33,11 +35,20 @@ function App() {
         <PrivateRoute path="/auditions">
           <AllAuditions />
         </PrivateRoute>
+        <PrivateRoute path="/applied-auditions">
+          <AppliedAuditions />
+        </PrivateRoute>
+        <PrivateRoute path="/posted-auditions">
+          <PostedAuditions />
+        </PrivateRoute>
         <PrivateRoute path="/talents">
           <Talents />
         </PrivateRoute>
         <PrivateRoute path="/create-audition">
           <CreateAudition />
+        </PrivateRoute>
+        <PrivateRoute path="/messages/:id?">
+          <Messages />
         </PrivateRoute>
         <Route path="/signin">
           <SignIn />
@@ -57,11 +68,10 @@ function PrivateRoute({ children, ...props }: any) {
       {...props}
       render={({ location }) =>
         isAuth ? (
-          <>
+          <Box h="100vh">
             <Header />
-            <Box paddingBottom="60px">{children}</Box>
-            <BottomNav />
-          </>
+            {children}
+          </Box>
         ) : (
           <Redirect
             to={{

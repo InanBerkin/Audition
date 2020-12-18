@@ -22,9 +22,10 @@ import {
   FormErrorMessage,
   Text,
   useToast,
-} from "@chakra-ui/core";
+} from "@chakra-ui/react";
 import React, { ReactElement, useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import { MdAdd, MdEdit, MdDelete } from "react-icons/md";
 import { useHistory } from "react-router-dom";
 import {
@@ -47,18 +48,23 @@ type AuditionForm = {
 };
 
 export default function CreateAuditionForm(): ReactElement {
+  const { t } = useTranslation();
   const history = useHistory();
   const toast = useToast();
-  const { register, errors, handleSubmit, setError, clearErrors } = useForm<
-    AuditionForm
-  >();
+  const {
+    register,
+    errors,
+    handleSubmit,
+    setError,
+    clearErrors,
+  } = useForm<AuditionForm>();
   const [createAudition, { loading }] = useCreateAuditionMutation({
     onError: (err) => {
       console.log(err);
     },
     onCompleted: (res) => {
       toast({
-        title: "Created Audition",
+        title: t("Created Audition"),
         status: "success",
         duration: 1000,
         isClosable: true,
@@ -93,13 +99,12 @@ export default function CreateAuditionForm(): ReactElement {
   }
 
   function onSubmit(form_data: AuditionForm) {
-    console.log(roles);
-
     const created_audition: CreateAuditionMutationVariables = {
       audition_input: {
         name: form_data.title,
         description: form_data.description,
         company_name: form_data.company_name,
+        address: "Ankara",
         user_id: getUID(),
         city_id: 1,
         audition_type_id: getAuditionTypeId(
@@ -126,20 +131,20 @@ export default function CreateAuditionForm(): ReactElement {
       >
         <FormControl isInvalid={!!errors.title}>
           <FormLabel mt={4} htmlFor="title">
-            Title
+            {t("Title")}
           </FormLabel>
           <Input
             name="title"
-            placeholder="What is the name of your production?"
+            placeholder={t("What is the name of your production?")}
             ref={register({
-              required: "Please enter a name for the audition",
+              required: t("Please enter a name for the audition") as string,
             })}
           />
           <FormErrorMessage>{errors.title?.message}</FormErrorMessage>
         </FormControl>
         <FormControl isInvalid={!!errors.audition_type}>
           <FormLabel mt={4} htmlFor="type">
-            Type
+            {t("Type")}
           </FormLabel>
           <HStack wrap="wrap" {...group}>
             {options.map((value) => {
@@ -151,7 +156,7 @@ export default function CreateAuditionForm(): ReactElement {
                   icon={value}
                   key={value}
                 >
-                  {value}
+                  {t(value)}
                 </RadioCard>
               );
             })}
@@ -160,37 +165,37 @@ export default function CreateAuditionForm(): ReactElement {
         </FormControl>
         <FormControl isInvalid={!!errors.company_name}>
           <FormLabel mt={4} htmlFor="company">
-            Company
+            {t("Company")}
           </FormLabel>
           <Input
             name="company_name"
-            placeholder="What is the name of your company?"
+            placeholder={t("What is the name of your company?")}
             ref={register({
-              required: "Please enter a company name",
+              required: t("Please enter a company name") as striing,
             })}
           />
           <FormErrorMessage>{errors.company_name?.message}</FormErrorMessage>
         </FormControl>
         <FormControl isInvalid={!!errors.description}>
           <FormLabel mt={4} htmlFor="description">
-            Description
+            {t("Description")}
           </FormLabel>
           <Textarea
             name="description"
-            placeholder="Describe your audition in more detail..."
+            placeholder={t("Describe your audition in more detail...")}
             resize="vertical"
             ref={register({
-              required: "Please enter a description",
+              required: t("Please enter a description") as string,
             })}
           />
           <FormErrorMessage>{errors.description?.message}</FormErrorMessage>
         </FormControl>
         <FormControl isInvalid={!!errors.roles}>
           <FormLabel mt={4} mb={0} htmlFor="roles">
-            Roles
+            {t("Roles")}
           </FormLabel>
           <FormHelperText mt={1} mb={2}>
-            Add the roles you are holding the audition
+            {t("Add the roles you are holding the audition for")}
           </FormHelperText>
           <Text fontSize="0.875rem" color="#E53E3E" mb={2}>
             {errors.roles?.message}
@@ -227,7 +232,7 @@ export default function CreateAuditionForm(): ReactElement {
                         });
                       }}
                     >
-                      Delete
+                      {t("Delete")}
                     </Button>
                     <Spacer />
                     <Button
@@ -240,7 +245,7 @@ export default function CreateAuditionForm(): ReactElement {
                         setEditIndex(i);
                       }}
                     >
-                      Edit
+                      {t("Edit")}
                     </Button>
                   </Flex>
                 </AccordionPanel>
@@ -258,7 +263,7 @@ export default function CreateAuditionForm(): ReactElement {
             onOpen();
           }}
         >
-          Add Role
+          {t("Add Role")}
         </Button>
         <Divider my={2} w="full" orientation="horizontal" />
         <Flex justify="flex-end">
@@ -268,11 +273,12 @@ export default function CreateAuditionForm(): ReactElement {
             type="submit"
             colorScheme="green"
             onClick={() => {
-              if (roles.length === 0)
-                setError("roles", { message: "Add at least one role" });
+              if (roles.length === 0) {
+                setError("roles", { message: t("Add at least one role") });
+              }
             }}
           >
-            Publish Audition
+            {t("Publish Audition")}
           </Button>
         </Flex>
       </form>
@@ -288,6 +294,7 @@ export default function CreateAuditionForm(): ReactElement {
 }
 
 function RadioCard(props: any) {
+  const { t } = useTranslation();
   const { getInputProps, getCheckboxProps } = useRadio(props);
   const input = getInputProps();
   const checkbox = getCheckboxProps();
@@ -298,7 +305,7 @@ function RadioCard(props: any) {
         {...input}
         name="audition_type"
         ref={props.register({
-          required: "Please select an audition type",
+          required: t("Please select an audition type") as string,
         })}
       />
       <Box

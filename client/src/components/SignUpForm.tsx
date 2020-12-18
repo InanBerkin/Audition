@@ -8,7 +8,7 @@ import {
   Text,
   Radio,
   Stack,
-} from "@chakra-ui/core";
+} from "@chakra-ui/react";
 import React from "react";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";

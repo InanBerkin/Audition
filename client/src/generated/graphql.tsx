@@ -141,7 +141,9 @@ export type Applicant_Bool_Exp = {
 /** unique or primary key constraints on table "applicant" */
 export enum Applicant_Constraint {
   /** unique or primary key constraint */
-  ApplicantPkey = 'applicant_pkey'
+  ApplicantPkey = 'applicant_pkey',
+  /** unique or primary key constraint */
+  ApplicantUserIdRoleIdUnique = 'applicant_user_id_role_id_unique'
 }
 
 /** input type for incrementing integer column in table "applicant" */
@@ -372,6 +374,7 @@ export type Applicant_Variance_Order_By = {
 /** columns and relationships of "audition" */
 export type Audition = {
   __typename?: 'audition';
+  address: Scalars['String'];
   /** An array relationship */
   audition_tags: Array<Audition_Tag>;
   /** An aggregated array relationship */
@@ -387,13 +390,13 @@ export type Audition = {
   description: Scalars['String'];
   id: Scalars['Int'];
   name: Scalars['String'];
-  /** An object relationship */
-  posted_by: User;
   /** An array relationship */
   roles: Array<Role>;
   /** An aggregated array relationship */
   roles_aggregate: Role_Aggregate;
   updated_at: Scalars['timestamptz'];
+  /** An object relationship */
+  user: User;
   user_id: Scalars['Int'];
 };
 
@@ -510,6 +513,7 @@ export type Audition_Bool_Exp = {
   _and?: Maybe<Array<Maybe<Audition_Bool_Exp>>>;
   _not?: Maybe<Audition_Bool_Exp>;
   _or?: Maybe<Array<Maybe<Audition_Bool_Exp>>>;
+  address?: Maybe<String_Comparison_Exp>;
   audition_tags?: Maybe<Audition_Tag_Bool_Exp>;
   audition_type?: Maybe<Audition_Type_Bool_Exp>;
   audition_type_id?: Maybe<Int_Comparison_Exp>;
@@ -520,9 +524,9 @@ export type Audition_Bool_Exp = {
   description?: Maybe<String_Comparison_Exp>;
   id?: Maybe<Int_Comparison_Exp>;
   name?: Maybe<String_Comparison_Exp>;
-  posted_by?: Maybe<User_Bool_Exp>;
   roles?: Maybe<Role_Bool_Exp>;
   updated_at?: Maybe<Timestamptz_Comparison_Exp>;
+  user?: Maybe<User_Bool_Exp>;
   user_id?: Maybe<Int_Comparison_Exp>;
 };
 
@@ -542,6 +546,7 @@ export type Audition_Inc_Input = {
 
 /** input type for inserting data into table "audition" */
 export type Audition_Insert_Input = {
+  address?: Maybe<Scalars['String']>;
   audition_tags?: Maybe<Audition_Tag_Arr_Rel_Insert_Input>;
   audition_type?: Maybe<Audition_Type_Obj_Rel_Insert_Input>;
   audition_type_id?: Maybe<Scalars['Int']>;
@@ -552,15 +557,16 @@ export type Audition_Insert_Input = {
   description?: Maybe<Scalars['String']>;
   id?: Maybe<Scalars['Int']>;
   name?: Maybe<Scalars['String']>;
-  posted_by?: Maybe<User_Obj_Rel_Insert_Input>;
   roles?: Maybe<Role_Arr_Rel_Insert_Input>;
   updated_at?: Maybe<Scalars['timestamptz']>;
+  user?: Maybe<User_Obj_Rel_Insert_Input>;
   user_id?: Maybe<Scalars['Int']>;
 };
 
 /** aggregate max on columns */
 export type Audition_Max_Fields = {
   __typename?: 'audition_max_fields';
+  address?: Maybe<Scalars['String']>;
   audition_type_id?: Maybe<Scalars['Int']>;
   city_id?: Maybe<Scalars['Int']>;
   company_name?: Maybe<Scalars['String']>;
@@ -574,6 +580,7 @@ export type Audition_Max_Fields = {
 
 /** order by max() on columns of table "audition" */
 export type Audition_Max_Order_By = {
+  address?: Maybe<Order_By>;
   audition_type_id?: Maybe<Order_By>;
   city_id?: Maybe<Order_By>;
   company_name?: Maybe<Order_By>;
@@ -588,6 +595,7 @@ export type Audition_Max_Order_By = {
 /** aggregate min on columns */
 export type Audition_Min_Fields = {
   __typename?: 'audition_min_fields';
+  address?: Maybe<Scalars['String']>;
   audition_type_id?: Maybe<Scalars['Int']>;
   city_id?: Maybe<Scalars['Int']>;
   company_name?: Maybe<Scalars['String']>;
@@ -601,6 +609,7 @@ export type Audition_Min_Fields = {
 
 /** order by min() on columns of table "audition" */
 export type Audition_Min_Order_By = {
+  address?: Maybe<Order_By>;
   audition_type_id?: Maybe<Order_By>;
   city_id?: Maybe<Order_By>;
   company_name?: Maybe<Order_By>;
@@ -636,6 +645,7 @@ export type Audition_On_Conflict = {
 
 /** ordering options when selecting data from "audition" */
 export type Audition_Order_By = {
+  address?: Maybe<Order_By>;
   audition_tags_aggregate?: Maybe<Audition_Tag_Aggregate_Order_By>;
   audition_type?: Maybe<Audition_Type_Order_By>;
   audition_type_id?: Maybe<Order_By>;
@@ -646,9 +656,9 @@ export type Audition_Order_By = {
   description?: Maybe<Order_By>;
   id?: Maybe<Order_By>;
   name?: Maybe<Order_By>;
-  posted_by?: Maybe<User_Order_By>;
   roles_aggregate?: Maybe<Role_Aggregate_Order_By>;
   updated_at?: Maybe<Order_By>;
+  user?: Maybe<User_Order_By>;
   user_id?: Maybe<Order_By>;
 };
 
@@ -659,6 +669,8 @@ export type Audition_Pk_Columns_Input = {
 
 /** select columns of table "audition" */
 export enum Audition_Select_Column {
+  /** column name */
+  Address = 'address',
   /** column name */
   AuditionTypeId = 'audition_type_id',
   /** column name */
@@ -681,6 +693,7 @@ export enum Audition_Select_Column {
 
 /** input type for updating data in table "audition" */
 export type Audition_Set_Input = {
+  address?: Maybe<Scalars['String']>;
   audition_type_id?: Maybe<Scalars['Int']>;
   city_id?: Maybe<Scalars['Int']>;
   company_name?: Maybe<Scalars['String']>;
@@ -1355,6 +1368,8 @@ export type Audition_Type_Variance_Order_By = {
 /** update columns of table "audition" */
 export enum Audition_Update_Column {
   /** column name */
+  Address = 'address',
+  /** column name */
   AuditionTypeId = 'audition_type_id',
   /** column name */
   CityId = 'city_id',
@@ -1430,6 +1445,30 @@ export type Body_Type = {
   __typename?: 'body_type';
   id: Scalars['Int'];
   name: Scalars['String'];
+  /** An array relationship */
+  physical_attributes: Array<Physical_Attribute>;
+  /** An aggregated array relationship */
+  physical_attributes_aggregate: Physical_Attribute_Aggregate;
+};
+
+
+/** columns and relationships of "body_type" */
+export type Body_TypePhysical_AttributesArgs = {
+  distinct_on?: Maybe<Array<Physical_Attribute_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Physical_Attribute_Order_By>>;
+  where?: Maybe<Physical_Attribute_Bool_Exp>;
+};
+
+
+/** columns and relationships of "body_type" */
+export type Body_TypePhysical_Attributes_AggregateArgs = {
+  distinct_on?: Maybe<Array<Physical_Attribute_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Physical_Attribute_Order_By>>;
+  where?: Maybe<Physical_Attribute_Bool_Exp>;
 };
 
 /** aggregated selection of "body_type" */
@@ -1501,6 +1540,7 @@ export type Body_Type_Bool_Exp = {
   _or?: Maybe<Array<Maybe<Body_Type_Bool_Exp>>>;
   id?: Maybe<Int_Comparison_Exp>;
   name?: Maybe<String_Comparison_Exp>;
+  physical_attributes?: Maybe<Physical_Attribute_Bool_Exp>;
 };
 
 /** unique or primary key constraints on table "body_type" */
@@ -1520,6 +1560,7 @@ export type Body_Type_Inc_Input = {
 export type Body_Type_Insert_Input = {
   id?: Maybe<Scalars['Int']>;
   name?: Maybe<Scalars['String']>;
+  physical_attributes?: Maybe<Physical_Attribute_Arr_Rel_Insert_Input>;
 };
 
 /** aggregate max on columns */
@@ -1574,6 +1615,7 @@ export type Body_Type_On_Conflict = {
 export type Body_Type_Order_By = {
   id?: Maybe<Order_By>;
   name?: Maybe<Order_By>;
+  physical_attributes_aggregate?: Maybe<Physical_Attribute_Aggregate_Order_By>;
 };
 
 /** primary key columns input for table: "body_type" */
@@ -1683,12 +1725,36 @@ export type Body_Type_Variance_Order_By = {
 /** columns and relationships of "city" */
 export type City = {
   __typename?: 'city';
+  /** An array relationship */
+  auditions: Array<Audition>;
+  /** An aggregated array relationship */
+  auditions_aggregate: Audition_Aggregate;
   id: Scalars['Int'];
   name: Scalars['String'];
   /** An array relationship */
   users: Array<User>;
   /** An aggregated array relationship */
   users_aggregate: User_Aggregate;
+};
+
+
+/** columns and relationships of "city" */
+export type CityAuditionsArgs = {
+  distinct_on?: Maybe<Array<Audition_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Audition_Order_By>>;
+  where?: Maybe<Audition_Bool_Exp>;
+};
+
+
+/** columns and relationships of "city" */
+export type CityAuditions_AggregateArgs = {
+  distinct_on?: Maybe<Array<Audition_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Audition_Order_By>>;
+  where?: Maybe<Audition_Bool_Exp>;
 };
 
 
@@ -1778,6 +1844,7 @@ export type City_Bool_Exp = {
   _and?: Maybe<Array<Maybe<City_Bool_Exp>>>;
   _not?: Maybe<City_Bool_Exp>;
   _or?: Maybe<Array<Maybe<City_Bool_Exp>>>;
+  auditions?: Maybe<Audition_Bool_Exp>;
   id?: Maybe<Int_Comparison_Exp>;
   name?: Maybe<String_Comparison_Exp>;
   users?: Maybe<User_Bool_Exp>;
@@ -1798,6 +1865,7 @@ export type City_Inc_Input = {
 
 /** input type for inserting data into table "city" */
 export type City_Insert_Input = {
+  auditions?: Maybe<Audition_Arr_Rel_Insert_Input>;
   id?: Maybe<Scalars['Int']>;
   name?: Maybe<Scalars['String']>;
   users?: Maybe<User_Arr_Rel_Insert_Input>;
@@ -1853,6 +1921,7 @@ export type City_On_Conflict = {
 
 /** ordering options when selecting data from "city" */
 export type City_Order_By = {
+  auditions_aggregate?: Maybe<Audition_Aggregate_Order_By>;
   id?: Maybe<Order_By>;
   name?: Maybe<Order_By>;
   users_aggregate?: Maybe<User_Aggregate_Order_By>;
@@ -1967,6 +2036,30 @@ export type Ethnicity = {
   __typename?: 'ethnicity';
   id: Scalars['Int'];
   name: Scalars['String'];
+  /** An array relationship */
+  physical_attributes: Array<Physical_Attribute>;
+  /** An aggregated array relationship */
+  physical_attributes_aggregate: Physical_Attribute_Aggregate;
+};
+
+
+/** columns and relationships of "ethnicity" */
+export type EthnicityPhysical_AttributesArgs = {
+  distinct_on?: Maybe<Array<Physical_Attribute_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Physical_Attribute_Order_By>>;
+  where?: Maybe<Physical_Attribute_Bool_Exp>;
+};
+
+
+/** columns and relationships of "ethnicity" */
+export type EthnicityPhysical_Attributes_AggregateArgs = {
+  distinct_on?: Maybe<Array<Physical_Attribute_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Physical_Attribute_Order_By>>;
+  where?: Maybe<Physical_Attribute_Bool_Exp>;
 };
 
 /** aggregated selection of "ethnicity" */
@@ -2038,6 +2131,7 @@ export type Ethnicity_Bool_Exp = {
   _or?: Maybe<Array<Maybe<Ethnicity_Bool_Exp>>>;
   id?: Maybe<Int_Comparison_Exp>;
   name?: Maybe<String_Comparison_Exp>;
+  physical_attributes?: Maybe<Physical_Attribute_Bool_Exp>;
 };
 
 /** unique or primary key constraints on table "ethnicity" */
@@ -2057,6 +2151,7 @@ export type Ethnicity_Inc_Input = {
 export type Ethnicity_Insert_Input = {
   id?: Maybe<Scalars['Int']>;
   name?: Maybe<Scalars['String']>;
+  physical_attributes?: Maybe<Physical_Attribute_Arr_Rel_Insert_Input>;
 };
 
 /** aggregate max on columns */
@@ -2111,6 +2206,7 @@ export type Ethnicity_On_Conflict = {
 export type Ethnicity_Order_By = {
   id?: Maybe<Order_By>;
   name?: Maybe<Order_By>;
+  physical_attributes_aggregate?: Maybe<Physical_Attribute_Aggregate_Order_By>;
 };
 
 /** primary key columns input for table: "ethnicity" */
@@ -2222,6 +2318,30 @@ export type Eye_Color = {
   __typename?: 'eye_color';
   id: Scalars['Int'];
   name: Scalars['String'];
+  /** An array relationship */
+  physical_attributes: Array<Physical_Attribute>;
+  /** An aggregated array relationship */
+  physical_attributes_aggregate: Physical_Attribute_Aggregate;
+};
+
+
+/** columns and relationships of "eye_color" */
+export type Eye_ColorPhysical_AttributesArgs = {
+  distinct_on?: Maybe<Array<Physical_Attribute_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Physical_Attribute_Order_By>>;
+  where?: Maybe<Physical_Attribute_Bool_Exp>;
+};
+
+
+/** columns and relationships of "eye_color" */
+export type Eye_ColorPhysical_Attributes_AggregateArgs = {
+  distinct_on?: Maybe<Array<Physical_Attribute_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Physical_Attribute_Order_By>>;
+  where?: Maybe<Physical_Attribute_Bool_Exp>;
 };
 
 /** aggregated selection of "eye_color" */
@@ -2293,6 +2413,7 @@ export type Eye_Color_Bool_Exp = {
   _or?: Maybe<Array<Maybe<Eye_Color_Bool_Exp>>>;
   id?: Maybe<Int_Comparison_Exp>;
   name?: Maybe<String_Comparison_Exp>;
+  physical_attributes?: Maybe<Physical_Attribute_Bool_Exp>;
 };
 
 /** unique or primary key constraints on table "eye_color" */
@@ -2312,6 +2433,7 @@ export type Eye_Color_Inc_Input = {
 export type Eye_Color_Insert_Input = {
   id?: Maybe<Scalars['Int']>;
   name?: Maybe<Scalars['String']>;
+  physical_attributes?: Maybe<Physical_Attribute_Arr_Rel_Insert_Input>;
 };
 
 /** aggregate max on columns */
@@ -2366,6 +2488,7 @@ export type Eye_Color_On_Conflict = {
 export type Eye_Color_Order_By = {
   id?: Maybe<Order_By>;
   name?: Maybe<Order_By>;
+  physical_attributes_aggregate?: Maybe<Physical_Attribute_Aggregate_Order_By>;
 };
 
 /** primary key columns input for table: "eye_color" */
@@ -2477,6 +2600,30 @@ export type Gender = {
   __typename?: 'gender';
   id: Scalars['Int'];
   name: Scalars['String'];
+  /** An array relationship */
+  physical_attributes: Array<Physical_Attribute>;
+  /** An aggregated array relationship */
+  physical_attributes_aggregate: Physical_Attribute_Aggregate;
+};
+
+
+/** columns and relationships of "gender" */
+export type GenderPhysical_AttributesArgs = {
+  distinct_on?: Maybe<Array<Physical_Attribute_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Physical_Attribute_Order_By>>;
+  where?: Maybe<Physical_Attribute_Bool_Exp>;
+};
+
+
+/** columns and relationships of "gender" */
+export type GenderPhysical_Attributes_AggregateArgs = {
+  distinct_on?: Maybe<Array<Physical_Attribute_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Physical_Attribute_Order_By>>;
+  where?: Maybe<Physical_Attribute_Bool_Exp>;
 };
 
 /** aggregated selection of "gender" */
@@ -2548,6 +2695,7 @@ export type Gender_Bool_Exp = {
   _or?: Maybe<Array<Maybe<Gender_Bool_Exp>>>;
   id?: Maybe<Int_Comparison_Exp>;
   name?: Maybe<String_Comparison_Exp>;
+  physical_attributes?: Maybe<Physical_Attribute_Bool_Exp>;
 };
 
 /** unique or primary key constraints on table "gender" */
@@ -2567,6 +2715,7 @@ export type Gender_Inc_Input = {
 export type Gender_Insert_Input = {
   id?: Maybe<Scalars['Int']>;
   name?: Maybe<Scalars['String']>;
+  physical_attributes?: Maybe<Physical_Attribute_Arr_Rel_Insert_Input>;
 };
 
 /** aggregate max on columns */
@@ -2621,6 +2770,7 @@ export type Gender_On_Conflict = {
 export type Gender_Order_By = {
   id?: Maybe<Order_By>;
   name?: Maybe<Order_By>;
+  physical_attributes_aggregate?: Maybe<Physical_Attribute_Aggregate_Order_By>;
 };
 
 /** primary key columns input for table: "gender" */
@@ -2732,6 +2882,30 @@ export type Hair_Color = {
   __typename?: 'hair_color';
   id: Scalars['Int'];
   name: Scalars['String'];
+  /** An array relationship */
+  physical_attributes: Array<Physical_Attribute>;
+  /** An aggregated array relationship */
+  physical_attributes_aggregate: Physical_Attribute_Aggregate;
+};
+
+
+/** columns and relationships of "hair_color" */
+export type Hair_ColorPhysical_AttributesArgs = {
+  distinct_on?: Maybe<Array<Physical_Attribute_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Physical_Attribute_Order_By>>;
+  where?: Maybe<Physical_Attribute_Bool_Exp>;
+};
+
+
+/** columns and relationships of "hair_color" */
+export type Hair_ColorPhysical_Attributes_AggregateArgs = {
+  distinct_on?: Maybe<Array<Physical_Attribute_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Physical_Attribute_Order_By>>;
+  where?: Maybe<Physical_Attribute_Bool_Exp>;
 };
 
 /** aggregated selection of "hair_color" */
@@ -2803,6 +2977,7 @@ export type Hair_Color_Bool_Exp = {
   _or?: Maybe<Array<Maybe<Hair_Color_Bool_Exp>>>;
   id?: Maybe<Int_Comparison_Exp>;
   name?: Maybe<String_Comparison_Exp>;
+  physical_attributes?: Maybe<Physical_Attribute_Bool_Exp>;
 };
 
 /** unique or primary key constraints on table "hair_color" */
@@ -2822,6 +2997,7 @@ export type Hair_Color_Inc_Input = {
 export type Hair_Color_Insert_Input = {
   id?: Maybe<Scalars['Int']>;
   name?: Maybe<Scalars['String']>;
+  physical_attributes?: Maybe<Physical_Attribute_Arr_Rel_Insert_Input>;
 };
 
 /** aggregate max on columns */
@@ -2876,6 +3052,7 @@ export type Hair_Color_On_Conflict = {
 export type Hair_Color_Order_By = {
   id?: Maybe<Order_By>;
   name?: Maybe<Order_By>;
+  physical_attributes_aggregate?: Maybe<Physical_Attribute_Aggregate_Order_By>;
 };
 
 /** primary key columns input for table: "hair_color" */
@@ -2985,10 +3162,14 @@ export type Hair_Color_Variance_Order_By = {
 /** columns and relationships of "highlight" */
 export type Highlight = {
   __typename?: 'highlight';
+  /** An object relationship */
+  highlight_type: Highlight_Type;
   highlight_type_id: Scalars['Int'];
   id: Scalars['Int'];
   name: Scalars['String'];
   source_url?: Maybe<Scalars['String']>;
+  /** An object relationship */
+  user: User;
   user_id: Scalars['Int'];
 };
 
@@ -3063,10 +3244,12 @@ export type Highlight_Bool_Exp = {
   _and?: Maybe<Array<Maybe<Highlight_Bool_Exp>>>;
   _not?: Maybe<Highlight_Bool_Exp>;
   _or?: Maybe<Array<Maybe<Highlight_Bool_Exp>>>;
+  highlight_type?: Maybe<Highlight_Type_Bool_Exp>;
   highlight_type_id?: Maybe<Int_Comparison_Exp>;
   id?: Maybe<Int_Comparison_Exp>;
   name?: Maybe<String_Comparison_Exp>;
   source_url?: Maybe<String_Comparison_Exp>;
+  user?: Maybe<User_Bool_Exp>;
   user_id?: Maybe<Int_Comparison_Exp>;
 };
 
@@ -3085,10 +3268,12 @@ export type Highlight_Inc_Input = {
 
 /** input type for inserting data into table "highlight" */
 export type Highlight_Insert_Input = {
+  highlight_type?: Maybe<Highlight_Type_Obj_Rel_Insert_Input>;
   highlight_type_id?: Maybe<Scalars['Int']>;
   id?: Maybe<Scalars['Int']>;
   name?: Maybe<Scalars['String']>;
   source_url?: Maybe<Scalars['String']>;
+  user?: Maybe<User_Obj_Rel_Insert_Input>;
   user_id?: Maybe<Scalars['Int']>;
 };
 
@@ -3154,10 +3339,12 @@ export type Highlight_On_Conflict = {
 
 /** ordering options when selecting data from "highlight" */
 export type Highlight_Order_By = {
+  highlight_type?: Maybe<Highlight_Type_Order_By>;
   highlight_type_id?: Maybe<Order_By>;
   id?: Maybe<Order_By>;
   name?: Maybe<Order_By>;
   source_url?: Maybe<Order_By>;
+  user?: Maybe<User_Order_By>;
   user_id?: Maybe<Order_By>;
 };
 
@@ -3252,8 +3439,32 @@ export type Highlight_Sum_Order_By = {
 /** columns and relationships of "highlight_type" */
 export type Highlight_Type = {
   __typename?: 'highlight_type';
+  /** An array relationship */
+  highlights: Array<Highlight>;
+  /** An aggregated array relationship */
+  highlights_aggregate: Highlight_Aggregate;
   id: Scalars['Int'];
   name: Scalars['String'];
+};
+
+
+/** columns and relationships of "highlight_type" */
+export type Highlight_TypeHighlightsArgs = {
+  distinct_on?: Maybe<Array<Highlight_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Highlight_Order_By>>;
+  where?: Maybe<Highlight_Bool_Exp>;
+};
+
+
+/** columns and relationships of "highlight_type" */
+export type Highlight_TypeHighlights_AggregateArgs = {
+  distinct_on?: Maybe<Array<Highlight_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Highlight_Order_By>>;
+  where?: Maybe<Highlight_Bool_Exp>;
 };
 
 /** aggregated selection of "highlight_type" */
@@ -3323,6 +3534,7 @@ export type Highlight_Type_Bool_Exp = {
   _and?: Maybe<Array<Maybe<Highlight_Type_Bool_Exp>>>;
   _not?: Maybe<Highlight_Type_Bool_Exp>;
   _or?: Maybe<Array<Maybe<Highlight_Type_Bool_Exp>>>;
+  highlights?: Maybe<Highlight_Bool_Exp>;
   id?: Maybe<Int_Comparison_Exp>;
   name?: Maybe<String_Comparison_Exp>;
 };
@@ -3342,6 +3554,7 @@ export type Highlight_Type_Inc_Input = {
 
 /** input type for inserting data into table "highlight_type" */
 export type Highlight_Type_Insert_Input = {
+  highlights?: Maybe<Highlight_Arr_Rel_Insert_Input>;
   id?: Maybe<Scalars['Int']>;
   name?: Maybe<Scalars['String']>;
 };
@@ -3396,6 +3609,7 @@ export type Highlight_Type_On_Conflict = {
 
 /** ordering options when selecting data from "highlight_type" */
 export type Highlight_Type_Order_By = {
+  highlights_aggregate?: Maybe<Highlight_Aggregate_Order_By>;
   id?: Maybe<Order_By>;
   name?: Maybe<Order_By>;
 };
@@ -3577,570 +3791,340 @@ export type Json_Comparison_Exp = {
   _nin?: Maybe<Array<Scalars['json']>>;
 };
 
-/** columns and relationships of "knex_migrations" */
-export type Knex_Migrations = {
-  __typename?: 'knex_migrations';
-  batch?: Maybe<Scalars['Int']>;
+/** columns and relationships of "messages" */
+export type Messages = {
+  __typename?: 'messages';
+  content: Scalars['String'];
+  created_at?: Maybe<Scalars['timestamptz']>;
   id: Scalars['Int'];
-  migration_time?: Maybe<Scalars['timestamptz']>;
-  name?: Maybe<Scalars['String']>;
+  receiver_id: Scalars['Int'];
+  sender_id: Scalars['Int'];
+  /** An object relationship */
+  userByReceiverId: User;
+  /** An object relationship */
+  userBySenderId: User;
 };
 
-/** aggregated selection of "knex_migrations" */
-export type Knex_Migrations_Aggregate = {
-  __typename?: 'knex_migrations_aggregate';
-  aggregate?: Maybe<Knex_Migrations_Aggregate_Fields>;
-  nodes: Array<Knex_Migrations>;
+/** aggregated selection of "messages" */
+export type Messages_Aggregate = {
+  __typename?: 'messages_aggregate';
+  aggregate?: Maybe<Messages_Aggregate_Fields>;
+  nodes: Array<Messages>;
 };
 
-/** aggregate fields of "knex_migrations" */
-export type Knex_Migrations_Aggregate_Fields = {
-  __typename?: 'knex_migrations_aggregate_fields';
-  avg?: Maybe<Knex_Migrations_Avg_Fields>;
+/** aggregate fields of "messages" */
+export type Messages_Aggregate_Fields = {
+  __typename?: 'messages_aggregate_fields';
+  avg?: Maybe<Messages_Avg_Fields>;
   count?: Maybe<Scalars['Int']>;
-  max?: Maybe<Knex_Migrations_Max_Fields>;
-  min?: Maybe<Knex_Migrations_Min_Fields>;
-  stddev?: Maybe<Knex_Migrations_Stddev_Fields>;
-  stddev_pop?: Maybe<Knex_Migrations_Stddev_Pop_Fields>;
-  stddev_samp?: Maybe<Knex_Migrations_Stddev_Samp_Fields>;
-  sum?: Maybe<Knex_Migrations_Sum_Fields>;
-  var_pop?: Maybe<Knex_Migrations_Var_Pop_Fields>;
-  var_samp?: Maybe<Knex_Migrations_Var_Samp_Fields>;
-  variance?: Maybe<Knex_Migrations_Variance_Fields>;
+  max?: Maybe<Messages_Max_Fields>;
+  min?: Maybe<Messages_Min_Fields>;
+  stddev?: Maybe<Messages_Stddev_Fields>;
+  stddev_pop?: Maybe<Messages_Stddev_Pop_Fields>;
+  stddev_samp?: Maybe<Messages_Stddev_Samp_Fields>;
+  sum?: Maybe<Messages_Sum_Fields>;
+  var_pop?: Maybe<Messages_Var_Pop_Fields>;
+  var_samp?: Maybe<Messages_Var_Samp_Fields>;
+  variance?: Maybe<Messages_Variance_Fields>;
 };
 
 
-/** aggregate fields of "knex_migrations" */
-export type Knex_Migrations_Aggregate_FieldsCountArgs = {
-  columns?: Maybe<Array<Knex_Migrations_Select_Column>>;
+/** aggregate fields of "messages" */
+export type Messages_Aggregate_FieldsCountArgs = {
+  columns?: Maybe<Array<Messages_Select_Column>>;
   distinct?: Maybe<Scalars['Boolean']>;
 };
 
-/** order by aggregate values of table "knex_migrations" */
-export type Knex_Migrations_Aggregate_Order_By = {
-  avg?: Maybe<Knex_Migrations_Avg_Order_By>;
+/** order by aggregate values of table "messages" */
+export type Messages_Aggregate_Order_By = {
+  avg?: Maybe<Messages_Avg_Order_By>;
   count?: Maybe<Order_By>;
-  max?: Maybe<Knex_Migrations_Max_Order_By>;
-  min?: Maybe<Knex_Migrations_Min_Order_By>;
-  stddev?: Maybe<Knex_Migrations_Stddev_Order_By>;
-  stddev_pop?: Maybe<Knex_Migrations_Stddev_Pop_Order_By>;
-  stddev_samp?: Maybe<Knex_Migrations_Stddev_Samp_Order_By>;
-  sum?: Maybe<Knex_Migrations_Sum_Order_By>;
-  var_pop?: Maybe<Knex_Migrations_Var_Pop_Order_By>;
-  var_samp?: Maybe<Knex_Migrations_Var_Samp_Order_By>;
-  variance?: Maybe<Knex_Migrations_Variance_Order_By>;
+  max?: Maybe<Messages_Max_Order_By>;
+  min?: Maybe<Messages_Min_Order_By>;
+  stddev?: Maybe<Messages_Stddev_Order_By>;
+  stddev_pop?: Maybe<Messages_Stddev_Pop_Order_By>;
+  stddev_samp?: Maybe<Messages_Stddev_Samp_Order_By>;
+  sum?: Maybe<Messages_Sum_Order_By>;
+  var_pop?: Maybe<Messages_Var_Pop_Order_By>;
+  var_samp?: Maybe<Messages_Var_Samp_Order_By>;
+  variance?: Maybe<Messages_Variance_Order_By>;
 };
 
-/** input type for inserting array relation for remote table "knex_migrations" */
-export type Knex_Migrations_Arr_Rel_Insert_Input = {
-  data: Array<Knex_Migrations_Insert_Input>;
-  on_conflict?: Maybe<Knex_Migrations_On_Conflict>;
+/** input type for inserting array relation for remote table "messages" */
+export type Messages_Arr_Rel_Insert_Input = {
+  data: Array<Messages_Insert_Input>;
+  on_conflict?: Maybe<Messages_On_Conflict>;
 };
 
 /** aggregate avg on columns */
-export type Knex_Migrations_Avg_Fields = {
-  __typename?: 'knex_migrations_avg_fields';
-  batch?: Maybe<Scalars['Float']>;
+export type Messages_Avg_Fields = {
+  __typename?: 'messages_avg_fields';
   id?: Maybe<Scalars['Float']>;
+  receiver_id?: Maybe<Scalars['Float']>;
+  sender_id?: Maybe<Scalars['Float']>;
 };
 
-/** order by avg() on columns of table "knex_migrations" */
-export type Knex_Migrations_Avg_Order_By = {
-  batch?: Maybe<Order_By>;
+/** order by avg() on columns of table "messages" */
+export type Messages_Avg_Order_By = {
   id?: Maybe<Order_By>;
+  receiver_id?: Maybe<Order_By>;
+  sender_id?: Maybe<Order_By>;
 };
 
-/** Boolean expression to filter rows from the table "knex_migrations". All fields are combined with a logical 'AND'. */
-export type Knex_Migrations_Bool_Exp = {
-  _and?: Maybe<Array<Maybe<Knex_Migrations_Bool_Exp>>>;
-  _not?: Maybe<Knex_Migrations_Bool_Exp>;
-  _or?: Maybe<Array<Maybe<Knex_Migrations_Bool_Exp>>>;
-  batch?: Maybe<Int_Comparison_Exp>;
+/** Boolean expression to filter rows from the table "messages". All fields are combined with a logical 'AND'. */
+export type Messages_Bool_Exp = {
+  _and?: Maybe<Array<Maybe<Messages_Bool_Exp>>>;
+  _not?: Maybe<Messages_Bool_Exp>;
+  _or?: Maybe<Array<Maybe<Messages_Bool_Exp>>>;
+  content?: Maybe<String_Comparison_Exp>;
+  created_at?: Maybe<Timestamptz_Comparison_Exp>;
   id?: Maybe<Int_Comparison_Exp>;
-  migration_time?: Maybe<Timestamptz_Comparison_Exp>;
-  name?: Maybe<String_Comparison_Exp>;
+  receiver_id?: Maybe<Int_Comparison_Exp>;
+  sender_id?: Maybe<Int_Comparison_Exp>;
+  userByReceiverId?: Maybe<User_Bool_Exp>;
+  userBySenderId?: Maybe<User_Bool_Exp>;
 };
 
-/** unique or primary key constraints on table "knex_migrations" */
-export enum Knex_Migrations_Constraint {
+/** unique or primary key constraints on table "messages" */
+export enum Messages_Constraint {
   /** unique or primary key constraint */
-  KnexMigrationsPkey = 'knex_migrations_pkey'
+  MessagesPkey = 'messages_pkey'
 }
 
-/** input type for incrementing integer column in table "knex_migrations" */
-export type Knex_Migrations_Inc_Input = {
-  batch?: Maybe<Scalars['Int']>;
+/** input type for incrementing integer column in table "messages" */
+export type Messages_Inc_Input = {
   id?: Maybe<Scalars['Int']>;
+  receiver_id?: Maybe<Scalars['Int']>;
+  sender_id?: Maybe<Scalars['Int']>;
 };
 
-/** input type for inserting data into table "knex_migrations" */
-export type Knex_Migrations_Insert_Input = {
-  batch?: Maybe<Scalars['Int']>;
+/** input type for inserting data into table "messages" */
+export type Messages_Insert_Input = {
+  content?: Maybe<Scalars['String']>;
+  created_at?: Maybe<Scalars['timestamptz']>;
   id?: Maybe<Scalars['Int']>;
-  migration_time?: Maybe<Scalars['timestamptz']>;
-  name?: Maybe<Scalars['String']>;
-};
-
-/** columns and relationships of "knex_migrations_lock" */
-export type Knex_Migrations_Lock = {
-  __typename?: 'knex_migrations_lock';
-  index: Scalars['Int'];
-  is_locked?: Maybe<Scalars['Int']>;
-};
-
-/** aggregated selection of "knex_migrations_lock" */
-export type Knex_Migrations_Lock_Aggregate = {
-  __typename?: 'knex_migrations_lock_aggregate';
-  aggregate?: Maybe<Knex_Migrations_Lock_Aggregate_Fields>;
-  nodes: Array<Knex_Migrations_Lock>;
-};
-
-/** aggregate fields of "knex_migrations_lock" */
-export type Knex_Migrations_Lock_Aggregate_Fields = {
-  __typename?: 'knex_migrations_lock_aggregate_fields';
-  avg?: Maybe<Knex_Migrations_Lock_Avg_Fields>;
-  count?: Maybe<Scalars['Int']>;
-  max?: Maybe<Knex_Migrations_Lock_Max_Fields>;
-  min?: Maybe<Knex_Migrations_Lock_Min_Fields>;
-  stddev?: Maybe<Knex_Migrations_Lock_Stddev_Fields>;
-  stddev_pop?: Maybe<Knex_Migrations_Lock_Stddev_Pop_Fields>;
-  stddev_samp?: Maybe<Knex_Migrations_Lock_Stddev_Samp_Fields>;
-  sum?: Maybe<Knex_Migrations_Lock_Sum_Fields>;
-  var_pop?: Maybe<Knex_Migrations_Lock_Var_Pop_Fields>;
-  var_samp?: Maybe<Knex_Migrations_Lock_Var_Samp_Fields>;
-  variance?: Maybe<Knex_Migrations_Lock_Variance_Fields>;
-};
-
-
-/** aggregate fields of "knex_migrations_lock" */
-export type Knex_Migrations_Lock_Aggregate_FieldsCountArgs = {
-  columns?: Maybe<Array<Knex_Migrations_Lock_Select_Column>>;
-  distinct?: Maybe<Scalars['Boolean']>;
-};
-
-/** order by aggregate values of table "knex_migrations_lock" */
-export type Knex_Migrations_Lock_Aggregate_Order_By = {
-  avg?: Maybe<Knex_Migrations_Lock_Avg_Order_By>;
-  count?: Maybe<Order_By>;
-  max?: Maybe<Knex_Migrations_Lock_Max_Order_By>;
-  min?: Maybe<Knex_Migrations_Lock_Min_Order_By>;
-  stddev?: Maybe<Knex_Migrations_Lock_Stddev_Order_By>;
-  stddev_pop?: Maybe<Knex_Migrations_Lock_Stddev_Pop_Order_By>;
-  stddev_samp?: Maybe<Knex_Migrations_Lock_Stddev_Samp_Order_By>;
-  sum?: Maybe<Knex_Migrations_Lock_Sum_Order_By>;
-  var_pop?: Maybe<Knex_Migrations_Lock_Var_Pop_Order_By>;
-  var_samp?: Maybe<Knex_Migrations_Lock_Var_Samp_Order_By>;
-  variance?: Maybe<Knex_Migrations_Lock_Variance_Order_By>;
-};
-
-/** input type for inserting array relation for remote table "knex_migrations_lock" */
-export type Knex_Migrations_Lock_Arr_Rel_Insert_Input = {
-  data: Array<Knex_Migrations_Lock_Insert_Input>;
-  on_conflict?: Maybe<Knex_Migrations_Lock_On_Conflict>;
-};
-
-/** aggregate avg on columns */
-export type Knex_Migrations_Lock_Avg_Fields = {
-  __typename?: 'knex_migrations_lock_avg_fields';
-  index?: Maybe<Scalars['Float']>;
-  is_locked?: Maybe<Scalars['Float']>;
-};
-
-/** order by avg() on columns of table "knex_migrations_lock" */
-export type Knex_Migrations_Lock_Avg_Order_By = {
-  index?: Maybe<Order_By>;
-  is_locked?: Maybe<Order_By>;
-};
-
-/** Boolean expression to filter rows from the table "knex_migrations_lock". All fields are combined with a logical 'AND'. */
-export type Knex_Migrations_Lock_Bool_Exp = {
-  _and?: Maybe<Array<Maybe<Knex_Migrations_Lock_Bool_Exp>>>;
-  _not?: Maybe<Knex_Migrations_Lock_Bool_Exp>;
-  _or?: Maybe<Array<Maybe<Knex_Migrations_Lock_Bool_Exp>>>;
-  index?: Maybe<Int_Comparison_Exp>;
-  is_locked?: Maybe<Int_Comparison_Exp>;
-};
-
-/** unique or primary key constraints on table "knex_migrations_lock" */
-export enum Knex_Migrations_Lock_Constraint {
-  /** unique or primary key constraint */
-  KnexMigrationsLockPkey = 'knex_migrations_lock_pkey'
-}
-
-/** input type for incrementing integer column in table "knex_migrations_lock" */
-export type Knex_Migrations_Lock_Inc_Input = {
-  index?: Maybe<Scalars['Int']>;
-  is_locked?: Maybe<Scalars['Int']>;
-};
-
-/** input type for inserting data into table "knex_migrations_lock" */
-export type Knex_Migrations_Lock_Insert_Input = {
-  index?: Maybe<Scalars['Int']>;
-  is_locked?: Maybe<Scalars['Int']>;
+  receiver_id?: Maybe<Scalars['Int']>;
+  sender_id?: Maybe<Scalars['Int']>;
+  userByReceiverId?: Maybe<User_Obj_Rel_Insert_Input>;
+  userBySenderId?: Maybe<User_Obj_Rel_Insert_Input>;
 };
 
 /** aggregate max on columns */
-export type Knex_Migrations_Lock_Max_Fields = {
-  __typename?: 'knex_migrations_lock_max_fields';
-  index?: Maybe<Scalars['Int']>;
-  is_locked?: Maybe<Scalars['Int']>;
+export type Messages_Max_Fields = {
+  __typename?: 'messages_max_fields';
+  content?: Maybe<Scalars['String']>;
+  created_at?: Maybe<Scalars['timestamptz']>;
+  id?: Maybe<Scalars['Int']>;
+  receiver_id?: Maybe<Scalars['Int']>;
+  sender_id?: Maybe<Scalars['Int']>;
 };
 
-/** order by max() on columns of table "knex_migrations_lock" */
-export type Knex_Migrations_Lock_Max_Order_By = {
-  index?: Maybe<Order_By>;
-  is_locked?: Maybe<Order_By>;
+/** order by max() on columns of table "messages" */
+export type Messages_Max_Order_By = {
+  content?: Maybe<Order_By>;
+  created_at?: Maybe<Order_By>;
+  id?: Maybe<Order_By>;
+  receiver_id?: Maybe<Order_By>;
+  sender_id?: Maybe<Order_By>;
 };
 
 /** aggregate min on columns */
-export type Knex_Migrations_Lock_Min_Fields = {
-  __typename?: 'knex_migrations_lock_min_fields';
-  index?: Maybe<Scalars['Int']>;
-  is_locked?: Maybe<Scalars['Int']>;
+export type Messages_Min_Fields = {
+  __typename?: 'messages_min_fields';
+  content?: Maybe<Scalars['String']>;
+  created_at?: Maybe<Scalars['timestamptz']>;
+  id?: Maybe<Scalars['Int']>;
+  receiver_id?: Maybe<Scalars['Int']>;
+  sender_id?: Maybe<Scalars['Int']>;
 };
 
-/** order by min() on columns of table "knex_migrations_lock" */
-export type Knex_Migrations_Lock_Min_Order_By = {
-  index?: Maybe<Order_By>;
-  is_locked?: Maybe<Order_By>;
+/** order by min() on columns of table "messages" */
+export type Messages_Min_Order_By = {
+  content?: Maybe<Order_By>;
+  created_at?: Maybe<Order_By>;
+  id?: Maybe<Order_By>;
+  receiver_id?: Maybe<Order_By>;
+  sender_id?: Maybe<Order_By>;
 };
 
-/** response of any mutation on the table "knex_migrations_lock" */
-export type Knex_Migrations_Lock_Mutation_Response = {
-  __typename?: 'knex_migrations_lock_mutation_response';
+/** response of any mutation on the table "messages" */
+export type Messages_Mutation_Response = {
+  __typename?: 'messages_mutation_response';
   /** number of affected rows by the mutation */
   affected_rows: Scalars['Int'];
   /** data of the affected rows by the mutation */
-  returning: Array<Knex_Migrations_Lock>;
+  returning: Array<Messages>;
 };
 
-/** input type for inserting object relation for remote table "knex_migrations_lock" */
-export type Knex_Migrations_Lock_Obj_Rel_Insert_Input = {
-  data: Knex_Migrations_Lock_Insert_Input;
-  on_conflict?: Maybe<Knex_Migrations_Lock_On_Conflict>;
+/** input type for inserting object relation for remote table "messages" */
+export type Messages_Obj_Rel_Insert_Input = {
+  data: Messages_Insert_Input;
+  on_conflict?: Maybe<Messages_On_Conflict>;
 };
 
-/** on conflict condition type for table "knex_migrations_lock" */
-export type Knex_Migrations_Lock_On_Conflict = {
-  constraint: Knex_Migrations_Lock_Constraint;
-  update_columns: Array<Knex_Migrations_Lock_Update_Column>;
-  where?: Maybe<Knex_Migrations_Lock_Bool_Exp>;
+/** on conflict condition type for table "messages" */
+export type Messages_On_Conflict = {
+  constraint: Messages_Constraint;
+  update_columns: Array<Messages_Update_Column>;
+  where?: Maybe<Messages_Bool_Exp>;
 };
 
-/** ordering options when selecting data from "knex_migrations_lock" */
-export type Knex_Migrations_Lock_Order_By = {
-  index?: Maybe<Order_By>;
-  is_locked?: Maybe<Order_By>;
-};
-
-/** primary key columns input for table: "knex_migrations_lock" */
-export type Knex_Migrations_Lock_Pk_Columns_Input = {
-  index: Scalars['Int'];
-};
-
-/** select columns of table "knex_migrations_lock" */
-export enum Knex_Migrations_Lock_Select_Column {
-  /** column name */
-  Index = 'index',
-  /** column name */
-  IsLocked = 'is_locked'
-}
-
-/** input type for updating data in table "knex_migrations_lock" */
-export type Knex_Migrations_Lock_Set_Input = {
-  index?: Maybe<Scalars['Int']>;
-  is_locked?: Maybe<Scalars['Int']>;
-};
-
-/** aggregate stddev on columns */
-export type Knex_Migrations_Lock_Stddev_Fields = {
-  __typename?: 'knex_migrations_lock_stddev_fields';
-  index?: Maybe<Scalars['Float']>;
-  is_locked?: Maybe<Scalars['Float']>;
-};
-
-/** order by stddev() on columns of table "knex_migrations_lock" */
-export type Knex_Migrations_Lock_Stddev_Order_By = {
-  index?: Maybe<Order_By>;
-  is_locked?: Maybe<Order_By>;
-};
-
-/** aggregate stddev_pop on columns */
-export type Knex_Migrations_Lock_Stddev_Pop_Fields = {
-  __typename?: 'knex_migrations_lock_stddev_pop_fields';
-  index?: Maybe<Scalars['Float']>;
-  is_locked?: Maybe<Scalars['Float']>;
-};
-
-/** order by stddev_pop() on columns of table "knex_migrations_lock" */
-export type Knex_Migrations_Lock_Stddev_Pop_Order_By = {
-  index?: Maybe<Order_By>;
-  is_locked?: Maybe<Order_By>;
-};
-
-/** aggregate stddev_samp on columns */
-export type Knex_Migrations_Lock_Stddev_Samp_Fields = {
-  __typename?: 'knex_migrations_lock_stddev_samp_fields';
-  index?: Maybe<Scalars['Float']>;
-  is_locked?: Maybe<Scalars['Float']>;
-};
-
-/** order by stddev_samp() on columns of table "knex_migrations_lock" */
-export type Knex_Migrations_Lock_Stddev_Samp_Order_By = {
-  index?: Maybe<Order_By>;
-  is_locked?: Maybe<Order_By>;
-};
-
-/** aggregate sum on columns */
-export type Knex_Migrations_Lock_Sum_Fields = {
-  __typename?: 'knex_migrations_lock_sum_fields';
-  index?: Maybe<Scalars['Int']>;
-  is_locked?: Maybe<Scalars['Int']>;
-};
-
-/** order by sum() on columns of table "knex_migrations_lock" */
-export type Knex_Migrations_Lock_Sum_Order_By = {
-  index?: Maybe<Order_By>;
-  is_locked?: Maybe<Order_By>;
-};
-
-/** update columns of table "knex_migrations_lock" */
-export enum Knex_Migrations_Lock_Update_Column {
-  /** column name */
-  Index = 'index',
-  /** column name */
-  IsLocked = 'is_locked'
-}
-
-/** aggregate var_pop on columns */
-export type Knex_Migrations_Lock_Var_Pop_Fields = {
-  __typename?: 'knex_migrations_lock_var_pop_fields';
-  index?: Maybe<Scalars['Float']>;
-  is_locked?: Maybe<Scalars['Float']>;
-};
-
-/** order by var_pop() on columns of table "knex_migrations_lock" */
-export type Knex_Migrations_Lock_Var_Pop_Order_By = {
-  index?: Maybe<Order_By>;
-  is_locked?: Maybe<Order_By>;
-};
-
-/** aggregate var_samp on columns */
-export type Knex_Migrations_Lock_Var_Samp_Fields = {
-  __typename?: 'knex_migrations_lock_var_samp_fields';
-  index?: Maybe<Scalars['Float']>;
-  is_locked?: Maybe<Scalars['Float']>;
-};
-
-/** order by var_samp() on columns of table "knex_migrations_lock" */
-export type Knex_Migrations_Lock_Var_Samp_Order_By = {
-  index?: Maybe<Order_By>;
-  is_locked?: Maybe<Order_By>;
-};
-
-/** aggregate variance on columns */
-export type Knex_Migrations_Lock_Variance_Fields = {
-  __typename?: 'knex_migrations_lock_variance_fields';
-  index?: Maybe<Scalars['Float']>;
-  is_locked?: Maybe<Scalars['Float']>;
-};
-
-/** order by variance() on columns of table "knex_migrations_lock" */
-export type Knex_Migrations_Lock_Variance_Order_By = {
-  index?: Maybe<Order_By>;
-  is_locked?: Maybe<Order_By>;
-};
-
-/** aggregate max on columns */
-export type Knex_Migrations_Max_Fields = {
-  __typename?: 'knex_migrations_max_fields';
-  batch?: Maybe<Scalars['Int']>;
-  id?: Maybe<Scalars['Int']>;
-  migration_time?: Maybe<Scalars['timestamptz']>;
-  name?: Maybe<Scalars['String']>;
-};
-
-/** order by max() on columns of table "knex_migrations" */
-export type Knex_Migrations_Max_Order_By = {
-  batch?: Maybe<Order_By>;
+/** ordering options when selecting data from "messages" */
+export type Messages_Order_By = {
+  content?: Maybe<Order_By>;
+  created_at?: Maybe<Order_By>;
   id?: Maybe<Order_By>;
-  migration_time?: Maybe<Order_By>;
-  name?: Maybe<Order_By>;
+  receiver_id?: Maybe<Order_By>;
+  sender_id?: Maybe<Order_By>;
+  userByReceiverId?: Maybe<User_Order_By>;
+  userBySenderId?: Maybe<User_Order_By>;
 };
 
-/** aggregate min on columns */
-export type Knex_Migrations_Min_Fields = {
-  __typename?: 'knex_migrations_min_fields';
-  batch?: Maybe<Scalars['Int']>;
-  id?: Maybe<Scalars['Int']>;
-  migration_time?: Maybe<Scalars['timestamptz']>;
-  name?: Maybe<Scalars['String']>;
-};
-
-/** order by min() on columns of table "knex_migrations" */
-export type Knex_Migrations_Min_Order_By = {
-  batch?: Maybe<Order_By>;
-  id?: Maybe<Order_By>;
-  migration_time?: Maybe<Order_By>;
-  name?: Maybe<Order_By>;
-};
-
-/** response of any mutation on the table "knex_migrations" */
-export type Knex_Migrations_Mutation_Response = {
-  __typename?: 'knex_migrations_mutation_response';
-  /** number of affected rows by the mutation */
-  affected_rows: Scalars['Int'];
-  /** data of the affected rows by the mutation */
-  returning: Array<Knex_Migrations>;
-};
-
-/** input type for inserting object relation for remote table "knex_migrations" */
-export type Knex_Migrations_Obj_Rel_Insert_Input = {
-  data: Knex_Migrations_Insert_Input;
-  on_conflict?: Maybe<Knex_Migrations_On_Conflict>;
-};
-
-/** on conflict condition type for table "knex_migrations" */
-export type Knex_Migrations_On_Conflict = {
-  constraint: Knex_Migrations_Constraint;
-  update_columns: Array<Knex_Migrations_Update_Column>;
-  where?: Maybe<Knex_Migrations_Bool_Exp>;
-};
-
-/** ordering options when selecting data from "knex_migrations" */
-export type Knex_Migrations_Order_By = {
-  batch?: Maybe<Order_By>;
-  id?: Maybe<Order_By>;
-  migration_time?: Maybe<Order_By>;
-  name?: Maybe<Order_By>;
-};
-
-/** primary key columns input for table: "knex_migrations" */
-export type Knex_Migrations_Pk_Columns_Input = {
+/** primary key columns input for table: "messages" */
+export type Messages_Pk_Columns_Input = {
   id: Scalars['Int'];
 };
 
-/** select columns of table "knex_migrations" */
-export enum Knex_Migrations_Select_Column {
+/** select columns of table "messages" */
+export enum Messages_Select_Column {
   /** column name */
-  Batch = 'batch',
+  Content = 'content',
+  /** column name */
+  CreatedAt = 'created_at',
   /** column name */
   Id = 'id',
   /** column name */
-  MigrationTime = 'migration_time',
+  ReceiverId = 'receiver_id',
   /** column name */
-  Name = 'name'
+  SenderId = 'sender_id'
 }
 
-/** input type for updating data in table "knex_migrations" */
-export type Knex_Migrations_Set_Input = {
-  batch?: Maybe<Scalars['Int']>;
+/** input type for updating data in table "messages" */
+export type Messages_Set_Input = {
+  content?: Maybe<Scalars['String']>;
+  created_at?: Maybe<Scalars['timestamptz']>;
   id?: Maybe<Scalars['Int']>;
-  migration_time?: Maybe<Scalars['timestamptz']>;
-  name?: Maybe<Scalars['String']>;
+  receiver_id?: Maybe<Scalars['Int']>;
+  sender_id?: Maybe<Scalars['Int']>;
 };
 
 /** aggregate stddev on columns */
-export type Knex_Migrations_Stddev_Fields = {
-  __typename?: 'knex_migrations_stddev_fields';
-  batch?: Maybe<Scalars['Float']>;
+export type Messages_Stddev_Fields = {
+  __typename?: 'messages_stddev_fields';
   id?: Maybe<Scalars['Float']>;
+  receiver_id?: Maybe<Scalars['Float']>;
+  sender_id?: Maybe<Scalars['Float']>;
 };
 
-/** order by stddev() on columns of table "knex_migrations" */
-export type Knex_Migrations_Stddev_Order_By = {
-  batch?: Maybe<Order_By>;
+/** order by stddev() on columns of table "messages" */
+export type Messages_Stddev_Order_By = {
   id?: Maybe<Order_By>;
+  receiver_id?: Maybe<Order_By>;
+  sender_id?: Maybe<Order_By>;
 };
 
 /** aggregate stddev_pop on columns */
-export type Knex_Migrations_Stddev_Pop_Fields = {
-  __typename?: 'knex_migrations_stddev_pop_fields';
-  batch?: Maybe<Scalars['Float']>;
+export type Messages_Stddev_Pop_Fields = {
+  __typename?: 'messages_stddev_pop_fields';
   id?: Maybe<Scalars['Float']>;
+  receiver_id?: Maybe<Scalars['Float']>;
+  sender_id?: Maybe<Scalars['Float']>;
 };
 
-/** order by stddev_pop() on columns of table "knex_migrations" */
-export type Knex_Migrations_Stddev_Pop_Order_By = {
-  batch?: Maybe<Order_By>;
+/** order by stddev_pop() on columns of table "messages" */
+export type Messages_Stddev_Pop_Order_By = {
   id?: Maybe<Order_By>;
+  receiver_id?: Maybe<Order_By>;
+  sender_id?: Maybe<Order_By>;
 };
 
 /** aggregate stddev_samp on columns */
-export type Knex_Migrations_Stddev_Samp_Fields = {
-  __typename?: 'knex_migrations_stddev_samp_fields';
-  batch?: Maybe<Scalars['Float']>;
+export type Messages_Stddev_Samp_Fields = {
+  __typename?: 'messages_stddev_samp_fields';
   id?: Maybe<Scalars['Float']>;
+  receiver_id?: Maybe<Scalars['Float']>;
+  sender_id?: Maybe<Scalars['Float']>;
 };
 
-/** order by stddev_samp() on columns of table "knex_migrations" */
-export type Knex_Migrations_Stddev_Samp_Order_By = {
-  batch?: Maybe<Order_By>;
+/** order by stddev_samp() on columns of table "messages" */
+export type Messages_Stddev_Samp_Order_By = {
   id?: Maybe<Order_By>;
+  receiver_id?: Maybe<Order_By>;
+  sender_id?: Maybe<Order_By>;
 };
 
 /** aggregate sum on columns */
-export type Knex_Migrations_Sum_Fields = {
-  __typename?: 'knex_migrations_sum_fields';
-  batch?: Maybe<Scalars['Int']>;
+export type Messages_Sum_Fields = {
+  __typename?: 'messages_sum_fields';
   id?: Maybe<Scalars['Int']>;
+  receiver_id?: Maybe<Scalars['Int']>;
+  sender_id?: Maybe<Scalars['Int']>;
 };
 
-/** order by sum() on columns of table "knex_migrations" */
-export type Knex_Migrations_Sum_Order_By = {
-  batch?: Maybe<Order_By>;
+/** order by sum() on columns of table "messages" */
+export type Messages_Sum_Order_By = {
   id?: Maybe<Order_By>;
+  receiver_id?: Maybe<Order_By>;
+  sender_id?: Maybe<Order_By>;
 };
 
-/** update columns of table "knex_migrations" */
-export enum Knex_Migrations_Update_Column {
+/** update columns of table "messages" */
+export enum Messages_Update_Column {
   /** column name */
-  Batch = 'batch',
+  Content = 'content',
+  /** column name */
+  CreatedAt = 'created_at',
   /** column name */
   Id = 'id',
   /** column name */
-  MigrationTime = 'migration_time',
+  ReceiverId = 'receiver_id',
   /** column name */
-  Name = 'name'
+  SenderId = 'sender_id'
 }
 
 /** aggregate var_pop on columns */
-export type Knex_Migrations_Var_Pop_Fields = {
-  __typename?: 'knex_migrations_var_pop_fields';
-  batch?: Maybe<Scalars['Float']>;
+export type Messages_Var_Pop_Fields = {
+  __typename?: 'messages_var_pop_fields';
   id?: Maybe<Scalars['Float']>;
+  receiver_id?: Maybe<Scalars['Float']>;
+  sender_id?: Maybe<Scalars['Float']>;
 };
 
-/** order by var_pop() on columns of table "knex_migrations" */
-export type Knex_Migrations_Var_Pop_Order_By = {
-  batch?: Maybe<Order_By>;
+/** order by var_pop() on columns of table "messages" */
+export type Messages_Var_Pop_Order_By = {
   id?: Maybe<Order_By>;
+  receiver_id?: Maybe<Order_By>;
+  sender_id?: Maybe<Order_By>;
 };
 
 /** aggregate var_samp on columns */
-export type Knex_Migrations_Var_Samp_Fields = {
-  __typename?: 'knex_migrations_var_samp_fields';
-  batch?: Maybe<Scalars['Float']>;
+export type Messages_Var_Samp_Fields = {
+  __typename?: 'messages_var_samp_fields';
   id?: Maybe<Scalars['Float']>;
+  receiver_id?: Maybe<Scalars['Float']>;
+  sender_id?: Maybe<Scalars['Float']>;
 };
 
-/** order by var_samp() on columns of table "knex_migrations" */
-export type Knex_Migrations_Var_Samp_Order_By = {
-  batch?: Maybe<Order_By>;
+/** order by var_samp() on columns of table "messages" */
+export type Messages_Var_Samp_Order_By = {
   id?: Maybe<Order_By>;
+  receiver_id?: Maybe<Order_By>;
+  sender_id?: Maybe<Order_By>;
 };
 
 /** aggregate variance on columns */
-export type Knex_Migrations_Variance_Fields = {
-  __typename?: 'knex_migrations_variance_fields';
-  batch?: Maybe<Scalars['Float']>;
+export type Messages_Variance_Fields = {
+  __typename?: 'messages_variance_fields';
   id?: Maybe<Scalars['Float']>;
+  receiver_id?: Maybe<Scalars['Float']>;
+  sender_id?: Maybe<Scalars['Float']>;
 };
 
-/** order by variance() on columns of table "knex_migrations" */
-export type Knex_Migrations_Variance_Order_By = {
-  batch?: Maybe<Order_By>;
+/** order by variance() on columns of table "messages" */
+export type Messages_Variance_Order_By = {
   id?: Maybe<Order_By>;
+  receiver_id?: Maybe<Order_By>;
+  sender_id?: Maybe<Order_By>;
 };
 
 /** mutation root */
@@ -4194,14 +4178,10 @@ export type Mutation_Root = {
   delete_highlight_type?: Maybe<Highlight_Type_Mutation_Response>;
   /** delete single row from the table: "highlight_type" */
   delete_highlight_type_by_pk?: Maybe<Highlight_Type>;
-  /** delete data from the table: "knex_migrations" */
-  delete_knex_migrations?: Maybe<Knex_Migrations_Mutation_Response>;
-  /** delete single row from the table: "knex_migrations" */
-  delete_knex_migrations_by_pk?: Maybe<Knex_Migrations>;
-  /** delete data from the table: "knex_migrations_lock" */
-  delete_knex_migrations_lock?: Maybe<Knex_Migrations_Lock_Mutation_Response>;
-  /** delete single row from the table: "knex_migrations_lock" */
-  delete_knex_migrations_lock_by_pk?: Maybe<Knex_Migrations_Lock>;
+  /** delete data from the table: "messages" */
+  delete_messages?: Maybe<Messages_Mutation_Response>;
+  /** delete single row from the table: "messages" */
+  delete_messages_by_pk?: Maybe<Messages>;
   /** delete data from the table: "physical_attribute" */
   delete_physical_attribute?: Maybe<Physical_Attribute_Mutation_Response>;
   /** delete single row from the table: "physical_attribute" */
@@ -4286,14 +4266,10 @@ export type Mutation_Root = {
   insert_highlight_type?: Maybe<Highlight_Type_Mutation_Response>;
   /** insert a single row into the table: "highlight_type" */
   insert_highlight_type_one?: Maybe<Highlight_Type>;
-  /** insert data into the table: "knex_migrations" */
-  insert_knex_migrations?: Maybe<Knex_Migrations_Mutation_Response>;
-  /** insert data into the table: "knex_migrations_lock" */
-  insert_knex_migrations_lock?: Maybe<Knex_Migrations_Lock_Mutation_Response>;
-  /** insert a single row into the table: "knex_migrations_lock" */
-  insert_knex_migrations_lock_one?: Maybe<Knex_Migrations_Lock>;
-  /** insert a single row into the table: "knex_migrations" */
-  insert_knex_migrations_one?: Maybe<Knex_Migrations>;
+  /** insert data into the table: "messages" */
+  insert_messages?: Maybe<Messages_Mutation_Response>;
+  /** insert a single row into the table: "messages" */
+  insert_messages_one?: Maybe<Messages>;
   /** insert data into the table: "physical_attribute" */
   insert_physical_attribute?: Maybe<Physical_Attribute_Mutation_Response>;
   /** insert a single row into the table: "physical_attribute" */
@@ -4330,8 +4306,6 @@ export type Mutation_Root = {
   insert_voice_type?: Maybe<Voice_Type_Mutation_Response>;
   /** insert a single row into the table: "voice_type" */
   insert_voice_type_one?: Maybe<Voice_Type>;
-  /** perform the action: "signup" */
-  signup?: Maybe<SignupOutput>;
   /** update data of the table: "applicant" */
   update_applicant?: Maybe<Applicant_Mutation_Response>;
   /** update single row of the table: "applicant" */
@@ -4380,14 +4354,10 @@ export type Mutation_Root = {
   update_highlight_type?: Maybe<Highlight_Type_Mutation_Response>;
   /** update single row of the table: "highlight_type" */
   update_highlight_type_by_pk?: Maybe<Highlight_Type>;
-  /** update data of the table: "knex_migrations" */
-  update_knex_migrations?: Maybe<Knex_Migrations_Mutation_Response>;
-  /** update single row of the table: "knex_migrations" */
-  update_knex_migrations_by_pk?: Maybe<Knex_Migrations>;
-  /** update data of the table: "knex_migrations_lock" */
-  update_knex_migrations_lock?: Maybe<Knex_Migrations_Lock_Mutation_Response>;
-  /** update single row of the table: "knex_migrations_lock" */
-  update_knex_migrations_lock_by_pk?: Maybe<Knex_Migrations_Lock>;
+  /** update data of the table: "messages" */
+  update_messages?: Maybe<Messages_Mutation_Response>;
+  /** update single row of the table: "messages" */
+  update_messages_by_pk?: Maybe<Messages>;
   /** update data of the table: "physical_attribute" */
   update_physical_attribute?: Maybe<Physical_Attribute_Mutation_Response>;
   /** update single row of the table: "physical_attribute" */
@@ -4572,26 +4542,14 @@ export type Mutation_RootDelete_Highlight_Type_By_PkArgs = {
 
 
 /** mutation root */
-export type Mutation_RootDelete_Knex_MigrationsArgs = {
-  where: Knex_Migrations_Bool_Exp;
+export type Mutation_RootDelete_MessagesArgs = {
+  where: Messages_Bool_Exp;
 };
 
 
 /** mutation root */
-export type Mutation_RootDelete_Knex_Migrations_By_PkArgs = {
+export type Mutation_RootDelete_Messages_By_PkArgs = {
   id: Scalars['Int'];
-};
-
-
-/** mutation root */
-export type Mutation_RootDelete_Knex_Migrations_LockArgs = {
-  where: Knex_Migrations_Lock_Bool_Exp;
-};
-
-
-/** mutation root */
-export type Mutation_RootDelete_Knex_Migrations_Lock_By_PkArgs = {
-  index: Scalars['Int'];
 };
 
 
@@ -4872,30 +4830,16 @@ export type Mutation_RootInsert_Highlight_Type_OneArgs = {
 
 
 /** mutation root */
-export type Mutation_RootInsert_Knex_MigrationsArgs = {
-  objects: Array<Knex_Migrations_Insert_Input>;
-  on_conflict?: Maybe<Knex_Migrations_On_Conflict>;
+export type Mutation_RootInsert_MessagesArgs = {
+  objects: Array<Messages_Insert_Input>;
+  on_conflict?: Maybe<Messages_On_Conflict>;
 };
 
 
 /** mutation root */
-export type Mutation_RootInsert_Knex_Migrations_LockArgs = {
-  objects: Array<Knex_Migrations_Lock_Insert_Input>;
-  on_conflict?: Maybe<Knex_Migrations_Lock_On_Conflict>;
-};
-
-
-/** mutation root */
-export type Mutation_RootInsert_Knex_Migrations_Lock_OneArgs = {
-  object: Knex_Migrations_Lock_Insert_Input;
-  on_conflict?: Maybe<Knex_Migrations_Lock_On_Conflict>;
-};
-
-
-/** mutation root */
-export type Mutation_RootInsert_Knex_Migrations_OneArgs = {
-  object: Knex_Migrations_Insert_Input;
-  on_conflict?: Maybe<Knex_Migrations_On_Conflict>;
+export type Mutation_RootInsert_Messages_OneArgs = {
+  object: Messages_Insert_Input;
+  on_conflict?: Maybe<Messages_On_Conflict>;
 };
 
 
@@ -5022,16 +4966,6 @@ export type Mutation_RootInsert_Voice_TypeArgs = {
 export type Mutation_RootInsert_Voice_Type_OneArgs = {
   object: Voice_Type_Insert_Input;
   on_conflict?: Maybe<Voice_Type_On_Conflict>;
-};
-
-
-/** mutation root */
-export type Mutation_RootSignupArgs = {
-  email: Scalars['String'];
-  name: Scalars['String'];
-  password: Scalars['String'];
-  profile_picture: Scalars['String'];
-  user_type_id: Scalars['Int'];
 };
 
 
@@ -5228,34 +5162,18 @@ export type Mutation_RootUpdate_Highlight_Type_By_PkArgs = {
 
 
 /** mutation root */
-export type Mutation_RootUpdate_Knex_MigrationsArgs = {
-  _inc?: Maybe<Knex_Migrations_Inc_Input>;
-  _set?: Maybe<Knex_Migrations_Set_Input>;
-  where: Knex_Migrations_Bool_Exp;
+export type Mutation_RootUpdate_MessagesArgs = {
+  _inc?: Maybe<Messages_Inc_Input>;
+  _set?: Maybe<Messages_Set_Input>;
+  where: Messages_Bool_Exp;
 };
 
 
 /** mutation root */
-export type Mutation_RootUpdate_Knex_Migrations_By_PkArgs = {
-  _inc?: Maybe<Knex_Migrations_Inc_Input>;
-  _set?: Maybe<Knex_Migrations_Set_Input>;
-  pk_columns: Knex_Migrations_Pk_Columns_Input;
-};
-
-
-/** mutation root */
-export type Mutation_RootUpdate_Knex_Migrations_LockArgs = {
-  _inc?: Maybe<Knex_Migrations_Lock_Inc_Input>;
-  _set?: Maybe<Knex_Migrations_Lock_Set_Input>;
-  where: Knex_Migrations_Lock_Bool_Exp;
-};
-
-
-/** mutation root */
-export type Mutation_RootUpdate_Knex_Migrations_Lock_By_PkArgs = {
-  _inc?: Maybe<Knex_Migrations_Lock_Inc_Input>;
-  _set?: Maybe<Knex_Migrations_Lock_Set_Input>;
-  pk_columns: Knex_Migrations_Lock_Pk_Columns_Input;
+export type Mutation_RootUpdate_Messages_By_PkArgs = {
+  _inc?: Maybe<Messages_Inc_Input>;
+  _set?: Maybe<Messages_Set_Input>;
+  pk_columns: Messages_Pk_Columns_Input;
 };
 
 
@@ -5439,6 +5357,54 @@ export type Physical_Attribute = {
   hair_color_id?: Maybe<Scalars['Int']>;
   height?: Maybe<Scalars['Int']>;
   id: Scalars['Int'];
+  /** An array relationship */
+  requirements: Array<Requirement>;
+  /** An aggregated array relationship */
+  requirements_aggregate: Requirement_Aggregate;
+  /** An array relationship */
+  users: Array<User>;
+  /** An aggregated array relationship */
+  users_aggregate: User_Aggregate;
+};
+
+
+/** columns and relationships of "physical_attribute" */
+export type Physical_AttributeRequirementsArgs = {
+  distinct_on?: Maybe<Array<Requirement_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Requirement_Order_By>>;
+  where?: Maybe<Requirement_Bool_Exp>;
+};
+
+
+/** columns and relationships of "physical_attribute" */
+export type Physical_AttributeRequirements_AggregateArgs = {
+  distinct_on?: Maybe<Array<Requirement_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Requirement_Order_By>>;
+  where?: Maybe<Requirement_Bool_Exp>;
+};
+
+
+/** columns and relationships of "physical_attribute" */
+export type Physical_AttributeUsersArgs = {
+  distinct_on?: Maybe<Array<User_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<User_Order_By>>;
+  where?: Maybe<User_Bool_Exp>;
+};
+
+
+/** columns and relationships of "physical_attribute" */
+export type Physical_AttributeUsers_AggregateArgs = {
+  distinct_on?: Maybe<Array<User_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<User_Order_By>>;
+  where?: Maybe<User_Bool_Exp>;
 };
 
 /** aggregated selection of "physical_attribute" */
@@ -5535,6 +5501,8 @@ export type Physical_Attribute_Bool_Exp = {
   hair_color_id?: Maybe<Int_Comparison_Exp>;
   height?: Maybe<Int_Comparison_Exp>;
   id?: Maybe<Int_Comparison_Exp>;
+  requirements?: Maybe<Requirement_Bool_Exp>;
+  users?: Maybe<User_Bool_Exp>;
 };
 
 /** unique or primary key constraints on table "physical_attribute" */
@@ -5570,6 +5538,8 @@ export type Physical_Attribute_Insert_Input = {
   hair_color_id?: Maybe<Scalars['Int']>;
   height?: Maybe<Scalars['Int']>;
   id?: Maybe<Scalars['Int']>;
+  requirements?: Maybe<Requirement_Arr_Rel_Insert_Input>;
+  users?: Maybe<User_Arr_Rel_Insert_Input>;
 };
 
 /** aggregate max on columns */
@@ -5659,6 +5629,8 @@ export type Physical_Attribute_Order_By = {
   hair_color_id?: Maybe<Order_By>;
   height?: Maybe<Order_By>;
   id?: Maybe<Order_By>;
+  requirements_aggregate?: Maybe<Requirement_Aggregate_Order_By>;
+  users_aggregate?: Maybe<User_Aggregate_Order_By>;
 };
 
 /** primary key columns input for table: "physical_attribute" */
@@ -5968,18 +5940,12 @@ export type Query_Root = {
   highlight_type_aggregate: Highlight_Type_Aggregate;
   /** fetch data from the table: "highlight_type" using primary key columns */
   highlight_type_by_pk?: Maybe<Highlight_Type>;
-  /** fetch data from the table: "knex_migrations" */
-  knex_migrations: Array<Knex_Migrations>;
-  /** fetch aggregated fields from the table: "knex_migrations" */
-  knex_migrations_aggregate: Knex_Migrations_Aggregate;
-  /** fetch data from the table: "knex_migrations" using primary key columns */
-  knex_migrations_by_pk?: Maybe<Knex_Migrations>;
-  /** fetch data from the table: "knex_migrations_lock" */
-  knex_migrations_lock: Array<Knex_Migrations_Lock>;
-  /** fetch aggregated fields from the table: "knex_migrations_lock" */
-  knex_migrations_lock_aggregate: Knex_Migrations_Lock_Aggregate;
-  /** fetch data from the table: "knex_migrations_lock" using primary key columns */
-  knex_migrations_lock_by_pk?: Maybe<Knex_Migrations_Lock>;
+  /** fetch data from the table: "messages" */
+  messages: Array<Messages>;
+  /** fetch aggregated fields from the table: "messages" */
+  messages_aggregate: Messages_Aggregate;
+  /** fetch data from the table: "messages" using primary key columns */
+  messages_by_pk?: Maybe<Messages>;
   /** fetch data from the table: "physical_attribute" */
   physical_attribute: Array<Physical_Attribute>;
   /** fetch aggregated fields from the table: "physical_attribute" */
@@ -6005,7 +5971,7 @@ export type Query_Root = {
   /** fetch data from the table: "role_type" using primary key columns */
   role_type_by_pk?: Maybe<Role_Type>;
   /** perform the action: "signin" */
-  signin?: Maybe<SigninActionOutput>;
+  signin?: Maybe<SigninOutput>;
   /** fetch data from the table: "tag" */
   tag: Array<Tag>;
   /** fetch aggregated fields from the table: "tag" */
@@ -6352,54 +6318,28 @@ export type Query_RootHighlight_Type_By_PkArgs = {
 
 
 /** query root */
-export type Query_RootKnex_MigrationsArgs = {
-  distinct_on?: Maybe<Array<Knex_Migrations_Select_Column>>;
+export type Query_RootMessagesArgs = {
+  distinct_on?: Maybe<Array<Messages_Select_Column>>;
   limit?: Maybe<Scalars['Int']>;
   offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<Knex_Migrations_Order_By>>;
-  where?: Maybe<Knex_Migrations_Bool_Exp>;
+  order_by?: Maybe<Array<Messages_Order_By>>;
+  where?: Maybe<Messages_Bool_Exp>;
 };
 
 
 /** query root */
-export type Query_RootKnex_Migrations_AggregateArgs = {
-  distinct_on?: Maybe<Array<Knex_Migrations_Select_Column>>;
+export type Query_RootMessages_AggregateArgs = {
+  distinct_on?: Maybe<Array<Messages_Select_Column>>;
   limit?: Maybe<Scalars['Int']>;
   offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<Knex_Migrations_Order_By>>;
-  where?: Maybe<Knex_Migrations_Bool_Exp>;
+  order_by?: Maybe<Array<Messages_Order_By>>;
+  where?: Maybe<Messages_Bool_Exp>;
 };
 
 
 /** query root */
-export type Query_RootKnex_Migrations_By_PkArgs = {
+export type Query_RootMessages_By_PkArgs = {
   id: Scalars['Int'];
-};
-
-
-/** query root */
-export type Query_RootKnex_Migrations_LockArgs = {
-  distinct_on?: Maybe<Array<Knex_Migrations_Lock_Select_Column>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<Knex_Migrations_Lock_Order_By>>;
-  where?: Maybe<Knex_Migrations_Lock_Bool_Exp>;
-};
-
-
-/** query root */
-export type Query_RootKnex_Migrations_Lock_AggregateArgs = {
-  distinct_on?: Maybe<Array<Knex_Migrations_Lock_Select_Column>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<Knex_Migrations_Lock_Order_By>>;
-  where?: Maybe<Knex_Migrations_Lock_Bool_Exp>;
-};
-
-
-/** query root */
-export type Query_RootKnex_Migrations_Lock_By_PkArgs = {
-  index: Scalars['Int'];
 };
 
 
@@ -6650,9 +6590,33 @@ export type Requirement = {
   /** An object relationship */
   physical_attribute?: Maybe<Physical_Attribute>;
   physical_attribute_id?: Maybe<Scalars['Int']>;
+  /** An array relationship */
+  roles: Array<Role>;
+  /** An aggregated array relationship */
+  roles_aggregate: Role_Aggregate;
   /** An object relationship */
   voice_attribute?: Maybe<Voice_Attribute>;
   voice_attribute_id?: Maybe<Scalars['Int']>;
+};
+
+
+/** columns and relationships of "requirement" */
+export type RequirementRolesArgs = {
+  distinct_on?: Maybe<Array<Role_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Role_Order_By>>;
+  where?: Maybe<Role_Bool_Exp>;
+};
+
+
+/** columns and relationships of "requirement" */
+export type RequirementRoles_AggregateArgs = {
+  distinct_on?: Maybe<Array<Role_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Role_Order_By>>;
+  where?: Maybe<Role_Bool_Exp>;
 };
 
 /** aggregated selection of "requirement" */
@@ -6729,6 +6693,7 @@ export type Requirement_Bool_Exp = {
   id?: Maybe<Int_Comparison_Exp>;
   physical_attribute?: Maybe<Physical_Attribute_Bool_Exp>;
   physical_attribute_id?: Maybe<Int_Comparison_Exp>;
+  roles?: Maybe<Role_Bool_Exp>;
   voice_attribute?: Maybe<Voice_Attribute_Bool_Exp>;
   voice_attribute_id?: Maybe<Int_Comparison_Exp>;
 };
@@ -6751,6 +6716,7 @@ export type Requirement_Insert_Input = {
   id?: Maybe<Scalars['Int']>;
   physical_attribute?: Maybe<Physical_Attribute_Obj_Rel_Insert_Input>;
   physical_attribute_id?: Maybe<Scalars['Int']>;
+  roles?: Maybe<Role_Arr_Rel_Insert_Input>;
   voice_attribute?: Maybe<Voice_Attribute_Obj_Rel_Insert_Input>;
   voice_attribute_id?: Maybe<Scalars['Int']>;
 };
@@ -6812,6 +6778,7 @@ export type Requirement_Order_By = {
   id?: Maybe<Order_By>;
   physical_attribute?: Maybe<Physical_Attribute_Order_By>;
   physical_attribute_id?: Maybe<Order_By>;
+  roles_aggregate?: Maybe<Role_Aggregate_Order_By>;
   voice_attribute?: Maybe<Voice_Attribute_Order_By>;
   voice_attribute_id?: Maybe<Order_By>;
 };
@@ -6960,6 +6927,8 @@ export type Role = {
   applicants: Array<Applicant>;
   /** An aggregated array relationship */
   applicants_aggregate: Applicant_Aggregate;
+  /** An object relationship */
+  audition: Audition;
   audition_id: Scalars['Int'];
   description: Scalars['String'];
   id: Scalars['Int'];
@@ -7066,6 +7035,7 @@ export type Role_Bool_Exp = {
   _not?: Maybe<Role_Bool_Exp>;
   _or?: Maybe<Array<Maybe<Role_Bool_Exp>>>;
   applicants?: Maybe<Applicant_Bool_Exp>;
+  audition?: Maybe<Audition_Bool_Exp>;
   audition_id?: Maybe<Int_Comparison_Exp>;
   description?: Maybe<String_Comparison_Exp>;
   id?: Maybe<Int_Comparison_Exp>;
@@ -7093,6 +7063,7 @@ export type Role_Inc_Input = {
 /** input type for inserting data into table "role" */
 export type Role_Insert_Input = {
   applicants?: Maybe<Applicant_Arr_Rel_Insert_Input>;
+  audition?: Maybe<Audition_Obj_Rel_Insert_Input>;
   audition_id?: Maybe<Scalars['Int']>;
   description?: Maybe<Scalars['String']>;
   id?: Maybe<Scalars['Int']>;
@@ -7170,6 +7141,7 @@ export type Role_On_Conflict = {
 /** ordering options when selecting data from "role" */
 export type Role_Order_By = {
   applicants_aggregate?: Maybe<Applicant_Aggregate_Order_By>;
+  audition?: Maybe<Audition_Order_By>;
   audition_id?: Maybe<Order_By>;
   description?: Maybe<Order_By>;
   id?: Maybe<Order_By>;
@@ -7284,6 +7256,30 @@ export type Role_Type = {
   __typename?: 'role_type';
   id: Scalars['Int'];
   name: Scalars['String'];
+  /** An array relationship */
+  roles: Array<Role>;
+  /** An aggregated array relationship */
+  roles_aggregate: Role_Aggregate;
+};
+
+
+/** columns and relationships of "role_type" */
+export type Role_TypeRolesArgs = {
+  distinct_on?: Maybe<Array<Role_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Role_Order_By>>;
+  where?: Maybe<Role_Bool_Exp>;
+};
+
+
+/** columns and relationships of "role_type" */
+export type Role_TypeRoles_AggregateArgs = {
+  distinct_on?: Maybe<Array<Role_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Role_Order_By>>;
+  where?: Maybe<Role_Bool_Exp>;
 };
 
 /** aggregated selection of "role_type" */
@@ -7355,6 +7351,7 @@ export type Role_Type_Bool_Exp = {
   _or?: Maybe<Array<Maybe<Role_Type_Bool_Exp>>>;
   id?: Maybe<Int_Comparison_Exp>;
   name?: Maybe<String_Comparison_Exp>;
+  roles?: Maybe<Role_Bool_Exp>;
 };
 
 /** unique or primary key constraints on table "role_type" */
@@ -7374,6 +7371,7 @@ export type Role_Type_Inc_Input = {
 export type Role_Type_Insert_Input = {
   id?: Maybe<Scalars['Int']>;
   name?: Maybe<Scalars['String']>;
+  roles?: Maybe<Role_Arr_Rel_Insert_Input>;
 };
 
 /** aggregate max on columns */
@@ -7428,6 +7426,7 @@ export type Role_Type_On_Conflict = {
 export type Role_Type_Order_By = {
   id?: Maybe<Order_By>;
   name?: Maybe<Order_By>;
+  roles_aggregate?: Maybe<Role_Aggregate_Order_By>;
 };
 
 /** primary key columns input for table: "role_type" */
@@ -7601,13 +7600,8 @@ export type Role_Variance_Order_By = {
   role_type_id?: Maybe<Order_By>;
 };
 
-export type SigninActionOutput = {
-  __typename?: 'signinActionOutput';
-  id: Scalars['String'];
-};
-
-export type SignupOutput = {
-  __typename?: 'signupOutput';
+export type SigninOutput = {
+  __typename?: 'signinOutput';
   id: Scalars['Int'];
 };
 
@@ -7686,18 +7680,12 @@ export type Subscription_Root = {
   highlight_type_aggregate: Highlight_Type_Aggregate;
   /** fetch data from the table: "highlight_type" using primary key columns */
   highlight_type_by_pk?: Maybe<Highlight_Type>;
-  /** fetch data from the table: "knex_migrations" */
-  knex_migrations: Array<Knex_Migrations>;
-  /** fetch aggregated fields from the table: "knex_migrations" */
-  knex_migrations_aggregate: Knex_Migrations_Aggregate;
-  /** fetch data from the table: "knex_migrations" using primary key columns */
-  knex_migrations_by_pk?: Maybe<Knex_Migrations>;
-  /** fetch data from the table: "knex_migrations_lock" */
-  knex_migrations_lock: Array<Knex_Migrations_Lock>;
-  /** fetch aggregated fields from the table: "knex_migrations_lock" */
-  knex_migrations_lock_aggregate: Knex_Migrations_Lock_Aggregate;
-  /** fetch data from the table: "knex_migrations_lock" using primary key columns */
-  knex_migrations_lock_by_pk?: Maybe<Knex_Migrations_Lock>;
+  /** fetch data from the table: "messages" */
+  messages: Array<Messages>;
+  /** fetch aggregated fields from the table: "messages" */
+  messages_aggregate: Messages_Aggregate;
+  /** fetch data from the table: "messages" using primary key columns */
+  messages_by_pk?: Maybe<Messages>;
   /** fetch data from the table: "physical_attribute" */
   physical_attribute: Array<Physical_Attribute>;
   /** fetch aggregated fields from the table: "physical_attribute" */
@@ -7723,7 +7711,7 @@ export type Subscription_Root = {
   /** fetch data from the table: "role_type" using primary key columns */
   role_type_by_pk?: Maybe<Role_Type>;
   /** perform the action: "signin" */
-  signin?: Maybe<SigninActionOutput>;
+  signin?: Maybe<SigninOutput>;
   /** fetch data from the table: "tag" */
   tag: Array<Tag>;
   /** fetch aggregated fields from the table: "tag" */
@@ -8070,54 +8058,28 @@ export type Subscription_RootHighlight_Type_By_PkArgs = {
 
 
 /** subscription root */
-export type Subscription_RootKnex_MigrationsArgs = {
-  distinct_on?: Maybe<Array<Knex_Migrations_Select_Column>>;
+export type Subscription_RootMessagesArgs = {
+  distinct_on?: Maybe<Array<Messages_Select_Column>>;
   limit?: Maybe<Scalars['Int']>;
   offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<Knex_Migrations_Order_By>>;
-  where?: Maybe<Knex_Migrations_Bool_Exp>;
+  order_by?: Maybe<Array<Messages_Order_By>>;
+  where?: Maybe<Messages_Bool_Exp>;
 };
 
 
 /** subscription root */
-export type Subscription_RootKnex_Migrations_AggregateArgs = {
-  distinct_on?: Maybe<Array<Knex_Migrations_Select_Column>>;
+export type Subscription_RootMessages_AggregateArgs = {
+  distinct_on?: Maybe<Array<Messages_Select_Column>>;
   limit?: Maybe<Scalars['Int']>;
   offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<Knex_Migrations_Order_By>>;
-  where?: Maybe<Knex_Migrations_Bool_Exp>;
+  order_by?: Maybe<Array<Messages_Order_By>>;
+  where?: Maybe<Messages_Bool_Exp>;
 };
 
 
 /** subscription root */
-export type Subscription_RootKnex_Migrations_By_PkArgs = {
+export type Subscription_RootMessages_By_PkArgs = {
   id: Scalars['Int'];
-};
-
-
-/** subscription root */
-export type Subscription_RootKnex_Migrations_LockArgs = {
-  distinct_on?: Maybe<Array<Knex_Migrations_Lock_Select_Column>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<Knex_Migrations_Lock_Order_By>>;
-  where?: Maybe<Knex_Migrations_Lock_Bool_Exp>;
-};
-
-
-/** subscription root */
-export type Subscription_RootKnex_Migrations_Lock_AggregateArgs = {
-  distinct_on?: Maybe<Array<Knex_Migrations_Lock_Select_Column>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<Knex_Migrations_Lock_Order_By>>;
-  where?: Maybe<Knex_Migrations_Lock_Bool_Exp>;
-};
-
-
-/** subscription root */
-export type Subscription_RootKnex_Migrations_Lock_By_PkArgs = {
-  index: Scalars['Int'];
 };
 
 
@@ -8660,12 +8622,32 @@ export type Timestamptz_Comparison_Exp = {
 /** columns and relationships of "user" */
 export type User = {
   __typename?: 'user';
+  /** An array relationship */
+  applicants: Array<Applicant>;
+  /** An aggregated array relationship */
+  applicants_aggregate: Applicant_Aggregate;
+  /** An array relationship */
+  auditions: Array<Audition>;
+  /** An aggregated array relationship */
+  auditions_aggregate: Audition_Aggregate;
   /** An object relationship */
   city?: Maybe<City>;
   city_id?: Maybe<Scalars['Int']>;
   created_at: Scalars['timestamptz'];
   email?: Maybe<Scalars['String']>;
+  /** An array relationship */
+  highlights: Array<Highlight>;
+  /** An aggregated array relationship */
+  highlights_aggregate: Highlight_Aggregate;
   id: Scalars['Int'];
+  /** An array relationship */
+  messagesByReceiverId: Array<Messages>;
+  /** An aggregated array relationship */
+  messagesByReceiverId_aggregate: Messages_Aggregate;
+  /** An array relationship */
+  messagesBySenderId: Array<Messages>;
+  /** An aggregated array relationship */
+  messagesBySenderId_aggregate: Messages_Aggregate;
   name: Scalars['String'];
   password: Scalars['String'];
   /** An object relationship */
@@ -8676,7 +8658,109 @@ export type User = {
   /** An object relationship */
   user_type: User_Type;
   user_type_id: Scalars['Int'];
+  /** An object relationship */
+  voice_attribute?: Maybe<Voice_Attribute>;
   voice_attribute_id?: Maybe<Scalars['Int']>;
+};
+
+
+/** columns and relationships of "user" */
+export type UserApplicantsArgs = {
+  distinct_on?: Maybe<Array<Applicant_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Applicant_Order_By>>;
+  where?: Maybe<Applicant_Bool_Exp>;
+};
+
+
+/** columns and relationships of "user" */
+export type UserApplicants_AggregateArgs = {
+  distinct_on?: Maybe<Array<Applicant_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Applicant_Order_By>>;
+  where?: Maybe<Applicant_Bool_Exp>;
+};
+
+
+/** columns and relationships of "user" */
+export type UserAuditionsArgs = {
+  distinct_on?: Maybe<Array<Audition_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Audition_Order_By>>;
+  where?: Maybe<Audition_Bool_Exp>;
+};
+
+
+/** columns and relationships of "user" */
+export type UserAuditions_AggregateArgs = {
+  distinct_on?: Maybe<Array<Audition_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Audition_Order_By>>;
+  where?: Maybe<Audition_Bool_Exp>;
+};
+
+
+/** columns and relationships of "user" */
+export type UserHighlightsArgs = {
+  distinct_on?: Maybe<Array<Highlight_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Highlight_Order_By>>;
+  where?: Maybe<Highlight_Bool_Exp>;
+};
+
+
+/** columns and relationships of "user" */
+export type UserHighlights_AggregateArgs = {
+  distinct_on?: Maybe<Array<Highlight_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Highlight_Order_By>>;
+  where?: Maybe<Highlight_Bool_Exp>;
+};
+
+
+/** columns and relationships of "user" */
+export type UserMessagesByReceiverIdArgs = {
+  distinct_on?: Maybe<Array<Messages_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Messages_Order_By>>;
+  where?: Maybe<Messages_Bool_Exp>;
+};
+
+
+/** columns and relationships of "user" */
+export type UserMessagesByReceiverId_AggregateArgs = {
+  distinct_on?: Maybe<Array<Messages_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Messages_Order_By>>;
+  where?: Maybe<Messages_Bool_Exp>;
+};
+
+
+/** columns and relationships of "user" */
+export type UserMessagesBySenderIdArgs = {
+  distinct_on?: Maybe<Array<Messages_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Messages_Order_By>>;
+  where?: Maybe<Messages_Bool_Exp>;
+};
+
+
+/** columns and relationships of "user" */
+export type UserMessagesBySenderId_AggregateArgs = {
+  distinct_on?: Maybe<Array<Messages_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Messages_Order_By>>;
+  where?: Maybe<Messages_Bool_Exp>;
 };
 
 /** aggregated selection of "user" */
@@ -8754,11 +8838,16 @@ export type User_Bool_Exp = {
   _and?: Maybe<Array<Maybe<User_Bool_Exp>>>;
   _not?: Maybe<User_Bool_Exp>;
   _or?: Maybe<Array<Maybe<User_Bool_Exp>>>;
+  applicants?: Maybe<Applicant_Bool_Exp>;
+  auditions?: Maybe<Audition_Bool_Exp>;
   city?: Maybe<City_Bool_Exp>;
   city_id?: Maybe<Int_Comparison_Exp>;
   created_at?: Maybe<Timestamptz_Comparison_Exp>;
   email?: Maybe<String_Comparison_Exp>;
+  highlights?: Maybe<Highlight_Bool_Exp>;
   id?: Maybe<Int_Comparison_Exp>;
+  messagesByReceiverId?: Maybe<Messages_Bool_Exp>;
+  messagesBySenderId?: Maybe<Messages_Bool_Exp>;
   name?: Maybe<String_Comparison_Exp>;
   password?: Maybe<String_Comparison_Exp>;
   physical_attribute?: Maybe<Physical_Attribute_Bool_Exp>;
@@ -8767,6 +8856,7 @@ export type User_Bool_Exp = {
   updated_at?: Maybe<Timestamptz_Comparison_Exp>;
   user_type?: Maybe<User_Type_Bool_Exp>;
   user_type_id?: Maybe<Int_Comparison_Exp>;
+  voice_attribute?: Maybe<Voice_Attribute_Bool_Exp>;
   voice_attribute_id?: Maybe<Int_Comparison_Exp>;
 };
 
@@ -8789,11 +8879,16 @@ export type User_Inc_Input = {
 
 /** input type for inserting data into table "user" */
 export type User_Insert_Input = {
+  applicants?: Maybe<Applicant_Arr_Rel_Insert_Input>;
+  auditions?: Maybe<Audition_Arr_Rel_Insert_Input>;
   city?: Maybe<City_Obj_Rel_Insert_Input>;
   city_id?: Maybe<Scalars['Int']>;
   created_at?: Maybe<Scalars['timestamptz']>;
   email?: Maybe<Scalars['String']>;
+  highlights?: Maybe<Highlight_Arr_Rel_Insert_Input>;
   id?: Maybe<Scalars['Int']>;
+  messagesByReceiverId?: Maybe<Messages_Arr_Rel_Insert_Input>;
+  messagesBySenderId?: Maybe<Messages_Arr_Rel_Insert_Input>;
   name?: Maybe<Scalars['String']>;
   password?: Maybe<Scalars['String']>;
   physical_attribute?: Maybe<Physical_Attribute_Obj_Rel_Insert_Input>;
@@ -8802,6 +8897,7 @@ export type User_Insert_Input = {
   updated_at?: Maybe<Scalars['timestamptz']>;
   user_type?: Maybe<User_Type_Obj_Rel_Insert_Input>;
   user_type_id?: Maybe<Scalars['Int']>;
+  voice_attribute?: Maybe<Voice_Attribute_Obj_Rel_Insert_Input>;
   voice_attribute_id?: Maybe<Scalars['Int']>;
 };
 
@@ -8891,11 +8987,16 @@ export type User_On_Conflict = {
 
 /** ordering options when selecting data from "user" */
 export type User_Order_By = {
+  applicants_aggregate?: Maybe<Applicant_Aggregate_Order_By>;
+  auditions_aggregate?: Maybe<Audition_Aggregate_Order_By>;
   city?: Maybe<City_Order_By>;
   city_id?: Maybe<Order_By>;
   created_at?: Maybe<Order_By>;
   email?: Maybe<Order_By>;
+  highlights_aggregate?: Maybe<Highlight_Aggregate_Order_By>;
   id?: Maybe<Order_By>;
+  messagesByReceiverId_aggregate?: Maybe<Messages_Aggregate_Order_By>;
+  messagesBySenderId_aggregate?: Maybe<Messages_Aggregate_Order_By>;
   name?: Maybe<Order_By>;
   password?: Maybe<Order_By>;
   physical_attribute?: Maybe<Physical_Attribute_Order_By>;
@@ -8904,6 +9005,7 @@ export type User_Order_By = {
   updated_at?: Maybe<Order_By>;
   user_type?: Maybe<User_Type_Order_By>;
   user_type_id?: Maybe<Order_By>;
+  voice_attribute?: Maybe<Voice_Attribute_Order_By>;
   voice_attribute_id?: Maybe<Order_By>;
 };
 
@@ -9399,7 +9501,57 @@ export type User_Variance_Order_By = {
 export type Voice_Attribute = {
   __typename?: 'voice_attribute';
   id: Scalars['Int'];
+  /** An array relationship */
+  requirements: Array<Requirement>;
+  /** An aggregated array relationship */
+  requirements_aggregate: Requirement_Aggregate;
+  /** An array relationship */
+  users: Array<User>;
+  /** An aggregated array relationship */
+  users_aggregate: User_Aggregate;
+  /** An object relationship */
+  voice_type?: Maybe<Voice_Type>;
   voice_type_id?: Maybe<Scalars['Int']>;
+};
+
+
+/** columns and relationships of "voice_attribute" */
+export type Voice_AttributeRequirementsArgs = {
+  distinct_on?: Maybe<Array<Requirement_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Requirement_Order_By>>;
+  where?: Maybe<Requirement_Bool_Exp>;
+};
+
+
+/** columns and relationships of "voice_attribute" */
+export type Voice_AttributeRequirements_AggregateArgs = {
+  distinct_on?: Maybe<Array<Requirement_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Requirement_Order_By>>;
+  where?: Maybe<Requirement_Bool_Exp>;
+};
+
+
+/** columns and relationships of "voice_attribute" */
+export type Voice_AttributeUsersArgs = {
+  distinct_on?: Maybe<Array<User_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<User_Order_By>>;
+  where?: Maybe<User_Bool_Exp>;
+};
+
+
+/** columns and relationships of "voice_attribute" */
+export type Voice_AttributeUsers_AggregateArgs = {
+  distinct_on?: Maybe<Array<User_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<User_Order_By>>;
+  where?: Maybe<User_Bool_Exp>;
 };
 
 /** aggregated selection of "voice_attribute" */
@@ -9472,6 +9624,9 @@ export type Voice_Attribute_Bool_Exp = {
   _not?: Maybe<Voice_Attribute_Bool_Exp>;
   _or?: Maybe<Array<Maybe<Voice_Attribute_Bool_Exp>>>;
   id?: Maybe<Int_Comparison_Exp>;
+  requirements?: Maybe<Requirement_Bool_Exp>;
+  users?: Maybe<User_Bool_Exp>;
+  voice_type?: Maybe<Voice_Type_Bool_Exp>;
   voice_type_id?: Maybe<Int_Comparison_Exp>;
 };
 
@@ -9490,6 +9645,9 @@ export type Voice_Attribute_Inc_Input = {
 /** input type for inserting data into table "voice_attribute" */
 export type Voice_Attribute_Insert_Input = {
   id?: Maybe<Scalars['Int']>;
+  requirements?: Maybe<Requirement_Arr_Rel_Insert_Input>;
+  users?: Maybe<User_Arr_Rel_Insert_Input>;
+  voice_type?: Maybe<Voice_Type_Obj_Rel_Insert_Input>;
   voice_type_id?: Maybe<Scalars['Int']>;
 };
 
@@ -9544,6 +9702,9 @@ export type Voice_Attribute_On_Conflict = {
 /** ordering options when selecting data from "voice_attribute" */
 export type Voice_Attribute_Order_By = {
   id?: Maybe<Order_By>;
+  requirements_aggregate?: Maybe<Requirement_Aggregate_Order_By>;
+  users_aggregate?: Maybe<User_Aggregate_Order_By>;
+  voice_type?: Maybe<Voice_Type_Order_By>;
   voice_type_id?: Maybe<Order_By>;
 };
 
@@ -9670,6 +9831,30 @@ export type Voice_Type = {
   __typename?: 'voice_type';
   id: Scalars['Int'];
   name: Scalars['String'];
+  /** An array relationship */
+  voice_attributes: Array<Voice_Attribute>;
+  /** An aggregated array relationship */
+  voice_attributes_aggregate: Voice_Attribute_Aggregate;
+};
+
+
+/** columns and relationships of "voice_type" */
+export type Voice_TypeVoice_AttributesArgs = {
+  distinct_on?: Maybe<Array<Voice_Attribute_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Voice_Attribute_Order_By>>;
+  where?: Maybe<Voice_Attribute_Bool_Exp>;
+};
+
+
+/** columns and relationships of "voice_type" */
+export type Voice_TypeVoice_Attributes_AggregateArgs = {
+  distinct_on?: Maybe<Array<Voice_Attribute_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Voice_Attribute_Order_By>>;
+  where?: Maybe<Voice_Attribute_Bool_Exp>;
 };
 
 /** aggregated selection of "voice_type" */
@@ -9741,6 +9926,7 @@ export type Voice_Type_Bool_Exp = {
   _or?: Maybe<Array<Maybe<Voice_Type_Bool_Exp>>>;
   id?: Maybe<Int_Comparison_Exp>;
   name?: Maybe<String_Comparison_Exp>;
+  voice_attributes?: Maybe<Voice_Attribute_Bool_Exp>;
 };
 
 /** unique or primary key constraints on table "voice_type" */
@@ -9760,6 +9946,7 @@ export type Voice_Type_Inc_Input = {
 export type Voice_Type_Insert_Input = {
   id?: Maybe<Scalars['Int']>;
   name?: Maybe<Scalars['String']>;
+  voice_attributes?: Maybe<Voice_Attribute_Arr_Rel_Insert_Input>;
 };
 
 /** aggregate max on columns */
@@ -9814,6 +10001,7 @@ export type Voice_Type_On_Conflict = {
 export type Voice_Type_Order_By = {
   id?: Maybe<Order_By>;
   name?: Maybe<Order_By>;
+  voice_attributes_aggregate?: Maybe<Voice_Attribute_Aggregate_Order_By>;
 };
 
 /** primary key columns input for table: "voice_type" */
@@ -9922,14 +10110,21 @@ export type Voice_Type_Variance_Order_By = {
 
 export type AuditionCardFragment = (
   { __typename?: 'audition' }
-  & Pick<Audition, 'id' | 'name' | 'created_at'>
+  & Pick<Audition, 'id' | 'name' | 'description' | 'address' | 'created_at'>
   & { city: (
     { __typename?: 'city' }
     & Pick<City, 'name'>
   ), audition_type: (
     { __typename?: 'audition_type' }
     & Pick<Audition_Type, 'name'>
-  ), audition_tags: Array<(
+  ), roles: Array<(
+    { __typename?: 'role' }
+    & Pick<Role, 'name'>
+    & { role_type: (
+      { __typename?: 'role_type' }
+      & Pick<Role_Type, 'name'>
+    ) }
+  )>, audition_tags: Array<(
     { __typename?: 'audition_tag' }
     & { tag: (
       { __typename?: 'tag' }
@@ -9940,8 +10135,11 @@ export type AuditionCardFragment = (
 
 export type AuditionDetailsFragment = (
   { __typename?: 'audition' }
-  & Pick<Audition, 'name' | 'description' | 'created_at' | 'company_name'>
-  & { city: (
+  & Pick<Audition, 'id' | 'user_id' | 'name' | 'description' | 'created_at' | 'company_name'>
+  & { user: (
+    { __typename?: 'user' }
+    & TalentCardFragment
+  ), city: (
     { __typename?: 'city' }
     & Pick<City, 'name'>
   ), audition_type: (
@@ -9989,7 +10187,13 @@ export type RoleDetailsFragment = (
   )>, role_type: (
     { __typename?: 'role_type' }
     & Pick<Role_Type, 'name'>
-  ), requirement?: Maybe<(
+  ) }
+  & RoleRequirementsFragment
+);
+
+export type RoleRequirementsFragment = (
+  { __typename?: 'role' }
+  & { requirement?: Maybe<(
     { __typename?: 'requirement' }
     & { physical_attribute?: Maybe<(
       { __typename?: 'physical_attribute' }
@@ -10064,6 +10268,54 @@ export type CreateAuditionMutation = (
   )> }
 );
 
+export type SendMessageMutationVariables = Exact<{
+  sender_id: Scalars['Int'];
+  receiver_id: Scalars['Int'];
+  content: Scalars['String'];
+}>;
+
+
+export type SendMessageMutation = (
+  { __typename?: 'mutation_root' }
+  & { insert_messages_one?: Maybe<(
+    { __typename?: 'messages' }
+    & Pick<Messages, 'id' | 'content'>
+  )> }
+);
+
+export type ApplicantsByRoleIdQueryVariables = Exact<{
+  role_id: Scalars['Int'];
+}>;
+
+
+export type ApplicantsByRoleIdQuery = (
+  { __typename?: 'query_root' }
+  & { role: Array<(
+    { __typename?: 'role' }
+    & Pick<Role, 'id'>
+    & { applicants: Array<(
+      { __typename?: 'applicant' }
+      & { user: (
+        { __typename?: 'user' }
+        & TalentCardFragment
+      ) }
+    )> }
+  )> }
+);
+
+export type AppliedAuditionsQueryVariables = Exact<{
+  uid: Scalars['Int'];
+}>;
+
+
+export type AppliedAuditionsQuery = (
+  { __typename?: 'query_root' }
+  & { audition: Array<(
+    { __typename?: 'audition' }
+    & AuditionCardFragment
+  )> }
+);
+
 export type AuditionByIdQueryVariables = Exact<{
   id: Scalars['Int'];
   user_id: Scalars['Int'];
@@ -10096,10 +10348,52 @@ export type GetAuditionTypeCountQuery = (
   )> }
 );
 
-export type AuditionsQueryVariables = Exact<{ [key: string]: never; }>;
+export type AuditionsQueryVariables = Exact<{
+  uid: Scalars['Int'];
+}>;
 
 
 export type AuditionsQuery = (
+  { __typename?: 'query_root' }
+  & { audition: Array<(
+    { __typename?: 'audition' }
+    & AuditionCardFragment
+  )> }
+);
+
+export type MessagesQueryVariables = Exact<{
+  uid: Scalars['Int'];
+}>;
+
+
+export type MessagesQuery = (
+  { __typename?: 'query_root' }
+  & { user_by_pk?: Maybe<(
+    { __typename?: 'user' }
+    & { messagesBySenderId: Array<(
+      { __typename?: 'messages' }
+      & Pick<Messages, 'receiver_id'>
+      & { userByReceiverId: (
+        { __typename?: 'user' }
+        & TalentCardFragment
+      ) }
+    )>, messagesByReceiverId: Array<(
+      { __typename?: 'messages' }
+      & Pick<Messages, 'sender_id'>
+      & { userBySenderId: (
+        { __typename?: 'user' }
+        & TalentCardFragment
+      ) }
+    )> }
+  )> }
+);
+
+export type PostedAuditionsQueryVariables = Exact<{
+  uid: Scalars['Int'];
+}>;
+
+
+export type PostedAuditionsQuery = (
   { __typename?: 'query_root' }
   & { audition: Array<(
     { __typename?: 'audition' }
@@ -10116,12 +10410,14 @@ export type SignInUserQueryVariables = Exact<{
 export type SignInUserQuery = (
   { __typename?: 'query_root' }
   & { signin?: Maybe<(
-    { __typename?: 'signinActionOutput' }
-    & Pick<SigninActionOutput, 'id'>
+    { __typename?: 'signinOutput' }
+    & Pick<SigninOutput, 'id'>
   )> }
 );
 
-export type TalentsQueryVariables = Exact<{ [key: string]: never; }>;
+export type TalentsQueryVariables = Exact<{
+  filter?: Maybe<User_Bool_Exp>;
+}>;
 
 
 export type TalentsQuery = (
@@ -10145,15 +10441,50 @@ export type UserByIdQuery = (
   )> }
 );
 
+export type UserNameByIdQueryVariables = Exact<{
+  uid: Scalars['Int'];
+}>;
+
+
+export type UserNameByIdQuery = (
+  { __typename?: 'query_root' }
+  & { user: Array<(
+    { __typename?: 'user' }
+    & Pick<User, 'name' | 'profile_picture'>
+  )> }
+);
+
+export type ConversationSubscriptionVariables = Exact<{
+  uid: Scalars['Int'];
+  other_uid: Scalars['Int'];
+}>;
+
+
+export type ConversationSubscription = (
+  { __typename?: 'subscription_root' }
+  & { messages: Array<(
+    { __typename?: 'messages' }
+    & Pick<Messages, 'sender_id' | 'content' | 'created_at'>
+  )> }
+);
+
 export const AuditionCardFragmentDoc = gql`
     fragment AuditionCard on audition {
   id
   name
+  description
+  address
   city {
     name
   }
   audition_type {
     name
+  }
+  roles {
+    name
+    role_type {
+      name
+    }
   }
   created_at
   audition_tags {
@@ -10163,17 +10494,18 @@ export const AuditionCardFragmentDoc = gql`
   }
 }
     `;
-export const RoleDetailsFragmentDoc = gql`
-    fragment RoleDetails on role {
+export const TalentCardFragmentDoc = gql`
+    fragment TalentCard on user {
   id
   name
-  description
-  did_user_applied: applicants(where: {user_id: {_eq: $user_id}}) {
-    user_id
-  }
-  role_type {
+  profile_picture
+  user_type {
     name
   }
+}
+    `;
+export const RoleRequirementsFragmentDoc = gql`
+    fragment RoleRequirements on role {
   requirement {
     physical_attribute {
       age
@@ -10197,8 +10529,27 @@ export const RoleDetailsFragmentDoc = gql`
   }
 }
     `;
+export const RoleDetailsFragmentDoc = gql`
+    fragment RoleDetails on role {
+  id
+  name
+  description
+  did_user_applied: applicants(where: {user_id: {_eq: $user_id}}) {
+    user_id
+  }
+  role_type {
+    name
+  }
+  ...RoleRequirements
+}
+    ${RoleRequirementsFragmentDoc}`;
 export const AuditionDetailsFragmentDoc = gql`
     fragment AuditionDetails on audition {
+  id
+  user_id
+  user {
+    ...TalentCard
+  }
   name
   description
   created_at
@@ -10218,17 +10569,8 @@ export const AuditionDetailsFragmentDoc = gql`
     ...RoleDetails
   }
 }
-    ${RoleDetailsFragmentDoc}`;
-export const TalentCardFragmentDoc = gql`
-    fragment TalentCard on user {
-  id
-  name
-  profile_picture
-  user_type {
-    name
-  }
-}
-    `;
+    ${TalentCardFragmentDoc}
+${RoleDetailsFragmentDoc}`;
 export const PhysicalAttributesFragmentDoc = gql`
     fragment PhysicalAttributes on physical_attribute {
   age
@@ -10331,6 +10673,112 @@ export function useCreateAuditionMutation(baseOptions?: Apollo.MutationHookOptio
 export type CreateAuditionMutationHookResult = ReturnType<typeof useCreateAuditionMutation>;
 export type CreateAuditionMutationResult = Apollo.MutationResult<CreateAuditionMutation>;
 export type CreateAuditionMutationOptions = Apollo.BaseMutationOptions<CreateAuditionMutation, CreateAuditionMutationVariables>;
+export const SendMessageDocument = gql`
+    mutation SendMessage($sender_id: Int!, $receiver_id: Int!, $content: String!) {
+  insert_messages_one(object: {sender_id: $sender_id, receiver_id: $receiver_id, content: $content}) {
+    id
+    content
+  }
+}
+    `;
+export type SendMessageMutationFn = Apollo.MutationFunction<SendMessageMutation, SendMessageMutationVariables>;
+
+/**
+ * __useSendMessageMutation__
+ *
+ * To run a mutation, you first call `useSendMessageMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useSendMessageMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [sendMessageMutation, { data, loading, error }] = useSendMessageMutation({
+ *   variables: {
+ *      sender_id: // value for 'sender_id'
+ *      receiver_id: // value for 'receiver_id'
+ *      content: // value for 'content'
+ *   },
+ * });
+ */
+export function useSendMessageMutation(baseOptions?: Apollo.MutationHookOptions<SendMessageMutation, SendMessageMutationVariables>) {
+        return Apollo.useMutation<SendMessageMutation, SendMessageMutationVariables>(SendMessageDocument, baseOptions);
+      }
+export type SendMessageMutationHookResult = ReturnType<typeof useSendMessageMutation>;
+export type SendMessageMutationResult = Apollo.MutationResult<SendMessageMutation>;
+export type SendMessageMutationOptions = Apollo.BaseMutationOptions<SendMessageMutation, SendMessageMutationVariables>;
+export const ApplicantsByRoleIdDocument = gql`
+    query ApplicantsByRoleId($role_id: Int!) {
+  role(where: {id: {_eq: $role_id}}) {
+    id
+    applicants {
+      user {
+        ...TalentCard
+      }
+    }
+  }
+}
+    ${TalentCardFragmentDoc}`;
+
+/**
+ * __useApplicantsByRoleIdQuery__
+ *
+ * To run a query within a React component, call `useApplicantsByRoleIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useApplicantsByRoleIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useApplicantsByRoleIdQuery({
+ *   variables: {
+ *      role_id: // value for 'role_id'
+ *   },
+ * });
+ */
+export function useApplicantsByRoleIdQuery(baseOptions?: Apollo.QueryHookOptions<ApplicantsByRoleIdQuery, ApplicantsByRoleIdQueryVariables>) {
+        return Apollo.useQuery<ApplicantsByRoleIdQuery, ApplicantsByRoleIdQueryVariables>(ApplicantsByRoleIdDocument, baseOptions);
+      }
+export function useApplicantsByRoleIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ApplicantsByRoleIdQuery, ApplicantsByRoleIdQueryVariables>) {
+          return Apollo.useLazyQuery<ApplicantsByRoleIdQuery, ApplicantsByRoleIdQueryVariables>(ApplicantsByRoleIdDocument, baseOptions);
+        }
+export type ApplicantsByRoleIdQueryHookResult = ReturnType<typeof useApplicantsByRoleIdQuery>;
+export type ApplicantsByRoleIdLazyQueryHookResult = ReturnType<typeof useApplicantsByRoleIdLazyQuery>;
+export type ApplicantsByRoleIdQueryResult = Apollo.QueryResult<ApplicantsByRoleIdQuery, ApplicantsByRoleIdQueryVariables>;
+export const AppliedAuditionsDocument = gql`
+    query AppliedAuditions($uid: Int!) {
+  audition(where: {roles: {applicants: {user_id: {_eq: $uid}}}}) {
+    ...AuditionCard
+  }
+}
+    ${AuditionCardFragmentDoc}`;
+
+/**
+ * __useAppliedAuditionsQuery__
+ *
+ * To run a query within a React component, call `useAppliedAuditionsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useAppliedAuditionsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useAppliedAuditionsQuery({
+ *   variables: {
+ *      uid: // value for 'uid'
+ *   },
+ * });
+ */
+export function useAppliedAuditionsQuery(baseOptions?: Apollo.QueryHookOptions<AppliedAuditionsQuery, AppliedAuditionsQueryVariables>) {
+        return Apollo.useQuery<AppliedAuditionsQuery, AppliedAuditionsQueryVariables>(AppliedAuditionsDocument, baseOptions);
+      }
+export function useAppliedAuditionsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<AppliedAuditionsQuery, AppliedAuditionsQueryVariables>) {
+          return Apollo.useLazyQuery<AppliedAuditionsQuery, AppliedAuditionsQueryVariables>(AppliedAuditionsDocument, baseOptions);
+        }
+export type AppliedAuditionsQueryHookResult = ReturnType<typeof useAppliedAuditionsQuery>;
+export type AppliedAuditionsLazyQueryHookResult = ReturnType<typeof useAppliedAuditionsLazyQuery>;
+export type AppliedAuditionsQueryResult = Apollo.QueryResult<AppliedAuditionsQuery, AppliedAuditionsQueryVariables>;
 export const AuditionByIdDocument = gql`
     query AuditionById($id: Int!, $user_id: Int!) {
   audition_by_pk(id: $id) {
@@ -10403,8 +10851,8 @@ export type GetAuditionTypeCountQueryHookResult = ReturnType<typeof useGetAuditi
 export type GetAuditionTypeCountLazyQueryHookResult = ReturnType<typeof useGetAuditionTypeCountLazyQuery>;
 export type GetAuditionTypeCountQueryResult = Apollo.QueryResult<GetAuditionTypeCountQuery, GetAuditionTypeCountQueryVariables>;
 export const AuditionsDocument = gql`
-    query Auditions {
-  audition(limit: 5, order_by: {created_at: desc}) {
+    query Auditions($uid: Int!) {
+  audition(limit: 5, order_by: {created_at: desc}, where: {user_id: {_neq: $uid}}) {
     ...AuditionCard
   }
 }
@@ -10422,6 +10870,7 @@ export const AuditionsDocument = gql`
  * @example
  * const { data, loading, error } = useAuditionsQuery({
  *   variables: {
+ *      uid: // value for 'uid'
  *   },
  * });
  */
@@ -10434,6 +10883,83 @@ export function useAuditionsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<
 export type AuditionsQueryHookResult = ReturnType<typeof useAuditionsQuery>;
 export type AuditionsLazyQueryHookResult = ReturnType<typeof useAuditionsLazyQuery>;
 export type AuditionsQueryResult = Apollo.QueryResult<AuditionsQuery, AuditionsQueryVariables>;
+export const MessagesDocument = gql`
+    query Messages($uid: Int!) {
+  user_by_pk(id: $uid) {
+    messagesBySenderId(distinct_on: receiver_id) {
+      receiver_id
+      userByReceiverId {
+        ...TalentCard
+      }
+    }
+    messagesByReceiverId(distinct_on: sender_id) {
+      sender_id
+      userBySenderId {
+        ...TalentCard
+      }
+    }
+  }
+}
+    ${TalentCardFragmentDoc}`;
+
+/**
+ * __useMessagesQuery__
+ *
+ * To run a query within a React component, call `useMessagesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useMessagesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useMessagesQuery({
+ *   variables: {
+ *      uid: // value for 'uid'
+ *   },
+ * });
+ */
+export function useMessagesQuery(baseOptions?: Apollo.QueryHookOptions<MessagesQuery, MessagesQueryVariables>) {
+        return Apollo.useQuery<MessagesQuery, MessagesQueryVariables>(MessagesDocument, baseOptions);
+      }
+export function useMessagesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<MessagesQuery, MessagesQueryVariables>) {
+          return Apollo.useLazyQuery<MessagesQuery, MessagesQueryVariables>(MessagesDocument, baseOptions);
+        }
+export type MessagesQueryHookResult = ReturnType<typeof useMessagesQuery>;
+export type MessagesLazyQueryHookResult = ReturnType<typeof useMessagesLazyQuery>;
+export type MessagesQueryResult = Apollo.QueryResult<MessagesQuery, MessagesQueryVariables>;
+export const PostedAuditionsDocument = gql`
+    query PostedAuditions($uid: Int!) {
+  audition(where: {user_id: {_eq: $uid}}, order_by: {created_at: desc}) {
+    ...AuditionCard
+  }
+}
+    ${AuditionCardFragmentDoc}`;
+
+/**
+ * __usePostedAuditionsQuery__
+ *
+ * To run a query within a React component, call `usePostedAuditionsQuery` and pass it any options that fit your needs.
+ * When your component renders, `usePostedAuditionsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = usePostedAuditionsQuery({
+ *   variables: {
+ *      uid: // value for 'uid'
+ *   },
+ * });
+ */
+export function usePostedAuditionsQuery(baseOptions?: Apollo.QueryHookOptions<PostedAuditionsQuery, PostedAuditionsQueryVariables>) {
+        return Apollo.useQuery<PostedAuditionsQuery, PostedAuditionsQueryVariables>(PostedAuditionsDocument, baseOptions);
+      }
+export function usePostedAuditionsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<PostedAuditionsQuery, PostedAuditionsQueryVariables>) {
+          return Apollo.useLazyQuery<PostedAuditionsQuery, PostedAuditionsQueryVariables>(PostedAuditionsDocument, baseOptions);
+        }
+export type PostedAuditionsQueryHookResult = ReturnType<typeof usePostedAuditionsQuery>;
+export type PostedAuditionsLazyQueryHookResult = ReturnType<typeof usePostedAuditionsLazyQuery>;
+export type PostedAuditionsQueryResult = Apollo.QueryResult<PostedAuditionsQuery, PostedAuditionsQueryVariables>;
 export const SignInUserDocument = gql`
     query SignInUser($email: String!, $password: String!) {
   signin(email: $email, password: $password) {
@@ -10469,8 +10995,8 @@ export type SignInUserQueryHookResult = ReturnType<typeof useSignInUserQuery>;
 export type SignInUserLazyQueryHookResult = ReturnType<typeof useSignInUserLazyQuery>;
 export type SignInUserQueryResult = Apollo.QueryResult<SignInUserQuery, SignInUserQueryVariables>;
 export const TalentsDocument = gql`
-    query Talents {
-  user(where: {user_type_id: {_lt: 5}}) {
+    query Talents($filter: user_bool_exp) {
+  user(where: {user_type_id: {_lt: 5}, _and: [$filter]}) {
     ...TalentCard
   }
 }
@@ -10488,6 +11014,7 @@ export const TalentsDocument = gql`
  * @example
  * const { data, loading, error } = useTalentsQuery({
  *   variables: {
+ *      filter: // value for 'filter'
  *   },
  * });
  */
@@ -10533,3 +11060,69 @@ export function useUserByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<U
 export type UserByIdQueryHookResult = ReturnType<typeof useUserByIdQuery>;
 export type UserByIdLazyQueryHookResult = ReturnType<typeof useUserByIdLazyQuery>;
 export type UserByIdQueryResult = Apollo.QueryResult<UserByIdQuery, UserByIdQueryVariables>;
+export const UserNameByIdDocument = gql`
+    query UserNameById($uid: Int!) {
+  user(where: {id: {_eq: $uid}}) {
+    name
+    profile_picture
+  }
+}
+    `;
+
+/**
+ * __useUserNameByIdQuery__
+ *
+ * To run a query within a React component, call `useUserNameByIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useUserNameByIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useUserNameByIdQuery({
+ *   variables: {
+ *      uid: // value for 'uid'
+ *   },
+ * });
+ */
+export function useUserNameByIdQuery(baseOptions?: Apollo.QueryHookOptions<UserNameByIdQuery, UserNameByIdQueryVariables>) {
+        return Apollo.useQuery<UserNameByIdQuery, UserNameByIdQueryVariables>(UserNameByIdDocument, baseOptions);
+      }
+export function useUserNameByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<UserNameByIdQuery, UserNameByIdQueryVariables>) {
+          return Apollo.useLazyQuery<UserNameByIdQuery, UserNameByIdQueryVariables>(UserNameByIdDocument, baseOptions);
+        }
+export type UserNameByIdQueryHookResult = ReturnType<typeof useUserNameByIdQuery>;
+export type UserNameByIdLazyQueryHookResult = ReturnType<typeof useUserNameByIdLazyQuery>;
+export type UserNameByIdQueryResult = Apollo.QueryResult<UserNameByIdQuery, UserNameByIdQueryVariables>;
+export const ConversationDocument = gql`
+    subscription Conversation($uid: Int!, $other_uid: Int!) {
+  messages(where: {_or: [{_and: [{sender_id: {_eq: $uid}}, {receiver_id: {_eq: $other_uid}}]}, {_and: [{sender_id: {_eq: $other_uid}}, {receiver_id: {_eq: $uid}}]}]}, order_by: {created_at: asc}) {
+    sender_id
+    content
+    created_at
+  }
+}
+    `;
+
+/**
+ * __useConversationSubscription__
+ *
+ * To run a query within a React component, call `useConversationSubscription` and pass it any options that fit your needs.
+ * When your component renders, `useConversationSubscription` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the subscription, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useConversationSubscription({
+ *   variables: {
+ *      uid: // value for 'uid'
+ *      other_uid: // value for 'other_uid'
+ *   },
+ * });
+ */
+export function useConversationSubscription(baseOptions?: Apollo.SubscriptionHookOptions<ConversationSubscription, ConversationSubscriptionVariables>) {
+        return Apollo.useSubscription<ConversationSubscription, ConversationSubscriptionVariables>(ConversationDocument, baseOptions);
+      }
+export type ConversationSubscriptionHookResult = ReturnType<typeof useConversationSubscription>;
+export type ConversationSubscriptionResult = Apollo.SubscriptionResult<ConversationSubscription>;

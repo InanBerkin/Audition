@@ -1,5 +1,5 @@
-query Talents {
-  user(where: { user_type_id: { _lt: 5 } }) {
+query Talents($filter: user_bool_exp) {
+  user(where: { user_type_id: { _lt: 5 }, _and: [$filter] }) {
     ...TalentCard
   }
 }

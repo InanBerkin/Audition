@@ -1,5 +1,9 @@
-query Auditions {
-  audition(limit: 5, order_by: { created_at: desc }) {
+query Auditions($uid: Int!) {
+  audition(
+    limit: 5
+    order_by: { created_at: desc }
+    where: { user_id: { _neq: $uid } }
+  ) {
     ...AuditionCard
   }
 }

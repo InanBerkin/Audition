@@ -8,18 +8,24 @@ import {
   ModalOverlay,
   Text,
   useDisclosure,
-} from "@chakra-ui/core";
+} from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import React, { useRef } from "react";
+import { useTranslation } from "react-i18next";
 import { MdAdd } from "react-icons/md";
 
 export const MotionBox = motion.custom(Box);
 
 type HighlightVideoBoxProps = {
   url?: string;
+  onClick?: () => void;
 };
 
-export default function HighlightVideoBox({ url }: HighlightVideoBoxProps) {
+export default function HighlightVideoBox({
+  url,
+  onClick,
+}: HighlightVideoBoxProps) {
+  const { t } = useTranslation();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const videoRef = useRef<HTMLVideoElement>(null);
 
@@ -27,7 +33,7 @@ export default function HighlightVideoBox({ url }: HighlightVideoBoxProps) {
     if (url) {
       onOpen();
     } else {
-      console.log("click");
+      onClick && onClick();
     }
   }
 
@@ -71,7 +77,7 @@ export default function HighlightVideoBox({ url }: HighlightVideoBoxProps) {
               as={MdAdd}
               mb={2}
             />
-            <Text fontWeight="bold">Add Highlight</Text>
+            <Text fontWeight="bold">{t("Add Highlight")}</Text>
           </Flex>
         )}
       </MotionBox>
@@ -100,9 +106,14 @@ export default function HighlightVideoBox({ url }: HighlightVideoBoxProps) {
               }
             }}
           >
-            <Heading p={2} position="absolute" color="white">
-              John Doe
-            </Heading>
+            <Heading
+              // w="full"
+              // bg="black"
+              // opacity="0.5"
+              p={2}
+              position="absolute"
+              color="white"
+            ></Heading>
             <video onEnded={onClose} ref={videoRef} autoPlay={true}>
               <source src={url} type="video/mp4" />
             </video>

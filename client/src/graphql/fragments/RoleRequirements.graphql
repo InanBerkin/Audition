@@ -1,0 +1,23 @@
+fragment RoleRequirements on role {
+  requirement {
+    physical_attribute {
+      age
+      body_type {
+        name
+      }
+      ethnicity {
+        name
+      }
+      eye_color {
+        name
+      }
+      gender {
+        name
+      }
+      hair_color {
+        name
+      }
+      height
+    }
+  }
+}

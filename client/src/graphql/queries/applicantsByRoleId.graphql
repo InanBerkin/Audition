@@ -1,0 +1,10 @@
+query ApplicantsByRoleId($role_id: Int!) {
+  role(where: { id: { _eq: $role_id } }) {
+    id
+    applicants {
+      user {
+        ...TalentCard
+      }
+    }
+  }
+}

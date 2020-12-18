@@ -1,23 +1,21 @@
 import {
   Heading,
-  Stack,
+  Flex,
   IconButton,
-  InputGroup,
-  InputLeftElement,
-  Icon,
-  Input,
   useDisclosure,
-} from "@chakra-ui/core";
+  Box,
+} from "@chakra-ui/react";
 import React, { ReactElement, useRef } from "react";
-import { MdMenu, MdSearch } from "react-icons/md";
+import { MdMenu } from "react-icons/md";
 import DrawerMenu from "./DrawerMenu";
+import NavBar from "./NavBar";
 
 export default function Header(): ReactElement {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = useRef<HTMLButtonElement | null>(null);
   return (
-    <Heading px={2} py={2} bg="white" borderBottomWidth="1px">
-      <Stack isInline align="center">
+    <Heading h="50px" px={2} py={2} bg="white" borderBottomWidth="1px">
+      <Flex justify="space-between">
         <IconButton
           variant="ghost"
           aria-label="open-drawer"
@@ -25,14 +23,13 @@ export default function Header(): ReactElement {
           ref={btnRef}
           onClick={onOpen}
         />
-        <InputGroup w="100%">
-          <InputLeftElement
-            children={<Icon as={MdSearch} color="gray.300" />}
-          />
-          <Input placeholder="Search" />
-        </InputGroup>
-      </Stack>
-      <DrawerMenu finalFocusRef={btnRef} isOpen={isOpen} onClose={onClose} />
+        <NavBar />
+        {/* <IconButton variant="ghost" aria-label="search" icon={<MdSearch />} /> */}
+        <Box />
+      </Flex>
+      <DrawerMenu finalFocusRef={btnRef} isOpen={isOpen} onClose={onClose}>
+        <div />
+      </DrawerMenu>
     </Heading>
   );
 }

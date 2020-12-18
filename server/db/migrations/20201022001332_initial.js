@@ -96,6 +96,7 @@ exports.up = async function (knex) {
     table.string("company_name").notNullable();
     table.string("name").notNullable();
     table.text("description").notNullable();
+    table.text("address").notNullable();
     table.timestamps(false, true);
     references(table, tableNames.user);
     references(table, tableNames.city);
@@ -123,6 +124,14 @@ exports.up = async function (knex) {
     references(table, tableNames.role);
     table.datetime("apply_date").defaultTo(knex.fn.now());
     table.unique(["user_id", "role_id"]);
+  });
+
+  await knex.schema.createTable(tableNames.messages, (table) => {
+    table.increments().notNullable();
+    references(table, tableNames.user, true, "sender");
+    references(table, tableNames.user, true, "receiver");
+    table.string("content").notNullable();
+    table.datetime("created_at").defaultTo(knex.fn.now());
   });
 };
 
