@@ -1,3 +1,6 @@
+<img src="images/home.png" height="400" /> <img src="images/audition.png" height="400"/> 
+
+
 # Client
 
 Run client server: `cd client && yarn start`
